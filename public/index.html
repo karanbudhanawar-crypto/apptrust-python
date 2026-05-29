@@ -52,11 +52,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .sug-rating{font-size:11px;color:var(--amber);margin-left:auto;}
 /* HOME PAGE */
 #pg-home{display:block;}
-.home-body{max-width:1400px;margin:0 auto;padding:32px 32px 60px;}
+.home-body{max-width:1400px;margin:0 auto;padding:32px 32px 60px;display:block;}
 .hero-banner{background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(59,130,246,.08),rgba(0,229,160,.05));
   border:1px solid rgba(139,92,246,.2);border-radius:18px;padding:28px 36px;
   margin-bottom:36px;display:flex;align-items:center;justify-content:space-between;
-  position:relative;overflow:hidden;}
+  position:relative;overflow:hidden;min-height:180px;}
 .hero-banner::before{content:'';position:absolute;right:-80px;top:-80px;width:280px;height:280px;
   background:radial-gradient(circle,rgba(139,92,246,.14),transparent 70%);border-radius:50%;pointer-events:none;}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,160,.1);
@@ -247,7 +247,6 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
         <div class="hero-badge">✦ AI-Powered App Safety Detection</div>
         <div class="hero-title">Know Instantly if an App is<br><em>Safe or Scam</em></div>
         <div class="hero-sub">We analyze real user reviews, permissions, developer signals and behavior patterns using advanced AI to reveal the truth.</div>
-        </div>
       </div>
       <div class="hero-right">
         <svg class="hero-logo-big" width="120" height="120" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -369,18 +368,18 @@ const CATS = [
 // Fallback popular apps per category
 const FALLBACK = {
   COMMUNICATION: [
-    {appId:'com.whatsapp',title:'WhatsApp',icon:'',score:4.9,developer:'Meta'},
-    {appId:'org.telegram.messenger',title:'Telegram',icon:'',score:4.5,developer:'Telegram'},
-    {appId:'com.facebook.orca',title:'Messenger',icon:'',score:4.1,developer:'Meta'},
-    {appId:'com.viber.voip',title:'Viber',icon:'',score:4.3,developer:'Viber'},
-    {appId:'com.skype.raider',title:'Skype',icon:'',score:4.0,developer:'Microsoft'},
-    {appId:'com.snapchat.android',title:'Snapchat',icon:'',score:4.2,developer:'Snap'},
-    {appId:'com.discord',title:'Discord',icon:'',score:4.4,developer:'Discord'},
-    {appId:'com.truecaller',title:'Truecaller',icon:'',score:4.4,developer:'Truecaller'},
-    {appId:'com.google.android.talk',title:'Google Meet',icon:'',score:4.3,developer:'Google'},
-    {appId:'com.microsoft.teams',title:'MS Teams',icon:'',score:4.1,developer:'Microsoft'},
-    {appId:'com.zoom.videomeetings',title:'Zoom',icon:'',score:4.2,developer:'Zoom'},
-    {appId:'jp.naver.line.android',title:'Line',icon:'',score:4.1,developer:'Line'},
+    {appId:'com.whatsapp',title:'WhatsApp',icon:'https://play-lh.googleusercontent.com/bYtqkFi3gzOuH7FMGnQiPWaH1mHaTpbjkp2_4_bkFjpFPKUyGVdZE_8IzEj8-YIxAWFw=s96',score:4.9,developer:'Meta'},
+    {appId:'org.telegram.messenger',title:'Telegram',icon:'https://play-lh.googleusercontent.com/ZU9cSgmbqX55R7YZtzR6QUhSFhbMsRfzZXWFAO8o-tivDSCqG9QwQkpLEUVH5ow=s96',score:4.5,developer:'Telegram'},
+    {appId:'com.facebook.orca',title:'Messenger',icon:'https://play-lh.googleusercontent.com/EHBs6ck5Mw7RIxfuLGRxKgSDHK1v9JnlnEBXXFlHTJK6kLFzByR3DCRD4AqsZJjZvA=s96',score:4.1,developer:'Meta'},
+    {appId:'com.viber.voip',title:'Viber',icon:'https://play-lh.googleusercontent.com/NNS8iLanZ2kbj2r_xNwBDvYvLtNT3K3F6-6vPqn_U8Wq3M3JUGJf4B_RHlzMVS7yg=s96',score:4.3,developer:'Viber'},
+    {appId:'com.skype.raider',title:'Skype',icon:'https://play-lh.googleusercontent.com/QMgPvPOXDCvdAb7INhHqHkxLGXBFdKe1-g3gj0N6bqm5_8ywkCuoqCXEzERFDJHfvw=s96',score:4.0,developer:'Microsoft'},
+    {appId:'com.snapchat.android',title:'Snapchat',icon:'https://play-lh.googleusercontent.com/qBzKbQkO2HFiHNYY7DVTd4h98vMKJEt8y2fV3D6VEYTEqT9-f6BPDjqN0yAw6A=s96',score:4.2,developer:'Snap'},
+    {appId:'com.discord',title:'Discord',icon:'https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVSqI_RtKAKP8fNMTmzYNz_UGdJUQyZgqA=s96',score:4.4,developer:'Discord'},
+    {appId:'com.truecaller',title:'Truecaller',icon:'https://play-lh.googleusercontent.com/a6N-PFkzqVKr6v3etlVh5dBBUBCbzl_JJpnfq6HJnJpN-qB7VEjCKwBNbB2Nix8FxY=s96',score:4.4,developer:'Truecaller'},
+    {appId:'com.google.android.talk',title:'Google Meet',icon:'https://play-lh.googleusercontent.com/TEiGOFVROP8YQKV-5u5k-NdVCMY-Rkb0G3u3H9MWrCEhNaK15BEr-T0vDvwFQ6_JqU=s96',score:4.3,developer:'Google'},
+    {appId:'com.microsoft.teams',title:'MS Teams',icon:'https://play-lh.googleusercontent.com/cGhSFYhHF5MXCXb0YOIVHX7Y7LrBjJz5NjY1eWNK7vEuT8zVWNKCkjZKx4pWvQ=s96',score:4.1,developer:'Microsoft'},
+    {appId:'com.zoom.videomeetings',title:'Zoom',icon:'https://play-lh.googleusercontent.com/JuH0DPUDnVXcGfJpMRXV7iKFkFEkNJPvYS4YUhSuRFmZr0g5HrEIh9bQ2qXy_8K_=s96',score:4.2,developer:'Zoom'},
+    {appId:'jp.naver.line.android',title:'Line',icon:'https://play-lh.googleusercontent.com/oGEd9PudEW_Z2GOH4DKRTY09d2jKaFcVhcOvFKX1WBMM5b4Cjm37X0GE0qNQVw=s96',score:4.1,developer:'Line'},
   ],
   SOCIAL: [
     {appId:'com.instagram.android',title:'Instagram',icon:'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=s128',score:4.5,developer:'Meta'},
@@ -404,14 +403,14 @@ const FALLBACK = {
     {appId:'com.meesho.supply',title:'Meesho',icon:'https://play-lh.googleusercontent.com/wLBSOrAr9j6Oc-A6ELTb3VOQlHiMH7QUJxbfoBOiqgYHqjPz0bxhiG9Qwn5OfVHyEno=s128',score:4.4,developer:'Meesho'},
   ],
   GAME_ACTION: [
-    {appId:'com.pubg.krmobile',title:'BGMI',icon:'',score:4.2,developer:'Krafton'},
-    {appId:'com.innersloth.spacemafia',title:'Among Us',icon:'',score:4.2,developer:'InnerSloth'},
-    {appId:'com.kiloo.subwaysurf',title:'Subway Surfers',icon:'',score:4.5,developer:'SYBO'},
-    {appId:'com.king.candycrushsaga',title:'Candy Crush',icon:'',score:4.7,developer:'King'},
-    {appId:'com.supercell.clashofclans',title:'Clash of Clans',icon:'',score:4.8,developer:'Supercell'},
-    {appId:'com.supercell.clashroyale',title:'Clash Royale',icon:'',score:4.4,developer:'Supercell'},
+    {appId:'com.pubg.krmobile',title:'BGMI',icon:'https://play-lh.googleusercontent.com/GVobsr2e0nJYlSmEpbHvdB7HFJJGv0qj7K8i0j0fKVrWC0VBP6zcLBuCyGLzKxGHew=s96',score:4.2,developer:'Krafton'},
+    {appId:'com.innersloth.spacemafia',title:'Among Us',icon:'https://play-lh.googleusercontent.com/hJGHtbYSQ2HRQyL_e0c6Gg_GwuFDqJw6RFpJLLajFGb4gJwDjq3V3KvFO2LZaUG8=s96',score:4.2,developer:'InnerSloth'},
+    {appId:'com.kiloo.subwaysurf',title:'Subway Surfers',icon:'https://play-lh.googleusercontent.com/mF5z_KScBVwRmL-JNY_dBjR2n6XVzrSTk4fxfCxoHH3sczXoKzVlBmXq6RjCcMz=s96',score:4.5,developer:'SYBO'},
+    {appId:'com.king.candycrushsaga',title:'Candy Crush',icon:'https://play-lh.googleusercontent.com/gdR6TRlpCORkDLlMO40lVYS1XSMDqNvimWrh9C0HWYPwMVxBR3DwMzNDXdLxs0_Fw=s96',score:4.7,developer:'King'},
+    {appId:'com.supercell.clashofclans',title:'Clash of Clans',icon:'https://play-lh.googleusercontent.com/Vni6qlz5JO6T2NtB3S4X5cAXsQ2UJ_lnuFM9-UdwXAklB4OKPMvxQJg2V-TFOm8tO8=s96',score:4.8,developer:'Supercell'},
+    {appId:'com.supercell.clashroyale',title:'Clash Royale',icon:'https://play-lh.googleusercontent.com/k4kBKyQuh3Kl7yXAURFO7XEN5T2iBWiMNT1QHDwuLKvTBDPTfGiXZbh2Q9T_RYMA=s96',score:4.4,developer:'Supercell'},
     {appId:'com.mojang.minecraftpe',title:'Minecraft',icon:'',score:4.5,developer:'Mojang'},
-    {appId:'com.garena.free.fire',title:'Free Fire',icon:'',score:4.1,developer:'Garena'},
+    {appId:'com.garena.free.fire',title:'Free Fire',icon:'https://play-lh.googleusercontent.com/WWcMFaRpSiC5R2pTUPm_HxWUoMdLtHpjgMqOd8hx6d4lP8TfJm0JqBbGVFk_JJl6aA=s96',score:4.1,developer:'Garena'},
   ],
   GAME_CASUAL: [
     {appId:'com.outfit7.talkingtomgoldrun',title:'Talking Tom',icon:'',score:4.5,developer:'Outfit7'},
@@ -422,38 +421,38 @@ const FALLBACK = {
     {appId:'com.rovio.angrybirdsreloaded',title:'Angry Birds',icon:'',score:4.3,developer:'Rovio'},
   ],
   FINANCE: [
-    {appId:'net.one97.paytm',title:'Paytm',icon:'',score:4.5,developer:'Paytm'},
-    {appId:'com.phonepe.app',title:'PhonePe',icon:'',score:4.6,developer:'PhonePe'},
-    {appId:'com.google.android.apps.nbu.paisa.user',title:'Google Pay',icon:'',score:4.5,developer:'Google'},
-    {appId:'in.amazon.mShop.android.shopping',title:'Amazon Pay',icon:'',score:4.3,developer:'Amazon'},
+    {appId:'net.one97.paytm',title:'Paytm',icon:'https://play-lh.googleusercontent.com/wnIqSz7g7OoIQFrjLkFIGNfv3A3KBWN4b0xFVTF1IlVl5GXVakJUcvYXGBm3zHJb=s96',score:4.5,developer:'Paytm'},
+    {appId:'com.phonepe.app',title:'PhonePe',icon:'https://play-lh.googleusercontent.com/sGMHxAp3-YTJjBHjhsrmmZ-szNFJQ8JiKt_dA8VgJHXzXwVqCX3P6TgP0HimAVEECA=s96',score:4.6,developer:'PhonePe'},
+    {appId:'com.google.android.apps.nbu.paisa.user',title:'Google Pay',icon:'https://play-lh.googleusercontent.com/HArtbyi53v4iSSFWDFVMqAOgMOSSW5VFJiJBJHhJTt5NrpF8h4jCcTKwUniUfBVA=s96',score:4.5,developer:'Google'},
+    {appId:'in.amazon.mShop.android.shopping',title:'Amazon Pay',icon:'https://play-lh.googleusercontent.com/W8rUHQhSXc2x3hyy6A24VL7iQ73Lfak-RW_y3Zj9yFDGGb4yRnMc4J8C6kzVkFIiWXw=s96',score:4.3,developer:'Amazon'},
     {appId:'com.csam.icici.bank.imobile',title:'iMobile Pay',icon:'',score:4.5,developer:'ICICI Bank'},
     {appId:'com.sbi.SBIFreedomPlus',title:'YONO SBI',icon:'',score:3.9,developer:'SBI'},
     {appId:'com.mobikwik_two',title:'MobiKwik',icon:'',score:4.1,developer:'MobiKwik'},
-    {appId:'com.cred.club',title:'CRED',icon:'',score:4.5,developer:'CRED'},
+    {appId:'com.cred.club',title:'CRED',icon:'https://play-lh.googleusercontent.com/lIVGFYZAnrKHHgfMqKtm5WT3g4tGLVKcgqBQ2g3L2KQqGYXQ3o5GI0TH9QpGTGXf=s96',score:4.5,developer:'CRED'},
   ],
   EDUCATION: [
     {appId:'com.byjus.the_learning_app',title:'BYJU'S',icon:'',score:4.1,developer:'BYJU'S'},
-    {appId:'com.duolingo',title:'Duolingo',icon:'',score:4.6,developer:'Duolingo'},
+    {appId:'com.duolingo',title:'Duolingo',icon:'https://play-lh.googleusercontent.com/3GEMfGDYhCHznhDEJCG_r5GsEFJgqY5wLJUi_nHOBk_TsM0Q8W4AKi0gkd8R0N4=s96',score:4.6,developer:'Duolingo'},
     {appId:'com.toppr.student',title:'Toppr',icon:'',score:4.2,developer:'Toppr'},
     {appId:'in.unacademy.learner',title:'Unacademy',icon:'',score:4.3,developer:'Unacademy'},
     {appId:'com.google.android.apps.classroom',title:'Google Classroom',icon:'',score:4.3,developer:'Google'},
-    {appId:'com.khanacademy.android',title:'Khan Academy',icon:'',score:4.7,developer:'Khan Academy'},
+    {appId:'com.khanacademy.android',title:'Khan Academy',icon:'https://play-lh.googleusercontent.com/tPFWxJXz7NB4FNrwFO4axRLEhAQx8i42jjdcHVnlkJaSUi_9kHlgYQ6M5t3JkUk=s96',score:4.7,developer:'Khan Academy'},
     {appId:'com.coursera.android',title:'Coursera',icon:'',score:4.4,developer:'Coursera'},
   ],
   HEALTH_AND_FITNESS: [
     {appId:'com.healthifyme.basic',title:'HealthifyMe',icon:'',score:4.3,developer:'HealthifyMe'},
-    {appId:'com.nike.plusactivity',title:'Nike Run Club',icon:'',score:4.5,developer:'Nike'},
+    {appId:'com.nike.plusactivity',title:'Nike Run Club',icon:'https://play-lh.googleusercontent.com/LGBRBSWYs7fKn_EKHFg6CRsHNKzjyXjP8bGpQyJoEXJvW5O4rqeO6KGI5HxMX_=s96',score:4.5,developer:'Nike'},
     {appId:'com.google.android.apps.fitness',title:'Google Fit',icon:'',score:4.1,developer:'Google'},
     {appId:'com.myfitnesspal.android',title:'MyFitnessPal',icon:'',score:4.4,developer:'MyFitnessPal'},
-    {appId:'com.calm.android',title:'Calm',icon:'',score:4.6,developer:'Calm'},
+    {appId:'com.calm.android',title:'Calm',icon:'https://play-lh.googleusercontent.com/vD0OFJ5_kbIY6LG3rRFpjjVxKJe5DMNwKFh7OGJJHxhLVvbTbBjq8rOD9ZsJJ=s96',score:4.6,developer:'Calm'},
     {appId:'com.headspace.android',title:'Headspace',icon:'',score:4.5,developer:'Headspace'},
   ],
   TOOLS: [
     {appId:'com.google.android.keep',title:'Google Keep',icon:'',score:4.4,developer:'Google'},
     {appId:'com.microsoft.office.word',title:'MS Word',icon:'',score:4.5,developer:'Microsoft'},
-    {appId:'com.adobe.reader',title:'Adobe Reader',icon:'',score:4.5,developer:'Adobe'},
+    {appId:'com.adobe.reader',title:'Adobe Reader',icon:'https://play-lh.googleusercontent.com/CVHtxFriILJEzFf6ZHG8BFYUQP8v1x5CKNKcfRz5A6-gxqoRKeMDWFMbJrxarMWOw=s96',score:4.5,developer:'Adobe'},
     {appId:'com.whatsapp.w4b',title:'WhatsApp Business',icon:'',score:4.3,developer:'Meta'},
-    {appId:'com.google.android.apps.translate',title:'Google Translate',icon:'',score:4.6,developer:'Google'},
+    {appId:'com.google.android.apps.translate',title:'Google Translate',icon:'https://play-lh.googleusercontent.com/ZrNeuKthBirZN7rrXPN1JmUbaG8ICy3kZSHt_taOH59KqMEBLrMi7On-9bL0E0GDB4E=s96',score:4.6,developer:'Google'},
     {appId:'com.lastpass.lpandroid',title:'LastPass',icon:'',score:4.3,developer:'LastPass'},
   ],
 };
@@ -632,10 +631,9 @@ function showViewAll(catName, catId){
 
 function buildHome(){
   const body = document.getElementById('home-body');
-  // keep hero banner, rebuild categories after it
-  const hero = body.querySelector('.hero-banner');
-  body.innerHTML = '';
-  if(hero) body.appendChild(hero);
+  // Remove old category sections only (keep hero banner)
+  body.querySelectorAll('.cat-section').forEach(s => s.remove());
+  // Append category sections after hero
   CATS.forEach(cat => {
     const sec = document.createElement('div');
     sec.className = 'cat-section';
@@ -947,7 +945,11 @@ document.addEventListener('click',e=>{
 });
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-buildHome();
+document.addEventListener('DOMContentLoaded', function() {
+  buildHome();
+});
+// Also call immediately in case DOM is ready
+if(document.readyState !== 'loading') buildHome();
 </script>
 </body>
 </html>
