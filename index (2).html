@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppTrust — AI App Safety Store</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%233b82f6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M20 2L5 8v10c0 9.5 6.5 18.4 15 21 8.5-2.6 15-11.5 15-21V8L20 2z' fill='url(%23g)'/%3E%3Cpath d='M14 20l4 4 8-8' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d14;--bg2:#0f1422;--bg3:#131c2e;--bg4:#1a2540;
+  --green:#00e5a0;--green2:rgba(0,229,160,.15);
+  --red:#ef4444;--red2:rgba(239,68,68,.15);
+  --amber:#f59e0b;--purple:#8b5cf6;--blue:#3b82f6;
+  --txt:#e5eaff;--txt2:#7a89b8;--txt3:#3a4468;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.12);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;}
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;
+  background:rgba(10,13,20,.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--b1);position:sticky;top:0;z-index:200;}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.logo-img{width:40px;height:40px;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(139,92,246,0.6));}
+.logo-txt{display:flex;flex-direction:column;line-height:1.1;}
+.logo h1{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px;}
+.logo h1 span{background:linear-gradient(135deg,var(--purple),#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.logo-tagline{font-size:9px;color:var(--txt3);letter-spacing:.5px;text-transform:uppercase;font-family:'DM Sans',sans-serif;}
+.h-search{display:flex;align-items:center;gap:10px;background:var(--bg3);
+  border:1px solid var(--b2);border-radius:10px;padding:8px 16px;width:340px;transition:all .2s;}
+.h-search:focus-within{border-color:rgba(139,92,246,.5);}
+.h-search input{background:none;border:none;outline:none;font-size:13px;color:var(--txt);
+  font-family:'DM Sans',sans-serif;flex:1;}
+.h-search input::placeholder{color:var(--txt3);}
+.h-search button{background:var(--purple);border:none;color:#fff;padding:5px 14px;
+  border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;}
+.hnav{display:flex;align-items:center;gap:4px;}
+.hl{font-size:13px;color:var(--txt2);padding:6px 12px;border-radius:7px;cursor:pointer;
+  transition:all .18s;font-family:'DM Sans',sans-serif;}
+.hl:hover{color:var(--txt);background:var(--b1);}
+/* SEARCH DROPDOWN */
+.h-search-wrap{position:relative;}
+.search-sugs{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--bg2);
+  border:1px solid var(--b2);border-radius:12px;overflow:hidden;display:none;
+  box-shadow:0 16px 48px rgba(0,0,0,.6);z-index:300;max-height:300px;overflow-y:auto;}
+.sug-item{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;
+  transition:background .14s;border-bottom:1px solid var(--b1);}
+.sug-item:last-child{border-bottom:none;}
+.sug-item:hover{background:var(--bg3);}
+.sug-img{width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0;}
+.sug-nm{font-size:13px;font-weight:500;color:var(--txt);}
+.sug-dev{font-size:10px;color:var(--txt3);}
+.sug-rating{font-size:11px;color:var(--amber);margin-left:auto;}
+/* HOME PAGE */
+#pg-home{display:block;}
+.home-body{max-width:1400px;margin:0 auto;padding:32px 32px 60px;}
+.hero-banner{background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(59,130,246,.08),rgba(0,229,160,.05));
+  border:1px solid rgba(139,92,246,.2);border-radius:18px;padding:28px 36px;
+  margin-bottom:36px;display:flex;align-items:center;justify-content:space-between;
+  position:relative;overflow:hidden;}
+.hero-banner::before{content:'';position:absolute;right:-80px;top:-80px;width:280px;height:280px;
+  background:radial-gradient(circle,rgba(139,92,246,.14),transparent 70%);border-radius:50%;pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,160,.1);
+  border:1px solid rgba(0,229,160,.25);padding:4px 13px;border-radius:20px;
+  font-size:11px;color:#00e5a0;margin-bottom:12px;}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:#00e5a0;animation:blk 1.6s infinite;}
+@keyframes blk{0%,100%{opacity:1}50%{opacity:.15}}
+.hero-title{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#fff;
+  letter-spacing:-.5px;margin-bottom:8px;line-height:1.1;}
+.hero-title em{font-style:normal;background:linear-gradient(135deg,var(--purple),#60a5fa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:13px;color:var(--txt2);max-width:380px;line-height:1.6;}
+.hero-stats{display:flex;gap:28px;margin-top:18px;}
+.hstat-val{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;}
+.hstat-lbl{font-size:10px;color:var(--txt2);margin-top:1px;}
+.hero-right{flex-shrink:0;}
+.hero-logo-big{animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 28px rgba(139,92,246,.65));}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.cat-section{margin-bottom:36px;}
+.cat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cat-title{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--txt);}
+.cat-more{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--amber);cursor:pointer;}
+.apps-row{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-behavior:smooth;}
+.apps-row::-webkit-scrollbar{height:3px;}
+.apps-row::-webkit-scrollbar-track{background:transparent;}
+.apps-row::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px;}
+/* APP CARD */
+.app-card{flex-shrink:0;width:108px;cursor:pointer;transition:transform .2s;
+  padding:8px;border-radius:12px;border:1px solid transparent;}
+.app-card:hover{transform:translateY(-3px);border-color:var(--b2);background:var(--bg2);}
+.app-card img{width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;
+  margin-bottom:8px;border:1px solid var(--b1);}
+.app-card-name{font-size:12px;font-weight:600;color:var(--txt);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.app-card-desc{font-size:10px;color:var(--txt2);line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  margin-bottom:4px;min-height:28px;}
+.app-card-rating{font-size:10px;color:var(--amber);display:flex;align-items:center;gap:3px;}
+/* SKELETON */
+.skel-card{flex-shrink:0;width:108px;padding:8px;}
+.skel-ico{width:88px;height:88px;border-radius:16px;background:var(--bg3);
+  animation:shimmer 1.4s infinite;margin-bottom:8px;}
+.skel-line{background:var(--bg3);border-radius:4px;animation:shimmer 1.4s infinite;margin-bottom:4px;}
+@keyframes shimmer{0%,100%{opacity:.5}50%{opacity:1}}
+/* ═══════ ANALYSIS PAGE ═══════ */
+#pg-analysis{display:none;background:var(--bg);min-height:100vh;}
+.analysis-body{max-width:1240px;margin:0 auto;padding:24px 32px 60px;}
+/* APP HEADER */
+.app-top-bar{display:flex;align-items:center;gap:18px;
+  background:var(--bg2);border:1px solid var(--b1);border-radius:16px;
+  padding:20px 22px;margin-bottom:20px;position:relative;overflow:visible;}
+.a-icon{width:80px;height:80px;border-radius:18px;object-fit:cover;
+  border:2px solid rgba(255,255,255,0.12);flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+.a-icon.rotating{animation:none;}
+@keyframes rot3d{0%{transform:perspective(300px) rotateY(0deg)}100%{transform:perspective(300px) rotateY(360deg)}}
+.a-info{flex:1;min-width:0;}
+.a-name{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:3px;}
+.a-meta{font-size:13px;color:var(--txt2);margin-bottom:8px;}
+.a-badges{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.safe-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 11px;
+  border-radius:20px;font-size:11px;font-weight:700;}
+.safe-pill.safe{background:rgba(0,229,160,.12);border:1px solid rgba(0,229,160,.3);color:var(--green);}
+.safe-pill.suspicious{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--amber);}
+.safe-pill.scam{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:var(--red);}
+.a-done{font-size:11px;color:var(--green);display:flex;align-items:center;gap:5px;}
+.a-actions{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0;}
+.play-btn{display:flex;align-items:center;gap:6px;background:var(--blue);border:none;
+  color:#fff;padding:8px 18px;border-radius:9px;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:'Sora',sans-serif;transition:all .18s;text-decoration:none;}
+.play-btn:hover{background:#2563eb;box-shadow:0 4px 14px rgba(59,130,246,.35);}
+.view-btn{background:none;border:1px solid var(--b2);color:var(--txt2);padding:8px 16px;
+  border-radius:9px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;}
+.view-btn:hover{border-color:var(--b2);color:var(--txt);}
+.close-btn{background:var(--bg3);border:1px solid var(--b1);color:var(--txt2);
+  width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.close-btn:hover{background:var(--red2);border-color:var(--red);color:var(--red);}
+/* MAIN METRICS */
+.metrics-row{display:grid;grid-template-columns:200px 1fr;gap:16px;margin-bottom:16px;}
+/* GAUGE CARD */
+.gauge-card{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;
+  padding:20px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.gauge-wrap{position:relative;width:160px;height:160px;margin-bottom:10px;}
+#gaugeCanvas{width:160px!important;height:160px!important;}
+.gauge-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.gauge-num{font-family:'Sora',sans-serif;font-size:38px;font-weight:800;color:#fff;line-height:1;}
+.gauge-lbl{font-size:11px;color:var(--txt2);margin-top:2px;}
+.gauge-grade{font-size:13px;font-weight:700;margin-top:3px;}
+.gauge-better{font-size:11px;color:var(--txt2);text-align:center;line-height:1.5;}
+.gauge-better strong{color:var(--green);}
+/* 4 METRIC CARDS */
+.metric-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.metric-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:14px 16px;}
+.mc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.mc-left{display:flex;align-items:center;gap:9px;}
+.mc-ico{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:13px;flex-shrink:0;background:var(--b1);}
+.mc-title{font-size:13px;font-weight:600;color:var(--txt);}
+.mc-sub{font-size:11px;margin-top:1px;font-weight:600;}
+.mc-pct{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;}
+.mc-bar{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;}
+.mc-bar-fill{height:100%;border-radius:3px;transition:width 1s ease;}
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:14px 16px;}
+.sc-label{font-size:11px;color:var(--txt2);margin-bottom:6px;}
+.sc-val{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:2px;}
+.sc-sub{font-size:10px;color:var(--txt2);}
+.sc-bar{height:4px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-top:8px;}
+.sc-bar-f{height:100%;border-radius:3px;}
+canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
+.risk-big{font-family:'Sora',sans-serif;font-size:24px;font-weight:800;margin-bottom:3px;}
+/* 360 BREAKDOWN */
+.breakdown-wrap{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:20px 24px;}
+.bk-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.bk-title{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--txt);}
+.bk-view{font-size:12px;color:var(--purple);cursor:pointer;display:flex;align-items:center;gap:5px;}
+.bk-steps{display:flex;align-items:center;}
+.bk-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.bk-circle{width:56px;height:56px;border-radius:50%;border:2px solid var(--purple);
+  background:rgba(139,92,246,.1);display:flex;align-items:center;justify-content:center;
+  font-size:20px;position:relative;}
+.bk-circle::after{content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid rgba(139,92,246,.2);}
+.bk-label{font-size:11px;color:var(--txt2);text-align:center;line-height:1.3;}
+.bk-ok{font-size:10px;color:var(--green);font-weight:600;}
+.bk-line{flex:1;height:1px;background:linear-gradient(90deg,var(--purple),rgba(139,92,246,.2));
+  border-top:1px dashed rgba(139,92,246,.4);margin-top:-38px;}
+/* LOADING */
+.a-loading{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:400px;}
+.spin{width:40px;height:40px;border:3px solid rgba(139,92,246,.15);border-top:3px solid var(--purple);
+  border-radius:50%;animation:spin .7s linear infinite;margin-bottom:14px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:10px;
+  padding:12px;color:#fca5a5;font-size:13px;text-align:center;display:none;margin-bottom:16px;}
+/* BACK BTN */
+.back-btn{display:flex;align-items:center;gap:7px;background:none;border:1px solid var(--b2);
+  color:var(--txt2);padding:7px 16px;border-radius:9px;font-size:13px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .18s;margin-bottom:20px;}
+.back-btn:hover{color:var(--txt);border-color:var(--b2);}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:4px;}
+@media(max-width:900px){
+  .metrics-row{grid-template-columns:1fr;}
+  .stats-row{grid-template-columns:1fr 1fr 1fr;}
+  .h-search{width:220px;}
+}
+@media(max-width:600px){
+  header{padding:12px 16px;}
+  .hnav{display:none;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="pg-home">
+  <header>
+    <div class="logo"><svg class="logo-img" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hlogo1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#hlogo1)"/>
+  <path d="M20 6L8 11v9c0 8 5.5 15.5 12 17.5 6.5-2 12-9.5 12-17.5v-9L20 6z" fill="white" fill-opacity="0.2"/>
+  <path d="M20 8L9 13v8c0 7 4.8 13.5 11 15.5 6.2-2 11-8.5 11-15.5v-8L20 8z" fill="white" fill-opacity="0.15"/>
+  <path d="M15 20.5l3.5 3.5 7-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<div class="logo-txt"><h1>App<span>Trust</span></h1><div class="logo-tagline">AI Safety Store</div></div></div>
+    <div class="h-search-wrap">
+      <div class="h-search">
+        <span style="font-size:14px;color:var(--txt3)">🔍</span>
+        <input type="text" id="h-input" placeholder="Search any app to analyze..." autocomplete="off"/>
+        <button onclick="trigSearch()">Analyze</button>
+      </div>
+      <div class="search-sugs" id="search-sugs"></div>
+    </div>
+    <nav class="hnav">
+      <span class="hl">Games</span>
+      <span class="hl">Apps</span>
+      <span class="hl">Categories</span>
+    </nav>
+  </header>
+
+  <div class="home-body" id="home-body">
+    <!-- HERO BANNER -->
+    <div class="hero-banner">
+      <div>
+        <div class="hero-badge">✦ AI-Powered App Safety Detection</div>
+        <div class="hero-title">Know Instantly if an App is<br><em>Safe or Scam</em></div>
+        <div class="hero-sub">We analyze real user reviews, permissions, developer signals and behavior patterns using advanced AI to reveal the truth.</div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <svg class="hero-logo-big" width="120" height="120" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="herogl1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#herogl1)"/>
+  <path d="M20 6L8 11v9c0 8 5.5 15.5 12 17.5 6.5-2 12-9.5 12-17.5v-9L20 6z" fill="white" fill-opacity="0.25"/>
+  <path d="M20 9L10 14v7c0 6.5 4.5 12.5 10 14.5 5.5-2 10-8 10-14.5v-7L20 9z" fill="white" fill-opacity="0.15"/>
+  <path d="M15 20.5l3.5 3.5 7-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="20" cy="8" r="1.5" fill="white" fill-opacity="0.6"/>
+</svg>
+      </div>
+    </div>
+    <!-- Categories injected by JS -->
+  </div>
+</div>
+
+<!-- ══════════ ANALYSIS ══════════ -->
+<div id="pg-analysis">
+  <header>
+    <div class="logo" onclick="goHome()"><svg class="logo-img" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="alogo1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#alogo1)"/>
+  <path d="M20 6L8 11v9c0 8 5.5 15.5 12 17.5 6.5-2 12-9.5 12-17.5v-9L20 6z" fill="white" fill-opacity="0.2"/>
+  <path d="M20 8L9 13v8c0 7 4.8 13.5 11 15.5 6.2-2 11-8.5 11-15.5v-8L20 8z" fill="white" fill-opacity="0.15"/>
+  <path d="M15 20.5l3.5 3.5 7-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<div class="logo-txt"><h1>App<span>Trust</span></h1><div class="logo-tagline">AI Safety Store</div></div></div>
+    <div class="h-search-wrap">
+      <div class="h-search">
+        <span style="font-size:14px;color:var(--txt3)">🔍</span>
+        <input type="text" id="h-input2" placeholder="Search another app..." autocomplete="off"
+               oninput="hSearch2(this.value)"/>
+        <button onclick="trigSearch2()">Analyze</button>
+      </div>
+      <div class="search-sugs" id="search-sugs2"></div>
+    </div>
+    <nav class="hnav">
+      <span class="hl" onclick="goHome()">← Home</span>
+    </nav>
+  </header>
+
+  <div class="analysis-body">
+    <button class="back-btn" onclick="goHome()">← Back to App Store</button>
+    <div class="err-box" id="err-box"></div>
+
+    <!-- LOADING -->
+    <div class="a-loading" id="a-load">
+      <div class="spin"></div>
+      <p style="font-size:14px;color:var(--txt2)">Fetching live data from Play Store...</p>
+      <p style="font-size:11px;color:var(--txt3);margin-top:4px">Scanning · Analyzing · Securing</p>
+    </div>
+
+    <!-- RESULT -->
+    <div id="a-result" style="display:none">
+      <!-- APP TOP BAR -->
+      <div class="app-top-bar">
+        <img class="a-icon" id="a-ico" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' rx='12' fill='%237c3aed'/%3E%3C/svg%3E"/>
+        <div class="a-info">
+          <div class="a-name" id="a-name">-</div>
+          <div class="a-meta" id="a-meta">-</div>
+          <div class="a-badges">
+            <div class="safe-pill" id="a-safe-pill">-</div>
+            <div class="a-done">● Analysis Completed &nbsp;·&nbsp; Just now</div>
+          </div>
+        </div>
+        <div class="a-actions">
+          <a class="play-btn" id="a-play-btn" href="#" target="_blank">▶ Play Store</a>
+          <button class="view-btn">View Details</button>
+          <button class="close-btn" onclick="goHome()">✕</button>
+        </div>
+      </div>
+
+      <!-- MAIN: GAUGE + METRICS -->
+      <div class="metrics-row">
+        <!-- GAUGE -->
+        <div class="gauge-card">
+          <div class="gauge-wrap">
+            <canvas id="gaugeCanvas" width="160" height="160"></canvas>
+            <div class="gauge-inner">
+              <div class="gauge-num" id="g-num">-</div>
+              <div class="gauge-lbl">Safety Score</div>
+              <div class="gauge-grade" id="g-grade">-</div>
+            </div>
+          </div>
+          <div class="gauge-better" id="g-better"></div>
+        </div>
+        <!-- 4 METRICS -->
+        <div class="metric-cards" id="metric-cards"></div>
+      </div>
+
+      <!-- STATS ROW -->
+      <div class="stats-row" id="stats-row"></div>
+
+      <!-- 360° BREAKDOWN -->
+      <div class="breakdown-wrap">
+        <div class="bk-header">
+          <div class="bk-title">360° Analysis Breakdown</div>
+          <div class="bk-view">View Full Report ©</div>
+        </div>
+        <div class="bk-steps" id="bk-steps"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+const CATS = [
+  {id:'COMMUNICATION', col:'TOP_FREE', name:'Communication Apps'},
+  {id:'SOCIAL',        col:'TOP_FREE', name:'Social Apps'},
+  {id:'ENTERTAINMENT', col:'TOP_FREE', name:'Entertainment Apps'},
+  {id:'SHOPPING',      col:'TOP_FREE', name:'Shopping Apps'},
+  {id:'GAME_ACTION',   col:'TOP_FREE', name:'Action Games'},
+];
+
+// Fallback popular apps per category
+const FALLBACK = {
+  COMMUNICATION: [
+    {appId:'com.whatsapp',title:'WhatsApp',icon:'https://play-lh.googleusercontent.com/bYtqkFi3gzOuH7FMGnQiPWaH1mHaTpbjkp2_4_bkFjpFPKUyGVdZE_8IzEj8-YIxAWFw=s80',score:4.9,developer:'Meta'},
+    {appId:'org.telegram.messenger',title:'Telegram',icon:'https://play-lh.googleusercontent.com/ZU9cSgmbqX55R7YZtzR6QUhSFhbMsRfzZXWFAO8o-tivDSCqG9QwQkpLEUVH5ow=s80',score:4.5,developer:'Telegram'},
+    {appId:'com.facebook.orca',title:'Messenger',icon:'https://play-lh.googleusercontent.com/EHBs6ck5Mw7RIxfuLGRxKgSDHK1v9JnlnEBXXFlHTJK6kLFzByR3DCRD4AqsZJjZvA=s80',score:4.1,developer:'Meta'},
+    {appId:'com.viber.voip',title:'Viber',icon:'https://play-lh.googleusercontent.com/NNS8iLanZ2kbj2r_xNwBDvYvLtNT3K3F6-6vPqn_U8Wq3M3JUGJf4B_RHlzMVS7yg=s80',score:4.3,developer:'Viber'},
+    {appId:'com.skype.raider',title:'Skype',icon:'https://play-lh.googleusercontent.com/QMgPvPOXDCvdAb7INhHqHkxLGXBFdKe1-g3gj0N6bqm5_8ywkCuoqCXEzERFDJHfvw=s80',score:4.0,developer:'Microsoft'},
+    {appId:'com.snapchat.android',title:'Snapchat',icon:'https://play-lh.googleusercontent.com/qBzKbQkO2HFiHNYY7DVTd4h98vMKJEt8y2fV3D6VEYTEqT9-f6BPDjqN0yAw6A=s80',score:4.2,developer:'Snap'},
+  ],
+  SOCIAL: [
+    {appId:'com.instagram.android',title:'Instagram',icon:'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=s80',score:4.5,developer:'Meta'},
+    {appId:'com.zhiliaoapp.musically',title:'TikTok',icon:'https://play-lh.googleusercontent.com/ByYtcbmFGRmY5T5hEh_w1P8KHF_-b98rT3QO9oD6raKSIANWzgxmQJnmUNLvEdZ8lw=s80',score:4.4,developer:'ByteDance'},
+    {appId:'com.facebook.katana',title:'Facebook',icon:'https://play-lh.googleusercontent.com/ccWDU4A7fX1R24v-vvT480ySh26AYp44ZyEiLQqPBNBMq3UR2TjM3BjGqWnO7ghRUA=s80',score:4.2,developer:'Meta'},
+    {appId:'com.twitter.android',title:'X (Twitter)',icon:'https://play-lh.googleusercontent.com/APmQF4w-TkzCG0h3bWxAnrMVbXGJMJtEaXXVGiiqNHiRlMiGxp3r7z4dg7t4Gg=s80',score:4.1,developer:'X Corp'},
+    {appId:'com.pinterest',title:'Pinterest',icon:'https://play-lh.googleusercontent.com/ViEqrp3VCIVVLS5KO5CiKKU4CUVL1xRIHr6k9R9B3YsNJiFqhd4u3NdSbqjy0RQ=s80',score:4.5,developer:'Pinterest'},
+    {appId:'com.linkedin.android',title:'LinkedIn',icon:'https://play-lh.googleusercontent.com/h7GCkfRiVVIm9F3EBTsW38VG6T_CYvhVJGmE7XDNtqJyLYXrxqvEPTCQ_oFLzPm5=s80',score:4.3,developer:'Microsoft'},
+  ],
+  ENTERTAINMENT: [
+    {appId:'com.google.android.youtube',title:'YouTube',icon:'https://play-lh.googleusercontent.com/lMoItBgdPPVDJsNOVtP26EKHePkwBg-PkuY9NOrc-fumRtTFP4XhpUNk_22syN4Datc=s80',score:4.2,developer:'Google'},
+    {appId:'com.netflix.mediaclient',title:'Netflix',icon:'https://play-lh.googleusercontent.com/zmiHLkEMpP4c3oeNHELZcX3fEdCa_ZLefqPZ2BQ9O8MExOGDhVHXbxJOicbhqiFfag=s80',score:4.3,developer:'Netflix'},
+    {appId:'com.spotify.music',title:'Spotify',icon:'https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WTZH6AkHTCnkMtpSNKWKWJSLM5pPA=s80',score:4.7,developer:'Spotify'},
+    {appId:'com.amazon.avod.thirdpartyclient',title:'Prime Video',icon:'https://play-lh.googleusercontent.com/A1C1MQ3IcPzXcN0cpLsLH41FuN-D4HuXibKD3K1cS1N6NWwzL8TIBBf3TKqmv2vFNqWI=s80',score:4.4,developer:'Amazon'},
+    {appId:'com.google.android.apps.youtube.music',title:'YT Music',icon:'https://play-lh.googleusercontent.com/yAF-CEUhzCDrCH-hR2blvgMJm9RItBfkKIBRrKjR7BXWB7e_cETzHqJ_S5MFkn8GMQ=s80',score:4.4,developer:'Google'},
+  ],
+  SHOPPING: [
+    {appId:'in.amazon.mShop.android.shopping',title:'Amazon',icon:'https://play-lh.googleusercontent.com/W8rUHQhSXc2x3hyy6A24VL7iQ73Lfak-RW_y3Zj9yFDGGb4yRnMc4J8C6kzVkFIiWXw=s80',score:4.5,developer:'Amazon'},
+    {appId:'com.flipkart.android',title:'Flipkart',icon:'https://play-lh.googleusercontent.com/UUkgMPPtJRFX_y_LZUE_MnA5Q4LKTf3XH7Y0jCYlJ5V8S4-MHFQWTkrh0mZ4A=s80',score:4.2,developer:'Flipkart'},
+    {appId:'com.myntra.android',title:'Myntra',icon:'https://play-lh.googleusercontent.com/7OmPxCIhtLf3mxzDZHLF1tYWVvFPEeqZ4FQKJ6qYVWxX-v5tYUhPTmWk0k1Dxc4=s80',score:4.3,developer:'Myntra'},
+    {appId:'com.meesho.supply',title:'Meesho',icon:'https://play-lh.googleusercontent.com/wLBSOrAr9j6Oc-A6ELTb3VOQlHiMH7QUJxbfoBOiqgYHqjPz0bxhiG9Qwn5OfVHyEno=s80',score:4.4,developer:'Meesho'},
+  ],
+  GAME_ACTION: [
+    {appId:'com.pubg.krmobile',title:'BGMI',icon:'https://play-lh.googleusercontent.com/GVobsr2e0nJYlSmEpbHvdB7HFJJGv0qj7K8i0j0fKVrWC0VBP6zcLBuCyGLzKxGHew=s80',score:4.2,developer:'Krafton'},
+    {appId:'com.innersloth.spacemafia',title:'Among Us',icon:'https://play-lh.googleusercontent.com/hJGHtbYSQ2HRQyL_e0c6Gg_GwuFDqJw6RFpJLLajFGb4gJwDjq3V3KvFO2LZaUG8=s80',score:4.2,developer:'InnerSloth'},
+    {appId:'com.kiloo.subwaysurf',title:'Subway Surfers',icon:'https://play-lh.googleusercontent.com/mF5z_KScBVwRmL-JNY_dBjR2n6XVzrSTk4fxfCxoHH3sczXoKzVlBmXq6RjCcMz=s80',score:4.5,developer:'SYBO'},
+    {appId:'com.king.candycrushsaga',title:'Candy Crush',icon:'https://play-lh.googleusercontent.com/gdR6TRlpCORkDLlMO40lVYS1XSMDqNvimWrh9C0HWYPwMVxBR3DwMzNDXdLxs0_Fw=s80',score:4.7,developer:'King'},
+    {appId:'com.supercell.clashofclans',title:'Clash of Clans',icon:'https://play-lh.googleusercontent.com/Vni6qlz5JO6T2NtB3S4X5cAXsQ2UJ_lnuFM9-UdwXAklB4OKPMvxQJg2V-TFOm8tO8=s80',score:4.8,developer:'Supercell'},
+  ]
+};
+
+// ── PAGE NAVIGATION ───────────────────────────────────────────────────────────
+function goHome(){
+  document.getElementById('pg-home').style.display='block';
+  document.getElementById('pg-analysis').style.display='none';
+  window.scrollTo(0,0);
+}
+function goAnalysis(){
+  document.getElementById('pg-home').style.display='none';
+  document.getElementById('pg-analysis').style.display='block';
+  window.scrollTo(0,0);
+}
+
+// ── BUILD HOME PAGE ───────────────────────────────────────────────────────────
+// ── ICON SYSTEM — instant SVG avatars, real icons swap in when available ─────
+const ICON_COLORS = [
+  ['#7c3aed','#5b21b6'],['#2563eb','#1d4ed8'],['#059669','#047857'],
+  ['#d97706','#b45309'],['#dc2626','#b91c1c'],['#db2777','#9d174d'],
+  ['#0891b2','#0e7490'],['#7c3aed','#6d28d9'],['#16a34a','#15803d'],
+  ['#ea580c','#c2410c']
+];
+
+// Known brand colors for popular apps
+const BRAND_COLORS = {
+  'whatsapp':['#25D366','#128C7E'],'telegram':['#2AABEE','#229ED9'],
+  'instagram':['#E1306C','#833AB4'],'facebook':['#1877F2','#0C63D4'],
+  'messenger':['#0084FF','#0066CC'],'youtube':['#FF0000','#CC0000'],
+  'tiktok':['#010101','#69C9D0'],'netflix':['#E50914','#B20710'],
+  'spotify':['#1DB954','#158A3E'],'snapchat':['#FFFC00','#F5F500'],
+  'twitter':['#1DA1F2','#0C85D0'],'linkedin':['#0A66C2','#004182'],
+  'amazon':['#FF9900','#E47911'],'flipkart':['#2874F0','#1A5ECC'],
+  'meesho':['#9C27B0','#7B1FA2'],'phonepe':['#5f259f','#3d1870'],
+  'google':['#4285F4','#1a73e8'],'paytm':['#00B9F5','#0088CC'],
+  'gpay':['#1a73e8','#0d5bba'],'uber':['#000000','#1a1a1a'],
+  'ola':['#1F7A1F','#155215'],'swiggy':['#FC8019','#E06310'],
+  'zomato':['#E23744','#C8202E'],'prime':['#00A8E1','#0076A8'],
+  'candy':['#FF6B9D','#CC3D70'],'pubg':['#F7A800','#CC8A00'],
+  'bgmi':['#F7A800','#CC8A00'],'clash':['#1E4CA1','#163A7A'],
+  'among':['#C51111','#9B0D0D'],'subway':['#FF6600','#CC5200'],
+  'skype':['#00AFF0','#0089CC'],'viber':['#7360F2','#5A47E0'],
+  'pinterest':['#E60023','#B8001C'],'myntra':['#FF3F6C','#CC2850'],
+  'truecaller':['#0099CC','#007AA3'],'gpay':['#4285F4','#1a73e8'],
+  'phonepay':['#5f259f','#3d1870'],'cred':['#1C1C1C','#2D2D2D']
+};
+
+function getBrandColors(name, appId) {
+  const key = (name + ' ' + (appId||'')).toLowerCase();
+  for (const [brand, cols] of Object.entries(BRAND_COLORS)) {
+    if (key.includes(brand)) return cols;
+  }
+  const idx = (name||'A').toUpperCase().charCodeAt(0) % ICON_COLORS.length;
+  return ICON_COLORS[idx];
+}
+
+function makeSvgIcon(name, appId, size) {
+  const letter = (name||'A').trim().charAt(0).toUpperCase();
+  const [c1, c2] = getBrandColors(name, appId);
+  const fs = Math.round(size * 0.42);
+  const uid = 'g' + Math.random().toString(36).slice(2,7);
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}' viewBox='0 0 ${size} ${size}'>
+    <defs><linearGradient id='${uid}' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='${c1}'/>
+      <stop offset='100%' stop-color='${c2}'/>
+    </linearGradient></defs>
+    <rect width='${size}' height='${size}' rx='${Math.round(size*0.18)}' fill='url(#${uid})' />
+    <text x='50%' y='50%' text-anchor='middle' dominant-baseline='central'
+      font-family='Sora,Arial,sans-serif' font-size='${fs}' font-weight='800' fill='#fff'>${letter}</text>
+  </svg>`;
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
+
+// Create a card icon element — starts as SVG, upgrades to real icon if it loads
+function proxyIcon(url) {
+  // Use backend proxy to bypass CORS on Google CDN
+  if (url && url.includes('googleusercontent.com')) {
+    return '/proxy-icon?url=' + encodeURIComponent(url);
+  }
+  return url;
+}
+
+function makeCardIcon(appId, name, realIconUrl) {
+  const img = document.createElement('img');
+  img.style.cssText = 'width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08);';
+  // Start with SVG avatar immediately — no flicker
+  img.src = makeSvgIcon(name, appId, 88);
+  if (realIconUrl) {
+    // Try proxy route first for Google CDN URLs
+    const proxied = proxyIcon(realIconUrl);
+    const probe = new Image();
+    probe.onload = () => { img.src = proxied; };
+    probe.onerror = () => {
+      // If proxy fails, keep the SVG avatar (already showing)
+    };
+    probe.src = proxied;
+  }
+  return img;
+}
+
+function makeSugIcon(appId, name, realIconUrl) {
+  const img = document.createElement('img');
+  img.className = 'sug-img';
+  img.src = makeSvgIcon(name, appId, 34);
+  if (realIconUrl) {
+    const proxied = proxyIcon(realIconUrl);
+    const probe = new Image();
+    probe.onload = () => { img.src = proxied; };
+    probe.src = proxied;
+  }
+  return img;
+}
+
+// Legacy onerror fallbacks (kept for safety)
+function iconFallback(img, name, appId) {
+  img.src = makeSvgIcon(name, appId||'', 88);
+  img.onerror = null;
+}
+function sugIconFallback(img, name, appId) {
+  img.src = makeSvgIcon(name, appId||'', 34);
+  img.onerror = null;
+}
+
+// ── ALL APPS MODAL ─────────────────────────────────────────────────────────────
+function showViewAll(catName, catId){
+  const existing = document.getElementById('viewall-modal');
+  if(existing) existing.remove();
+  const modal = document.createElement('div');
+  modal.id='viewall-modal';
+  modal.style.cssText=`position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);`+
+    `display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;`;
+  modal.innerHTML=`
+    <div style="background:var(--bg2);border:1px solid var(--b2);border-radius:20px;width:100%;max-width:900px;padding:28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <div>
+          <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#fff;">${catName}</div>
+          <div style="font-size:12px;color:var(--txt2);margin-top:3px;">All apps · Click any to analyze</div>
+        </div>
+        <button onclick="document.getElementById('viewall-modal').remove()"
+          style="background:var(--bg3);border:1px solid var(--b1);color:var(--txt2);width:36px;height:36px;
+          border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+      <div id="viewall-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:14px;">
+        ${skeletons(12)}
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
+  // Load apps into modal
+  const row = document.getElementById('row-'+catId);
+  if(row){
+    const cards = row.querySelectorAll('.app-card');
+    if(cards.length){
+      document.getElementById('viewall-grid').innerHTML = Array.from(cards).map(c=>c.outerHTML).join('');
+      return;
+    }
+  }
+  const fb = FALLBACK[catId]||[];
+  if(fb.length){
+    const vgrid = document.getElementById('viewall-grid');
+    vgrid.innerHTML = '';
+    fb.forEach(a => {
+      const vc = document.createElement('div');
+      vc.className = 'app-card';
+      vc.onclick = () => { document.getElementById('viewall-modal').remove(); analyzeApp(a.appId, a.title||''); };
+      vc.appendChild(makeCardIcon(a.appId, a.title||'App', a.icon||''));
+      const vi = document.createElement('div');
+      vi.innerHTML = '<div class="app-card-name">'+(a.title||'')+'</div>'+
+        '<div class="app-card-desc">'+(a.developer||'')+'</div>'+
+        '<div class="app-card-rating">★ '+(a.score?parseFloat(a.score).toFixed(1):'N/A')+'</div>';
+      vc.appendChild(vi);
+      vgrid.appendChild(vc);
+    });
+  }
+}
+
+function buildHome(){
+  const body = document.getElementById('home-body');
+  // keep hero banner, rebuild categories after it
+  const hero = body.querySelector('.hero-banner');
+  body.innerHTML = '';
+  if(hero) body.appendChild(hero);
+  CATS.forEach(cat => {
+    const sec = document.createElement('div');
+    sec.className = 'cat-section';
+    sec.id = 'sec-' + cat.id;
+    sec.innerHTML = `
+      <div class="cat-header">
+        <div class="cat-title">${cat.name}</div>
+      </div>
+      <div class="apps-row" id="row-${cat.id}">${skeletons(12)}</div>`;
+    body.appendChild(sec);
+    loadCategory(cat);
+  });
+}
+
+function skeletons(n){
+  return Array(n).fill(0).map(()=>`
+    <div class="skel-card">
+      <div class="skel-ico"></div>
+      <div class="skel-line" style="width:80px;height:10px"></div>
+      <div class="skel-line" style="width:60px;height:8px;margin-top:4px"></div>
+    </div>`).join('');
+}
+
+async function loadCategory(cat){
+  const row = document.getElementById('row-' + cat.id);
+  try {
+    const r = await fetch('/category',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({category:cat.id,collection:cat.col})});
+    const d = await r.json();
+    if(d.success && d.apps && d.apps.length){ renderApps(row, d.apps); return; }
+  } catch(e){}
+  const fb = FALLBACK[cat.id] || [];
+  if(fb.length) renderApps(row, fb);
+  else row.innerHTML = '<p style="color:var(--txt3);font-size:13px;padding:20px">No apps available</p>';
+}
+
+function renderApps(row, apps){
+  row.innerHTML = '';
+  apps.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'app-card';
+    card.onclick = () => analyzeApp(a.appId, a.title||'');
+    card.appendChild(makeCardIcon(a.appId, a.title||'App', a.icon||''));
+    const info = document.createElement('div');
+    info.innerHTML = '<div class="app-card-name">'+(a.title||'')+'</div>'+
+      '<div class="app-card-desc">'+(a.summary||a.developer||'')+'</div>'+
+      '<div class="app-card-rating">★ '+(a.score?parseFloat(a.score).toFixed(1):'N/A')+'</div>';
+    card.appendChild(info);
+    row.appendChild(card);
+  });
+}
+
+// ── SEARCH ────────────────────────────────────────────────────────────────────
+let sto;
+function trigSearch(){
+  const q = document.getElementById('h-input').value.trim();
+  if(q) doSearch(q,'search-sugs');
+}
+document.getElementById('h-input').addEventListener('input',function(){
+  clearTimeout(sto);
+  const q=this.value.trim();
+  if(q.length<2){document.getElementById('search-sugs').style.display='none';return;}
+  sto=setTimeout(()=>doSearch(q,'search-sugs'),400);
+});
+document.getElementById('h-input').addEventListener('keydown',e=>{if(e.key==='Enter')trigSearch();});
+
+function trigSearch2(){
+  const q=document.getElementById('h-input2').value.trim();
+  if(q) doSearch(q,'search-sugs2');
+}
+function hSearch2(v){
+  clearTimeout(sto);
+  if(v.length<2){document.getElementById('search-sugs2').style.display='none';return;}
+  sto=setTimeout(()=>doSearch(v,'search-sugs2'),400);
+}
+document.getElementById('h-input2').addEventListener('keydown',e=>{if(e.key==='Enter')trigSearch2();});
+
+async function doSearch(q,boxId){
+  try{
+    const r=await fetch('/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
+    const d=await r.json();
+    box.innerHTML = '';
+    d.results.forEach(r => {
+      const item = document.createElement('div');
+      item.className = 'sug-item';
+      item.onclick = () => analyzeApp(r.appId, r.title||'');
+      item.appendChild(makeSugIcon(r.appId, r.title||'App', r.icon||''));
+      const txt = document.createElement('div');
+      txt.innerHTML = '<div class="sug-nm">'+(r.title||'')+'</div><div class="sug-dev">'+(r.developer||r.appId)+'</div>';
+      item.appendChild(txt);
+      const rat = document.createElement('div');
+      rat.className = 'sug-rating';
+      rat.textContent = r.score ? parseFloat(r.score).toFixed(1)+' ★' : '';
+      item.appendChild(rat);
+      box.appendChild(item);
+    });
+    box.style.display='block';
+    box.style.display='block';
+  }catch(e){console.error(e);}
+}
+
+// ── ANALYZE ───────────────────────────────────────────────────────────────────
+async function analyzeApp(pkgId, title){
+  document.getElementById('search-sugs').style.display='none';
+  document.getElementById('search-sugs2').style.display='none';
+  document.getElementById('h-input2').value = title||'';
+  goAnalysis();
+  document.getElementById('a-load').style.display='flex';
+  document.getElementById('a-result').style.display='none';
+  document.getElementById('err-box').style.display='none';
+  try{
+    const res=await fetch('/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({package_id:pkgId})});
+    const d=await res.json();
+    document.getElementById('a-load').style.display='none';
+    if(!d.success){
+      document.getElementById('err-box').textContent=d.error||'App not found.';
+      document.getElementById('err-box').style.display='block';
+      return;
+    }
+    renderAnalysis(d);
+  }catch(e){
+    document.getElementById('a-load').style.display='none';
+    document.getElementById('err-box').textContent='Backend not reachable. Run: python server.py';
+    document.getElementById('err-box').style.display='block';
+  }
+}
+
+function renderAnalysis(d){
+  const lc  = d.label==='Safe'?'safe':d.label==='Suspicious'?'suspicious':'scam';
+  const fC  = d.fake_pct>=50?'#ef4444':d.fake_pct>=25?'#f59e0b':'#00e5a0';
+  const pC  = (d.perm_pct||0)>=50?'#ef4444':(d.perm_pct||0)>=20?'#f59e0b':'#00e5a0';
+  const dC  = (d.dev_pct||0)>=70?'#00e5a0':(d.dev_pct||0)>=40?'#f59e0b':'#ef4444';
+  const pol = parseFloat(d.avg_polarity)||0;
+  const sp  = d.sentiment_pct||Math.min(100,Math.max(0,Math.round((pol+1)*50)));
+  const gc  = d.safety_score>=70?'#00e5a0':d.safety_score>=40?'#f59e0b':'#ef4444';
+  const grade = d.safety_score>=80?'Excellent':d.safety_score>=60?'Good':d.safety_score>=40?'Caution':'Danger';
+
+  // APP TOP
+  const ico=document.getElementById('a-ico');
+  ico.style.display='block';
+  // Set instant SVG avatar, upgrade to real icon if it loads
+  ico.src = makeSvgIcon(d.title||'App', d.package_id||'', 64);
+  // ico.classList.add('rotating'); // disabled — looks bad with real icons
+  if(d.icon){
+    const proxied = proxyIcon(d.icon);
+    const probe = new Image();
+    probe.onload = () => { ico.src = proxied; };
+    probe.src = proxied;
+  }
+  document.getElementById('a-name').textContent=d.title||'-';
+  document.getElementById('a-meta').textContent=`${d.developer||''} · ${d.genre||'App'}`;
+  document.getElementById('a-play-btn').href=d.play_store_url||'#';
+  const pill=document.getElementById('a-safe-pill');
+  pill.textContent=`✓ ${d.label}`;
+  pill.className=`safe-pill ${lc}`;
+
+  // GAUGE
+  drawGauge(document.getElementById('gaugeCanvas'), d.safety_score||0);
+  document.getElementById('g-num').textContent=d.safety_score||0;
+  const gg=document.getElementById('g-grade');
+  gg.textContent=grade; gg.style.color=gc;
+  document.getElementById('g-better').innerHTML=
+    `Better than <strong>${Math.min(99,d.safety_score||0)}%</strong> of apps in ${d.genre||'category'}`;
+
+  // 4 METRICS
+  document.getElementById('metric-cards').innerHTML=`
+    ${metricCard('🛡','Fake Review Risk',d.fake_pct>=50?'High':d.fake_pct>=25?'Medium':'Low',
+      d.fake_pct+'%',fC,d.fake_pct)}
+    ${metricCard('🔐','Permissions Risk',(d.perm_pct||0)>=50?'High':(d.perm_pct||0)>=20?'Medium':'Low',
+      (d.perm_pct||0)+'%',pC,(d.perm_pct||0))}
+    ${metricCard('👤','Developer Trust',(d.dev_pct||0)>=70?'High':(d.dev_pct||0)>=40?'Medium':'Low',
+      (d.dev_pct||0)+'%',dC,(d.dev_pct||0))}
+    ${metricCard('🦠','Malware / Virus','Safe','0%','#00e5a0',0)}`;
+
+  // STATS
+  const rcCount = d.reviews_count||'N/A';
+  const riskTxt = lc==='safe'?'LOW':lc==='suspicious'?'MEDIUM':'HIGH';
+  const riskC   = lc==='safe'?'#00e5a0':lc==='suspicious'?'#f59e0b':'#ef4444';
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card">
+      <div class="sc-label">Sentiment Overview</div>
+      <div class="sc-val" style="color:${pol>=0?'#00e5a0':'#ef4444'}">${sp}%</div>
+      <div class="sc-sub">Positive</div>
+      <div class="sc-bar"><div class="sc-bar-f" style="width:${sp}%;background:${pol>=0?'#00e5a0':'#ef4444'}"></div></div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">Reviews Analyzed</div>
+      <div class="sc-val">${rcCount}</div>
+      <div class="sc-sub">Across all regions</div>
+      <canvas id="rcC"></canvas>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">Risk Level</div>
+      <div class="risk-big" style="color:${riskC}">${riskTxt}</div>
+      <div class="sc-sub">${d.label==='Safe'?'Safe to use':d.label==='Suspicious'?'Use caution':'Avoid this app'}</div>
+      <div style="font-size:22px;margin-top:6px">${lc==='safe'?'🛡':lc==='suspicious'?'⚠️':'🚨'}</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">Last Analyzed</div>
+      <div class="sc-val" style="font-size:16px">Just now</div>
+      <div class="sc-sub">★ ${d.rating} · ${d.installs}</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">App Version</div>
+      <div class="sc-val" style="font-size:15px;word-break:break-all">${d.version||'N/A'}</div>
+      <div class="sc-sub">${d.genre||'App'}</div>
+    </div>`;
+
+  // 360 BREAKDOWN
+  const steps=[{i:'💬',l:'Review\nAnalysis'},{i:'🔒',l:'Permissions\nScan'},
+    {i:'👤',l:'Developer\nCheck'},{i:'📊',l:'Behavior\nAnalysis'},{i:'🦠',l:'Threat\nDetection'}];
+  document.getElementById('bk-steps').innerHTML=steps.map((s,i)=>
+    `${i>0?'<div class="bk-line"></div>':''}
+    <div class="bk-step">
+      <div class="bk-circle">${s.i}</div>
+      <div class="bk-label">${s.l.replace('\n','<br>')}</div>
+      <div class="bk-ok">Completed</div>
+    </div>`
+  ).join('');
+
+  document.getElementById('a-result').style.display='block';
+  setTimeout(()=>drawRcChart(pol),100);
+}
+
+function metricCard(ico,title,sub,pct,color,val){
+  return `<div class="metric-card">
+    <div class="mc-top">
+      <div class="mc-left">
+        <div class="mc-ico">${ico}</div>
+        <div><div class="mc-title">${title}</div><div class="mc-sub" style="color:${color}">${sub}</div></div>
+      </div>
+      <div class="mc-pct" style="color:${color}">${pct}</div>
+    </div>
+    <div class="mc-bar"><div class="mc-bar-fill" style="width:${val}%;background:${color}"></div></div>
+  </div>`;
+}
+
+// ── GAUGE ─────────────────────────────────────────────────────────────────────
+function drawGauge(cv, score){
+  const ctx=cv.getContext('2d');
+  cv.width=160; cv.height=160;
+  const cx=80, cy=88, r=62;
+  const sa=Math.PI*.75, tot=Math.PI*1.5;
+  // BG arc
+  ctx.beginPath(); ctx.arc(cx,cy,r,sa,sa+tot);
+  ctx.strokeStyle='#1a2540'; ctx.lineWidth=12; ctx.lineCap='round'; ctx.stroke();
+  // Score arc
+  const color = score>=70?'#00e5a0':score>=40?'#f97316':'#ef4444';
+  const prog = sa + (score/100)*tot;
+  ctx.beginPath(); ctx.arc(cx,cy,r,sa,prog);
+  ctx.strokeStyle=color; ctx.lineWidth=12; ctx.lineCap='round'; ctx.stroke();
+  // Glow
+  ctx.beginPath(); ctx.arc(cx,cy,r,sa,prog);
+  ctx.strokeStyle=color; ctx.lineWidth=18; ctx.lineCap='round';
+  ctx.globalAlpha=.15; ctx.stroke(); ctx.globalAlpha=1;
+}
+
+function drawRcChart(pol){
+  const cv=document.getElementById('rcC'); if(!cv)return;
+  const ctx=cv.getContext('2d');
+  cv.width=cv.parentElement.offsetWidth-32||160; cv.height=28;
+  const W=cv.width,H=cv.height,n=8;
+  const pts=Array.from({length:n},()=>Math.max(.1,Math.min(.9,.5+pol*.3+(Math.random()-.5)*.3)));
+  const xs=(W-8)/(n-1), toY=v=>H-(v*(H-4))-2;
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'rgba(139,92,246,.28)'); g.addColorStop(1,'rgba(139,92,246,0)');
+  ctx.beginPath(); pts.forEach((v,i)=>{const x=4+i*xs,y=toY(v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.lineTo(4+(n-1)*xs,H); ctx.lineTo(4,H); ctx.closePath(); ctx.fillStyle=g; ctx.fill();
+  ctx.beginPath(); pts.forEach((v,i)=>{const x=4+i*xs,y=toY(v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.strokeStyle='rgba(139,92,246,.8)'; ctx.lineWidth=1.5; ctx.lineJoin='round'; ctx.stroke();
+}
+
+// ── HIDE SUGS ────────────────────────────────────────────────────────────────
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.h-search-wrap')){
+    document.getElementById('search-sugs').style.display='none';
+    document.getElementById('search-sugs2').style.display='none';
+  }
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildHome();
+</script>
+</body>
+</html>
