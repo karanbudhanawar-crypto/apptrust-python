@@ -20,7 +20,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   background:rgba(10,13,20,.92);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--b1);position:sticky;top:0;z-index:200;}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
-.logo-img{width:40px;height:40px;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(139,92,246,0.6));}
+.logo-img{width:40px;height:40px;flex-shrink:0;display:block;border-radius:10px;box-shadow:0 0 12px rgba(139,92,246,0.5);background:linear-gradient(135deg,#8b5cf6,#3b82f6);}
 .logo-txt{display:flex;flex-direction:column;line-height:1.1;}
 .logo h1{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px;}
 .logo h1 span{background:linear-gradient(135deg,var(--purple),#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -105,12 +105,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 #pg-analysis{display:none;background:var(--bg);min-height:100vh;}
 .analysis-body{max-width:1240px;margin:0 auto;padding:24px 32px 60px;}
 /* APP HEADER */
-.app-top-bar{display:flex;align-items:flex-start;gap:16px;
+.app-top-bar{display:flex;align-items:center;gap:18px;
   background:var(--bg2);border:1px solid var(--b1);border-radius:16px;
-  padding:18px 22px;margin-bottom:20px;position:relative;}
-.a-icon{width:64px;height:64px;border-radius:15px;object-fit:cover;
-  border:2px solid var(--b2);flex-shrink:0;}
-.a-icon.rotating{animation:rot3d 5s linear infinite;}
+  padding:20px 22px;margin-bottom:20px;position:relative;overflow:visible;}
+.a-icon{width:80px;height:80px;border-radius:18px;object-fit:cover;
+  border:2px solid rgba(255,255,255,0.12);flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+.a-icon.rotating{animation:none;}
 @keyframes rot3d{0%{transform:perspective(300px) rotateY(0deg)}100%{transform:perspective(300px) rotateY(360deg)}}
 .a-info{flex:1;min-width:0;}
 .a-name{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:3px;}
@@ -218,17 +218,11 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
 <!-- ══════════ HOME ══════════ -->
 <div id="pg-home">
   <header>
-    <div class="logo"><svg class="logo-img" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="hlogo1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#8b5cf6"/>
-      <stop offset="100%" stop-color="#3b82f6"/>
-    </linearGradient>
-  </defs>
+    <div class="logo"><svg class="logo-img" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="hlogo1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs>
   <rect width="40" height="40" rx="10" fill="url(#hlogo1)"/>
-  <path d="M20 6L8 11v9c0 8 5.5 15.5 12 17.5 6.5-2 12-9.5 12-17.5v-9L20 6z" fill="white" fill-opacity="0.2"/>
-  <path d="M20 8L9 13v8c0 7 4.8 13.5 11 15.5 6.2-2 11-8.5 11-15.5v-8L20 8z" fill="white" fill-opacity="0.15"/>
-  <path d="M15 20.5l3.5 3.5 7-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 7L9 12v8c0 7.5 5 14 11 16 6-2 11-8.5 11-16v-8L20 7z" fill="rgba(255,255,255,0.25)"/>
+  <path d="M15 20l3.5 3.5 6.5-6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>
 <div class="logo-txt"><h1>App<span>Trust</span></h1><div class="logo-tagline">AI Safety Store</div></div></div>
     <div class="h-search-wrap">
@@ -253,26 +247,15 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
         <div class="hero-badge">✦ AI-Powered App Safety Detection</div>
         <div class="hero-title">Know Instantly if an App is<br><em>Safe or Scam</em></div>
         <div class="hero-sub">We analyze real user reviews, permissions, developer signals and behavior patterns using advanced AI to reveal the truth.</div>
-        <div class="hero-stats">
-          <div><div class="hstat-val">1M+</div><div class="hstat-lbl">Apps Analyzed</div></div>
-          <div><div class="hstat-val">99.2%</div><div class="hstat-lbl">Accuracy</div></div>
-          <div><div class="hstat-val">10K+</div><div class="hstat-lbl">Users Trust Us</div></div>
-          <div><div class="hstat-val">150+</div><div class="hstat-lbl">Countries</div></div>
         </div>
       </div>
       <div class="hero-right">
-        <svg class="hero-logo-big" width="120" height="120" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="herogl1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#8b5cf6"/>
-      <stop offset="100%" stop-color="#3b82f6"/>
-    </linearGradient>
-  </defs>
+        <svg class="hero-logo-big" width="120" height="120" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="herogl1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs>
   <rect width="40" height="40" rx="10" fill="url(#herogl1)"/>
-  <path d="M20 6L8 11v9c0 8 5.5 15.5 12 17.5 6.5-2 12-9.5 12-17.5v-9L20 6z" fill="white" fill-opacity="0.25"/>
-  <path d="M20 9L10 14v7c0 6.5 4.5 12.5 10 14.5 5.5-2 10-8 10-14.5v-7L20 9z" fill="white" fill-opacity="0.15"/>
-  <path d="M15 20.5l3.5 3.5 7-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="20" cy="8" r="1.5" fill="white" fill-opacity="0.6"/>
+  <path d="M20 7L9 12v8c0 7.5 5 14 11 16 6-2 11-8.5 11-16v-8L20 7z" fill="rgba(255,255,255,0.28)"/>
+  <path d="M15 20l3.5 3.5 6.5-6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="20" cy="9" r="1.5" fill="rgba(255,255,255,0.7)"/>
 </svg>
       </div>
     </div>
@@ -283,17 +266,11 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
 <!-- ══════════ ANALYSIS ══════════ -->
 <div id="pg-analysis">
   <header>
-    <div class="logo" onclick="goHome()"><svg class="logo-img" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="alogo1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#8b5cf6"/>
-      <stop offset="100%" stop-color="#3b82f6"/>
-    </linearGradient>
-  </defs>
+    <div class="logo" onclick="goHome()"><svg class="logo-img" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="alogo1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs>
   <rect width="40" height="40" rx="10" fill="url(#alogo1)"/>
-  <path d="M20 6L8 11v9c0 8 5.5 15.5 12 17.5 6.5-2 12-9.5 12-17.5v-9L20 6z" fill="white" fill-opacity="0.2"/>
-  <path d="M20 8L9 13v8c0 7 4.8 13.5 11 15.5 6.2-2 11-8.5 11-15.5v-8L20 8z" fill="white" fill-opacity="0.15"/>
-  <path d="M15 20.5l3.5 3.5 7-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 7L9 12v8c0 7.5 5 14 11 16 6-2 11-8.5 11-16v-8L20 7z" fill="rgba(255,255,255,0.25)"/>
+  <path d="M15 20l3.5 3.5 6.5-6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>
 <div class="logo-txt"><h1>App<span>Trust</span></h1><div class="logo-tagline">AI Safety Store</div></div></div>
     <div class="h-search-wrap">
@@ -377,51 +354,108 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
 const CATS = [
-  {id:'COMMUNICATION', col:'TOP_FREE', name:'Communication Apps'},
-  {id:'SOCIAL',        col:'TOP_FREE', name:'Social Apps'},
-  {id:'ENTERTAINMENT', col:'TOP_FREE', name:'Entertainment Apps'},
-  {id:'SHOPPING',      col:'TOP_FREE', name:'Shopping Apps'},
-  {id:'GAME_ACTION',   col:'TOP_FREE', name:'Action Games'},
+  {id:'COMMUNICATION',     col:'TOP_FREE', name:'📱 Communication Apps'},
+  {id:'SOCIAL',            col:'TOP_FREE', name:'🌐 Social Apps'},
+  {id:'ENTERTAINMENT',     col:'TOP_FREE', name:'🎬 Entertainment Apps'},
+  {id:'SHOPPING',          col:'TOP_FREE', name:'🛍️ Shopping Apps'},
+  {id:'FINANCE',           col:'TOP_FREE', name:'💰 Finance & Banking'},
+  {id:'EDUCATION',         col:'TOP_FREE', name:'📚 Education Apps'},
+  {id:'HEALTH_AND_FITNESS',col:'TOP_FREE', name:'💪 Health & Fitness'},
+  {id:'TOOLS',             col:'TOP_FREE', name:'🔧 Tools & Utilities'},
+  {id:'GAME_ACTION',       col:'TOP_FREE', name:'🎮 Action Games'},
+  {id:'GAME_CASUAL',       col:'TOP_FREE', name:'🎯 Casual Games'},
 ];
 
 // Fallback popular apps per category
 const FALLBACK = {
   COMMUNICATION: [
-    {appId:'com.whatsapp',title:'WhatsApp',icon:'https://play-lh.googleusercontent.com/bYtqkFi3gzOuH7FMGnQiPWaH1mHaTpbjkp2_4_bkFjpFPKUyGVdZE_8IzEj8-YIxAWFw=s80',score:4.9,developer:'Meta'},
-    {appId:'org.telegram.messenger',title:'Telegram',icon:'https://play-lh.googleusercontent.com/ZU9cSgmbqX55R7YZtzR6QUhSFhbMsRfzZXWFAO8o-tivDSCqG9QwQkpLEUVH5ow=s80',score:4.5,developer:'Telegram'},
-    {appId:'com.facebook.orca',title:'Messenger',icon:'https://play-lh.googleusercontent.com/EHBs6ck5Mw7RIxfuLGRxKgSDHK1v9JnlnEBXXFlHTJK6kLFzByR3DCRD4AqsZJjZvA=s80',score:4.1,developer:'Meta'},
-    {appId:'com.viber.voip',title:'Viber',icon:'https://play-lh.googleusercontent.com/NNS8iLanZ2kbj2r_xNwBDvYvLtNT3K3F6-6vPqn_U8Wq3M3JUGJf4B_RHlzMVS7yg=s80',score:4.3,developer:'Viber'},
-    {appId:'com.skype.raider',title:'Skype',icon:'https://play-lh.googleusercontent.com/QMgPvPOXDCvdAb7INhHqHkxLGXBFdKe1-g3gj0N6bqm5_8ywkCuoqCXEzERFDJHfvw=s80',score:4.0,developer:'Microsoft'},
-    {appId:'com.snapchat.android',title:'Snapchat',icon:'https://play-lh.googleusercontent.com/qBzKbQkO2HFiHNYY7DVTd4h98vMKJEt8y2fV3D6VEYTEqT9-f6BPDjqN0yAw6A=s80',score:4.2,developer:'Snap'},
+    {appId:'com.whatsapp',title:'WhatsApp',icon:'',score:4.9,developer:'Meta'},
+    {appId:'org.telegram.messenger',title:'Telegram',icon:'',score:4.5,developer:'Telegram'},
+    {appId:'com.facebook.orca',title:'Messenger',icon:'',score:4.1,developer:'Meta'},
+    {appId:'com.viber.voip',title:'Viber',icon:'',score:4.3,developer:'Viber'},
+    {appId:'com.skype.raider',title:'Skype',icon:'',score:4.0,developer:'Microsoft'},
+    {appId:'com.snapchat.android',title:'Snapchat',icon:'',score:4.2,developer:'Snap'},
+    {appId:'com.discord',title:'Discord',icon:'',score:4.4,developer:'Discord'},
+    {appId:'com.truecaller',title:'Truecaller',icon:'',score:4.4,developer:'Truecaller'},
+    {appId:'com.google.android.talk',title:'Google Meet',icon:'',score:4.3,developer:'Google'},
+    {appId:'com.microsoft.teams',title:'MS Teams',icon:'',score:4.1,developer:'Microsoft'},
+    {appId:'com.zoom.videomeetings',title:'Zoom',icon:'',score:4.2,developer:'Zoom'},
+    {appId:'jp.naver.line.android',title:'Line',icon:'',score:4.1,developer:'Line'},
   ],
   SOCIAL: [
-    {appId:'com.instagram.android',title:'Instagram',icon:'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=s80',score:4.5,developer:'Meta'},
-    {appId:'com.zhiliaoapp.musically',title:'TikTok',icon:'https://play-lh.googleusercontent.com/ByYtcbmFGRmY5T5hEh_w1P8KHF_-b98rT3QO9oD6raKSIANWzgxmQJnmUNLvEdZ8lw=s80',score:4.4,developer:'ByteDance'},
-    {appId:'com.facebook.katana',title:'Facebook',icon:'https://play-lh.googleusercontent.com/ccWDU4A7fX1R24v-vvT480ySh26AYp44ZyEiLQqPBNBMq3UR2TjM3BjGqWnO7ghRUA=s80',score:4.2,developer:'Meta'},
-    {appId:'com.twitter.android',title:'X (Twitter)',icon:'https://play-lh.googleusercontent.com/APmQF4w-TkzCG0h3bWxAnrMVbXGJMJtEaXXVGiiqNHiRlMiGxp3r7z4dg7t4Gg=s80',score:4.1,developer:'X Corp'},
-    {appId:'com.pinterest',title:'Pinterest',icon:'https://play-lh.googleusercontent.com/ViEqrp3VCIVVLS5KO5CiKKU4CUVL1xRIHr6k9R9B3YsNJiFqhd4u3NdSbqjy0RQ=s80',score:4.5,developer:'Pinterest'},
-    {appId:'com.linkedin.android',title:'LinkedIn',icon:'https://play-lh.googleusercontent.com/h7GCkfRiVVIm9F3EBTsW38VG6T_CYvhVJGmE7XDNtqJyLYXrxqvEPTCQ_oFLzPm5=s80',score:4.3,developer:'Microsoft'},
+    {appId:'com.instagram.android',title:'Instagram',icon:'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=s128',score:4.5,developer:'Meta'},
+    {appId:'com.zhiliaoapp.musically',title:'TikTok',icon:'https://play-lh.googleusercontent.com/ByYtcbmFGRmY5T5hEh_w1P8KHF_-b98rT3QO9oD6raKSIANWzgxmQJnmUNLvEdZ8lw=s128',score:4.4,developer:'ByteDance'},
+    {appId:'com.facebook.katana',title:'Facebook',icon:'https://play-lh.googleusercontent.com/ccWDU4A7fX1R24v-vvT480ySh26AYp44ZyEiLQqPBNBMq3UR2TjM3BjGqWnO7ghRUA=s128',score:4.2,developer:'Meta'},
+    {appId:'com.twitter.android',title:'X (Twitter)',icon:'https://play-lh.googleusercontent.com/APmQF4w-TkzCG0h3bWxAnrMVbXGJMJtEaXXVGiiqNHiRlMiGxp3r7z4dg7t4Gg=s128',score:4.1,developer:'X Corp'},
+    {appId:'com.pinterest',title:'Pinterest',icon:'https://play-lh.googleusercontent.com/ViEqrp3VCIVVLS5KO5CiKKU4CUVL1xRIHr6k9R9B3YsNJiFqhd4u3NdSbqjy0RQ=s128',score:4.5,developer:'Pinterest'},
+    {appId:'com.linkedin.android',title:'LinkedIn',icon:'https://play-lh.googleusercontent.com/h7GCkfRiVVIm9F3EBTsW38VG6T_CYvhVJGmE7XDNtqJyLYXrxqvEPTCQ_oFLzPm5=s128',score:4.3,developer:'Microsoft'},
   ],
   ENTERTAINMENT: [
-    {appId:'com.google.android.youtube',title:'YouTube',icon:'https://play-lh.googleusercontent.com/lMoItBgdPPVDJsNOVtP26EKHePkwBg-PkuY9NOrc-fumRtTFP4XhpUNk_22syN4Datc=s80',score:4.2,developer:'Google'},
-    {appId:'com.netflix.mediaclient',title:'Netflix',icon:'https://play-lh.googleusercontent.com/zmiHLkEMpP4c3oeNHELZcX3fEdCa_ZLefqPZ2BQ9O8MExOGDhVHXbxJOicbhqiFfag=s80',score:4.3,developer:'Netflix'},
-    {appId:'com.spotify.music',title:'Spotify',icon:'https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WTZH6AkHTCnkMtpSNKWKWJSLM5pPA=s80',score:4.7,developer:'Spotify'},
-    {appId:'com.amazon.avod.thirdpartyclient',title:'Prime Video',icon:'https://play-lh.googleusercontent.com/A1C1MQ3IcPzXcN0cpLsLH41FuN-D4HuXibKD3K1cS1N6NWwzL8TIBBf3TKqmv2vFNqWI=s80',score:4.4,developer:'Amazon'},
-    {appId:'com.google.android.apps.youtube.music',title:'YT Music',icon:'https://play-lh.googleusercontent.com/yAF-CEUhzCDrCH-hR2blvgMJm9RItBfkKIBRrKjR7BXWB7e_cETzHqJ_S5MFkn8GMQ=s80',score:4.4,developer:'Google'},
+    {appId:'com.google.android.youtube',title:'YouTube',icon:'https://play-lh.googleusercontent.com/lMoItBgdPPVDJsNOVtP26EKHePkwBg-PkuY9NOrc-fumRtTFP4XhpUNk_22syN4Datc=s128',score:4.2,developer:'Google'},
+    {appId:'com.netflix.mediaclient',title:'Netflix',icon:'https://play-lh.googleusercontent.com/zmiHLkEMpP4c3oeNHELZcX3fEdCa_ZLefqPZ2BQ9O8MExOGDhVHXbxJOicbhqiFfag=s128',score:4.3,developer:'Netflix'},
+    {appId:'com.spotify.music',title:'Spotify',icon:'https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WTZH6AkHTCnkMtpSNKWKWJSLM5pPA=s128',score:4.7,developer:'Spotify'},
+    {appId:'com.amazon.avod.thirdpartyclient',title:'Prime Video',icon:'https://play-lh.googleusercontent.com/A1C1MQ3IcPzXcN0cpLsLH41FuN-D4HuXibKD3K1cS1N6NWwzL8TIBBf3TKqmv2vFNqWI=s128',score:4.4,developer:'Amazon'},
+    {appId:'com.google.android.apps.youtube.music',title:'YT Music',icon:'https://play-lh.googleusercontent.com/yAF-CEUhzCDrCH-hR2blvgMJm9RItBfkKIBRrKjR7BXWB7e_cETzHqJ_S5MFkn8GMQ=s128',score:4.4,developer:'Google'},
   ],
   SHOPPING: [
-    {appId:'in.amazon.mShop.android.shopping',title:'Amazon',icon:'https://play-lh.googleusercontent.com/W8rUHQhSXc2x3hyy6A24VL7iQ73Lfak-RW_y3Zj9yFDGGb4yRnMc4J8C6kzVkFIiWXw=s80',score:4.5,developer:'Amazon'},
-    {appId:'com.flipkart.android',title:'Flipkart',icon:'https://play-lh.googleusercontent.com/UUkgMPPtJRFX_y_LZUE_MnA5Q4LKTf3XH7Y0jCYlJ5V8S4-MHFQWTkrh0mZ4A=s80',score:4.2,developer:'Flipkart'},
-    {appId:'com.myntra.android',title:'Myntra',icon:'https://play-lh.googleusercontent.com/7OmPxCIhtLf3mxzDZHLF1tYWVvFPEeqZ4FQKJ6qYVWxX-v5tYUhPTmWk0k1Dxc4=s80',score:4.3,developer:'Myntra'},
-    {appId:'com.meesho.supply',title:'Meesho',icon:'https://play-lh.googleusercontent.com/wLBSOrAr9j6Oc-A6ELTb3VOQlHiMH7QUJxbfoBOiqgYHqjPz0bxhiG9Qwn5OfVHyEno=s80',score:4.4,developer:'Meesho'},
+    {appId:'in.amazon.mShop.android.shopping',title:'Amazon',icon:'https://play-lh.googleusercontent.com/W8rUHQhSXc2x3hyy6A24VL7iQ73Lfak-RW_y3Zj9yFDGGb4yRnMc4J8C6kzVkFIiWXw=s128',score:4.5,developer:'Amazon'},
+    {appId:'com.flipkart.android',title:'Flipkart',icon:'https://play-lh.googleusercontent.com/UUkgMPPtJRFX_y_LZUE_MnA5Q4LKTf3XH7Y0jCYlJ5V8S4-MHFQWTkrh0mZ4A=s128',score:4.2,developer:'Flipkart'},
+    {appId:'com.myntra.android',title:'Myntra',icon:'https://play-lh.googleusercontent.com/7OmPxCIhtLf3mxzDZHLF1tYWVvFPEeqZ4FQKJ6qYVWxX-v5tYUhPTmWk0k1Dxc4=s128',score:4.3,developer:'Myntra'},
+    {appId:'com.meesho.supply',title:'Meesho',icon:'https://play-lh.googleusercontent.com/wLBSOrAr9j6Oc-A6ELTb3VOQlHiMH7QUJxbfoBOiqgYHqjPz0bxhiG9Qwn5OfVHyEno=s128',score:4.4,developer:'Meesho'},
   ],
   GAME_ACTION: [
-    {appId:'com.pubg.krmobile',title:'BGMI',icon:'https://play-lh.googleusercontent.com/GVobsr2e0nJYlSmEpbHvdB7HFJJGv0qj7K8i0j0fKVrWC0VBP6zcLBuCyGLzKxGHew=s80',score:4.2,developer:'Krafton'},
-    {appId:'com.innersloth.spacemafia',title:'Among Us',icon:'https://play-lh.googleusercontent.com/hJGHtbYSQ2HRQyL_e0c6Gg_GwuFDqJw6RFpJLLajFGb4gJwDjq3V3KvFO2LZaUG8=s80',score:4.2,developer:'InnerSloth'},
-    {appId:'com.kiloo.subwaysurf',title:'Subway Surfers',icon:'https://play-lh.googleusercontent.com/mF5z_KScBVwRmL-JNY_dBjR2n6XVzrSTk4fxfCxoHH3sczXoKzVlBmXq6RjCcMz=s80',score:4.5,developer:'SYBO'},
-    {appId:'com.king.candycrushsaga',title:'Candy Crush',icon:'https://play-lh.googleusercontent.com/gdR6TRlpCORkDLlMO40lVYS1XSMDqNvimWrh9C0HWYPwMVxBR3DwMzNDXdLxs0_Fw=s80',score:4.7,developer:'King'},
-    {appId:'com.supercell.clashofclans',title:'Clash of Clans',icon:'https://play-lh.googleusercontent.com/Vni6qlz5JO6T2NtB3S4X5cAXsQ2UJ_lnuFM9-UdwXAklB4OKPMvxQJg2V-TFOm8tO8=s80',score:4.8,developer:'Supercell'},
-  ]
+    {appId:'com.pubg.krmobile',title:'BGMI',icon:'',score:4.2,developer:'Krafton'},
+    {appId:'com.innersloth.spacemafia',title:'Among Us',icon:'',score:4.2,developer:'InnerSloth'},
+    {appId:'com.kiloo.subwaysurf',title:'Subway Surfers',icon:'',score:4.5,developer:'SYBO'},
+    {appId:'com.king.candycrushsaga',title:'Candy Crush',icon:'',score:4.7,developer:'King'},
+    {appId:'com.supercell.clashofclans',title:'Clash of Clans',icon:'',score:4.8,developer:'Supercell'},
+    {appId:'com.supercell.clashroyale',title:'Clash Royale',icon:'',score:4.4,developer:'Supercell'},
+    {appId:'com.mojang.minecraftpe',title:'Minecraft',icon:'',score:4.5,developer:'Mojang'},
+    {appId:'com.garena.free.fire',title:'Free Fire',icon:'',score:4.1,developer:'Garena'},
+  ],
+  GAME_CASUAL: [
+    {appId:'com.outfit7.talkingtomgoldrun',title:'Talking Tom',icon:'',score:4.5,developer:'Outfit7'},
+    {appId:'com.imangi.templerun2',title:'Temple Run 2',icon:'',score:4.5,developer:'Imangi'},
+    {appId:'com.miniclip.eightballpool',title:'8 Ball Pool',icon:'',score:4.2,developer:'Miniclip'},
+    {appId:'com.halfbrick.fruitninjafree',title:'Fruit Ninja',icon:'',score:4.3,developer:'Halfbrick'},
+    {appId:'com.dena.a12026418',title:'Pokémon Masters',icon:'',score:4.1,developer:'DeNA'},
+    {appId:'com.rovio.angrybirdsreloaded',title:'Angry Birds',icon:'',score:4.3,developer:'Rovio'},
+  ],
+  FINANCE: [
+    {appId:'net.one97.paytm',title:'Paytm',icon:'',score:4.5,developer:'Paytm'},
+    {appId:'com.phonepe.app',title:'PhonePe',icon:'',score:4.6,developer:'PhonePe'},
+    {appId:'com.google.android.apps.nbu.paisa.user',title:'Google Pay',icon:'',score:4.5,developer:'Google'},
+    {appId:'in.amazon.mShop.android.shopping',title:'Amazon Pay',icon:'',score:4.3,developer:'Amazon'},
+    {appId:'com.csam.icici.bank.imobile',title:'iMobile Pay',icon:'',score:4.5,developer:'ICICI Bank'},
+    {appId:'com.sbi.SBIFreedomPlus',title:'YONO SBI',icon:'',score:3.9,developer:'SBI'},
+    {appId:'com.mobikwik_two',title:'MobiKwik',icon:'',score:4.1,developer:'MobiKwik'},
+    {appId:'com.cred.club',title:'CRED',icon:'',score:4.5,developer:'CRED'},
+  ],
+  EDUCATION: [
+    {appId:'com.byjus.the_learning_app',title:'BYJU'S',icon:'',score:4.1,developer:'BYJU'S'},
+    {appId:'com.duolingo',title:'Duolingo',icon:'',score:4.6,developer:'Duolingo'},
+    {appId:'com.toppr.student',title:'Toppr',icon:'',score:4.2,developer:'Toppr'},
+    {appId:'in.unacademy.learner',title:'Unacademy',icon:'',score:4.3,developer:'Unacademy'},
+    {appId:'com.google.android.apps.classroom',title:'Google Classroom',icon:'',score:4.3,developer:'Google'},
+    {appId:'com.khanacademy.android',title:'Khan Academy',icon:'',score:4.7,developer:'Khan Academy'},
+    {appId:'com.coursera.android',title:'Coursera',icon:'',score:4.4,developer:'Coursera'},
+  ],
+  HEALTH_AND_FITNESS: [
+    {appId:'com.healthifyme.basic',title:'HealthifyMe',icon:'',score:4.3,developer:'HealthifyMe'},
+    {appId:'com.nike.plusactivity',title:'Nike Run Club',icon:'',score:4.5,developer:'Nike'},
+    {appId:'com.google.android.apps.fitness',title:'Google Fit',icon:'',score:4.1,developer:'Google'},
+    {appId:'com.myfitnesspal.android',title:'MyFitnessPal',icon:'',score:4.4,developer:'MyFitnessPal'},
+    {appId:'com.calm.android',title:'Calm',icon:'',score:4.6,developer:'Calm'},
+    {appId:'com.headspace.android',title:'Headspace',icon:'',score:4.5,developer:'Headspace'},
+  ],
+  TOOLS: [
+    {appId:'com.google.android.keep',title:'Google Keep',icon:'',score:4.4,developer:'Google'},
+    {appId:'com.microsoft.office.word',title:'MS Word',icon:'',score:4.5,developer:'Microsoft'},
+    {appId:'com.adobe.reader',title:'Adobe Reader',icon:'',score:4.5,developer:'Adobe'},
+    {appId:'com.whatsapp.w4b',title:'WhatsApp Business',icon:'',score:4.3,developer:'Meta'},
+    {appId:'com.google.android.apps.translate',title:'Google Translate',icon:'',score:4.6,developer:'Google'},
+    {appId:'com.lastpass.lpandroid',title:'LastPass',icon:'',score:4.3,developer:'LastPass'},
+  ],
 };
 
 // ── PAGE NAVIGATION ───────────────────────────────────────────────────────────
@@ -495,14 +529,26 @@ function makeSvgIcon(name, appId, size) {
 }
 
 // Create a card icon element — starts as SVG, upgrades to real icon if it loads
+function proxyIcon(url) {
+  // Use backend proxy to bypass CORS on Google CDN
+  if (url && url.includes('googleusercontent.com')) {
+    return '/proxy-icon?url=' + encodeURIComponent(url);
+  }
+  return url;
+}
+
 function makeCardIcon(appId, name, realIconUrl) {
   const img = document.createElement('img');
   img.style.cssText = 'width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08);';
+  // Show SVG avatar instantly while real icon loads
   img.src = makeSvgIcon(name, appId, 88);
   if (realIconUrl) {
+    // Always route through proxy — bypasses CORS on all environments
+    const proxied = '/proxy-icon?url=' + encodeURIComponent(realIconUrl);
     const probe = new Image();
-    probe.onload = () => { img.src = realIconUrl; };
-    probe.src = realIconUrl;
+    probe.onload = () => { img.src = proxied; };
+    probe.onerror = () => { /* keep SVG avatar */ };
+    probe.src = proxied;
   }
   return img;
 }
@@ -512,9 +558,11 @@ function makeSugIcon(appId, name, realIconUrl) {
   img.className = 'sug-img';
   img.src = makeSvgIcon(name, appId, 34);
   if (realIconUrl) {
+    const proxied = '/proxy-icon?url=' + encodeURIComponent(realIconUrl);
     const probe = new Image();
-    probe.onload = () => { img.src = realIconUrl; };
-    probe.src = realIconUrl;
+    probe.onload = () => { img.src = proxied; };
+    probe.onerror = () => { /* keep SVG avatar */ };
+    probe.src = proxied;
   }
   return img;
 }
@@ -595,9 +643,8 @@ function buildHome(){
     sec.innerHTML = `
       <div class="cat-header">
         <div class="cat-title">${cat.name}</div>
-        <div class="cat-more" onclick="showViewAll('${cat.name}','${cat.id}')">View All ›</div>
       </div>
-      <div class="apps-row" id="row-${cat.id}">${skeletons(8)}</div>`;
+      <div class="apps-row" id="row-${cat.id}">${skeletons(12)}</div>`;
     body.appendChild(sec);
     loadCategory(cat);
   });
@@ -614,15 +661,44 @@ function skeletons(n){
 
 async function loadCategory(cat){
   const row = document.getElementById('row-' + cat.id);
+  // Show fallback immediately with SVG avatars while API loads
+  const fb = FALLBACK[cat.id] || [];
+  if(fb.length) renderApps(row, fb);
+  // Then try to get real Play Store data with real icons
   try {
     const r = await fetch('/category',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({category:cat.id,collection:cat.col})});
     const d = await r.json();
-    if(d.success && d.apps && d.apps.length){ renderApps(row, d.apps); return; }
+    if(d.success && d.apps && d.apps.length){
+      renderApps(row, d.apps);
+      return;
+    }
   } catch(e){}
-  const fb = FALLBACK[cat.id] || [];
-  if(fb.length) renderApps(row, fb);
-  else row.innerHTML = '<p style="color:var(--txt3);font-size:13px;padding:20px">No apps available</p>';
+  // If API failed, fetch icons for fallback apps via search
+  if(fb.length){
+    fb.forEach(async (a) => {
+      try {
+        const sr = await fetch('/search',{method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({query:a.appId})});
+        const sd = await sr.json();
+        if(sd.success && sd.results && sd.results[0] && sd.results[0].icon){
+          // Update icon in the row
+          const cards = row.querySelectorAll('.app-card');
+          const fbIdx = fb.indexOf(a);
+          if(cards[fbIdx]){
+            const img = cards[fbIdx].querySelector('img');
+            if(img){
+              const proxied = '/proxy-icon?url=' + encodeURIComponent(sd.results[0].icon);
+              const probe = new Image();
+              probe.onload = () => { img.src = proxied; };
+              probe.src = proxied;
+            }
+          }
+        }
+      } catch(e){}
+    });
+  }
 }
 
 function renderApps(row, apps){
@@ -731,11 +807,13 @@ function renderAnalysis(d){
   ico.style.display='block';
   // Set instant SVG avatar, upgrade to real icon if it loads
   ico.src = makeSvgIcon(d.title||'App', d.package_id||'', 64);
-  ico.classList.add('rotating');
+  // ico.classList.add('rotating'); // disabled — looks bad with real icons
   if(d.icon){
+    const proxied = '/proxy-icon?url=' + encodeURIComponent(d.icon);
     const probe = new Image();
-    probe.onload = () => { ico.src = d.icon; };
-    probe.src = d.icon;
+    probe.onload = () => { ico.src = proxied; };
+    probe.onerror = () => { /* keep SVG avatar */ };
+    probe.src = proxied;
   }
   document.getElementById('a-name').textContent=d.title||'-';
   document.getElementById('a-meta').textContent=`${d.developer||''} · ${d.genre||'App'}`;
