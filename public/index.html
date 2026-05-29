@@ -258,7 +258,284 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
 </svg>
       </div>
     </div>
-    <!-- Categories injected by JS -->
+    <!-- Categories - static HTML for reliability -->
+    <div id="cats-container">
+    <div class="cat-section">
+      <div class="cat-header">
+        <div class="cat-title">📱 Communication</div>
+      </div>
+      <div class="apps-row"><div class="app-card" onclick="analyzeApp('com.whatsapp','WhatsApp')">
+        <img src="https://play-lh.googleusercontent.com/bYtqkFi3gzOuH7FMGnQiPWaH1mHaTpbjkp2_4_bkFjpFPKUyGVdZE_8IzEj8-YIxAWFw=s96" onerror="this.src=makeSvgIcon('WhatsApp','com.whatsapp',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">WhatsApp</div>
+        <div class="app-card-desc">Meta</div>
+        <div class="app-card-rating">★ 4.9</div>
+      </div><div class="app-card" onclick="analyzeApp('org.telegram.messenger','Telegram')">
+        <img src="https://play-lh.googleusercontent.com/ZU9cSgmbqX55R7YZtzR6QUhSFhbMsRfzZXWFAO8o-tivDSCqG9QwQkpLEUVH5ow=s96" onerror="this.src=makeSvgIcon('Telegram','org.telegram.messenger',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Telegram</div>
+        <div class="app-card-desc">Telegram</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.facebook.orca','Messenger')">
+        <img src="https://play-lh.googleusercontent.com/EHBs6ck5Mw7RIxfuLGRxKgSDHK1v9JnlnEBXXFlHTJK6kLFzByR3DCRD4AqsZJjZvA=s96" onerror="this.src=makeSvgIcon('Messenger','com.facebook.orca',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Messenger</div>
+        <div class="app-card-desc">Meta</div>
+        <div class="app-card-rating">★ 4.1</div>
+      </div><div class="app-card" onclick="analyzeApp('com.viber.voip','Viber')">
+        <img src="https://play-lh.googleusercontent.com/NNS8iLanZ2kbj2r_xNwBDvYvLtNT3K3F6-6vPqn_U8Wq3M3JUGJf4B_RHlzMVS7yg=s96" onerror="this.src=makeSvgIcon('Viber','com.viber.voip',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Viber</div>
+        <div class="app-card-desc">Viber</div>
+        <div class="app-card-rating">★ 4.3</div>
+      </div><div class="app-card" onclick="analyzeApp('com.skype.raider','Skype')">
+        <img src="https://play-lh.googleusercontent.com/QMgPvPOXDCvdAb7INhHqHkxLGXBFdKe1-g3gj0N6bqm5_8ywkCuoqCXEzERFDJHfvw=s96" onerror="this.src=makeSvgIcon('Skype','com.skype.raider',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Skype</div>
+        <div class="app-card-desc">Microsoft</div>
+        <div class="app-card-rating">★ 4.0</div>
+      </div><div class="app-card" onclick="analyzeApp('com.snapchat.android','Snapchat')">
+        <img src="https://play-lh.googleusercontent.com/qBzKbQkO2HFiHNYY7DVTd4h98vMKJEt8y2fV3D6VEYTEqT9-f6BPDjqN0yAw6A=s96" onerror="this.src=makeSvgIcon('Snapchat','com.snapchat.android',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Snapchat</div>
+        <div class="app-card-desc">Snap</div>
+        <div class="app-card-rating">★ 4.2</div>
+      </div><div class="app-card" onclick="analyzeApp('com.discord','Discord')">
+        <img src="https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVSqI_RtKAKP8fNMTmzYNz_UGdJUQyZgqA=s96" onerror="this.src=makeSvgIcon('Discord','com.discord',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Discord</div>
+        <div class="app-card-desc">Discord</div>
+        <div class="app-card-rating">★ 4.4</div>
+      </div><div class="app-card" onclick="analyzeApp('com.truecaller','Truecaller')">
+        <img src="https://play-lh.googleusercontent.com/a6N-PFkzqVKr6v3etlVh5dBBUBCbzl_JJpnfq6HJnJpN-qB7VEjCKwBNbB2Nix8FxY=s96" onerror="this.src=makeSvgIcon('Truecaller','com.truecaller',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Truecaller</div>
+        <div class="app-card-desc">Truecaller</div>
+        <div class="app-card-rating">★ 4.4</div>
+      </div></div>
+    </div>
+    <div class="cat-section">
+      <div class="cat-header">
+        <div class="cat-title">🌐 Social Apps</div>
+      </div>
+      <div class="apps-row"><div class="app-card" onclick="analyzeApp('com.instagram.android','Instagram')">
+        <img src="https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=s96" onerror="this.src=makeSvgIcon('Instagram','com.instagram.android',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Instagram</div>
+        <div class="app-card-desc">Meta</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.zhiliaoapp.musically','TikTok')">
+        <img src="https://play-lh.googleusercontent.com/ByYtcbmFGRmY5T5hEh_w1P8KHF_-b98rT3QO9oD6raKSIANWzgxmQJnmUNLvEdZ8lw=s96" onerror="this.src=makeSvgIcon('TikTok','com.zhiliaoapp.musically',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">TikTok</div>
+        <div class="app-card-desc">ByteDance</div>
+        <div class="app-card-rating">★ 4.4</div>
+      </div><div class="app-card" onclick="analyzeApp('com.facebook.katana','Facebook')">
+        <img src="https://play-lh.googleusercontent.com/ccWDU4A7fX1R24v-vvT480ySh26AYp44ZyEiLQqPBNBMq3UR2TjM3BjGqWnO7ghRUA=s96" onerror="this.src=makeSvgIcon('Facebook','com.facebook.katana',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Facebook</div>
+        <div class="app-card-desc">Meta</div>
+        <div class="app-card-rating">★ 4.2</div>
+      </div><div class="app-card" onclick="analyzeApp('com.twitter.android','X (Twitter)')">
+        <img src="https://play-lh.googleusercontent.com/APmQF4w-TkzCG0h3bWxAnrMVbXGJMJtEaXXVGiiqNHiRlMiGxp3r7z4dg7t4Gg=s96" onerror="this.src=makeSvgIcon('X (Twitter)','com.twitter.android',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">X (Twitter)</div>
+        <div class="app-card-desc">X Corp</div>
+        <div class="app-card-rating">★ 4.1</div>
+      </div><div class="app-card" onclick="analyzeApp('com.pinterest','Pinterest')">
+        <img src="https://play-lh.googleusercontent.com/ViEqrp3VCIVVLS5KO5CiKKU4CUVL1xRIHr6k9R9B3YsNJiFqhd4u3NdSbqjy0RQ=s96" onerror="this.src=makeSvgIcon('Pinterest','com.pinterest',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Pinterest</div>
+        <div class="app-card-desc">Pinterest</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.linkedin.android','LinkedIn')">
+        <img src="https://play-lh.googleusercontent.com/h7GCkfRiVVIm9F3EBTsW38VG6T_CYvhVJGmE7XDNtqJyLYXrxqvEPTCQ_oFLzPm5=s96" onerror="this.src=makeSvgIcon('LinkedIn','com.linkedin.android',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">LinkedIn</div>
+        <div class="app-card-desc">Microsoft</div>
+        <div class="app-card-rating">★ 4.3</div>
+      </div><div class="app-card" onclick="analyzeApp('com.sharechat.app','ShareChat')">
+        <img src="https://play-lh.googleusercontent.com/OkmRHGFxnbgFB3WwnZNTdqxlLc-CKm5hNBhyMhSGAlJtjKr6dJmfwX0e0pXuPIo=s96" onerror="this.src=makeSvgIcon('ShareChat','com.sharechat.app',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">ShareChat</div>
+        <div class="app-card-desc">ShareChat</div>
+        <div class="app-card-rating">★ 4.1</div>
+      </div><div class="app-card" onclick="analyzeApp('com.roposo.android','Moj')">
+        <img src="https://play-lh.googleusercontent.com/yNJKfakqfzl5v6JmKQpfFoIB5tXxXuW0JHGjbYLjgxPME9sxqEuMUHxbHn8=s96" onerror="this.src=makeSvgIcon('Moj','com.roposo.android',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Moj</div>
+        <div class="app-card-desc">ShareChat</div>
+        <div class="app-card-rating">★ 4.0</div>
+      </div></div>
+    </div>
+    <div class="cat-section">
+      <div class="cat-header">
+        <div class="cat-title">🎬 Entertainment</div>
+      </div>
+      <div class="apps-row"><div class="app-card" onclick="analyzeApp('com.google.android.youtube','YouTube')">
+        <img src="https://play-lh.googleusercontent.com/lMoItBgdPPVDJsNOVtP26EKHePkwBg-PkuY9NOrc-fumRtTFP4XhpUNk_22syN4Datc=s96" onerror="this.src=makeSvgIcon('YouTube','com.google.android.youtube',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">YouTube</div>
+        <div class="app-card-desc">Google</div>
+        <div class="app-card-rating">★ 4.2</div>
+      </div><div class="app-card" onclick="analyzeApp('com.netflix.mediaclient','Netflix')">
+        <img src="https://play-lh.googleusercontent.com/zmiHLkEMpP4c3oeNHELZcX3fEdCa_ZLefqPZ2BQ9O8MExOGDhVHXbxJOicbhqiFfag=s96" onerror="this.src=makeSvgIcon('Netflix','com.netflix.mediaclient',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Netflix</div>
+        <div class="app-card-desc">Netflix</div>
+        <div class="app-card-rating">★ 4.3</div>
+      </div><div class="app-card" onclick="analyzeApp('com.spotify.music','Spotify')">
+        <img src="https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WTZH6AkHTCnkMtpSNKWKWJSLM5pPA=s96" onerror="this.src=makeSvgIcon('Spotify','com.spotify.music',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Spotify</div>
+        <div class="app-card-desc">Spotify</div>
+        <div class="app-card-rating">★ 4.7</div>
+      </div><div class="app-card" onclick="analyzeApp('com.amazon.avod.thirdpartyclient','Prime Video')">
+        <img src="https://play-lh.googleusercontent.com/A1C1MQ3IcPzXcN0cpLsLH41FuN-D4HuXibKD3K1cS1N6NWwzL8TIBBf3TKqmv2vFNqWI=s96" onerror="this.src=makeSvgIcon('Prime Video','com.amazon.avod.thirdpartyclient',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Prime Video</div>
+        <div class="app-card-desc">Amazon</div>
+        <div class="app-card-rating">★ 4.4</div>
+      </div><div class="app-card" onclick="analyzeApp('com.hotstar.android','Hotstar')">
+        <img src="https://play-lh.googleusercontent.com/y3-DCZK6WSVl6riBT30hPdUnx27mPDLNzHfpJ4a23TIhzFDIpjWUBe-JNAaVCyQ=s96" onerror="this.src=makeSvgIcon('Hotstar','com.hotstar.android',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Hotstar</div>
+        <div class="app-card-desc">Disney</div>
+        <div class="app-card-rating">★ 4.2</div>
+      </div><div class="app-card" onclick="analyzeApp('com.jio.media.ondemand','JioCinema')">
+        <img src="https://play-lh.googleusercontent.com/ioWQHPkfFbFoJ3X3ob0z8Omjck1YFWyBzMCMJQH7eLkijXNJxGQ9iN9B_T_mJ0R=s96" onerror="this.src=makeSvgIcon('JioCinema','com.jio.media.ondemand',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">JioCinema</div>
+        <div class="app-card-desc">Jio</div>
+        <div class="app-card-rating">★ 4.1</div>
+      </div><div class="app-card" onclick="analyzeApp('com.mxtech.videoplayer.ad','MX Player')">
+        <img src="https://play-lh.googleusercontent.com/V_D4F6tJBqDqBqU_iJ3Uk0HsJBGmNnEEBmD8lbCJgXu0HGLhFzjj3dCl4PCUQ0I=s96" onerror="this.src=makeSvgIcon('MX Player','com.mxtech.videoplayer.ad',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">MX Player</div>
+        <div class="app-card-desc">MX Media</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.sonyliv','SonyLIV')">
+        <img src="https://play-lh.googleusercontent.com/Q4JI3_e-yGAJmBtM0TaB5JeXDY8IlnLHO39_CfO7lqnHj4lP2kSvpSi_oBWAhwdX=s96" onerror="this.src=makeSvgIcon('SonyLIV','com.sonyliv',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">SonyLIV</div>
+        <div class="app-card-desc">Sony</div>
+        <div class="app-card-rating">★ 3.9</div>
+      </div></div>
+    </div>
+    <div class="cat-section">
+      <div class="cat-header">
+        <div class="cat-title">🛍️ Shopping</div>
+      </div>
+      <div class="apps-row"><div class="app-card" onclick="analyzeApp('in.amazon.mShop.android.shopping','Amazon')">
+        <img src="https://play-lh.googleusercontent.com/W8rUHQhSXc2x3hyy6A24VL7iQ73Lfak-RW_y3Zj9yFDGGb4yRnMc4J8C6kzVkFIiWXw=s96" onerror="this.src=makeSvgIcon('Amazon','in.amazon.mShop.android.shopping',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Amazon</div>
+        <div class="app-card-desc">Amazon</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.flipkart.android','Flipkart')">
+        <img src="https://play-lh.googleusercontent.com/UUkgMPPtJRFX_y_LZUE_MnA5Q4LKTf3XH7Y0jCYlJ5V8S4-MHFQWTkrh0mZ4A=s96" onerror="this.src=makeSvgIcon('Flipkart','com.flipkart.android',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Flipkart</div>
+        <div class="app-card-desc">Flipkart</div>
+        <div class="app-card-rating">★ 4.2</div>
+      </div><div class="app-card" onclick="analyzeApp('com.myntra.android','Myntra')">
+        <img src="https://play-lh.googleusercontent.com/7OmPxCIhtLf3mxzDZHLF1tYWVvFPEeqZ4FQKJ6qYVWxX-v5tYUhPTmWk0k1Dxc4=s96" onerror="this.src=makeSvgIcon('Myntra','com.myntra.android',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Myntra</div>
+        <div class="app-card-desc">Myntra</div>
+        <div class="app-card-rating">★ 4.3</div>
+      </div><div class="app-card" onclick="analyzeApp('com.meesho.supply','Meesho')">
+        <img src="https://play-lh.googleusercontent.com/wLBSOrAr9j6Oc-A6ELTb3VOQlHiMH7QUJxbfoBOiqgYHqjPz0bxhiG9Qwn5OfVHyEno=s96" onerror="this.src=makeSvgIcon('Meesho','com.meesho.supply',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Meesho</div>
+        <div class="app-card-desc">Meesho</div>
+        <div class="app-card-rating">★ 4.4</div>
+      </div><div class="app-card" onclick="analyzeApp('com.nykaa.app','Nykaa')">
+        <img src="https://play-lh.googleusercontent.com/WbMBdGQkVNKvT4NLbFMl7eYJ8JbHXRrKRkGi3BKPZ8Y79AJ8Jjm0Ua_mEsxCqM=s96" onerror="this.src=makeSvgIcon('Nykaa','com.nykaa.app',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Nykaa</div>
+        <div class="app-card-desc">Nykaa</div>
+        <div class="app-card-rating">★ 4.3</div>
+      </div><div class="app-card" onclick="analyzeApp('com.ajio.app','Ajio')">
+        <img src="https://play-lh.googleusercontent.com/oWB9bQTXkPl5XDl5aN9G0FEpkDqiCN8OJuSzHhZ4hDJGqRbcKZoS6kO8GqOIHNo=s96" onerror="this.src=makeSvgIcon('Ajio','com.ajio.app',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Ajio</div>
+        <div class="app-card-desc">Reliance</div>
+        <div class="app-card-rating">★ 4.1</div>
+      </div><div class="app-card" onclick="analyzeApp('com.bigbasket.app','BigBasket')">
+        <img src="https://play-lh.googleusercontent.com/P0kBjP6sWjLLlXDR9gT9xZeHYp9K7mLi1hQ7K9hqn8G8pW8JY7Jk0oJQ6h6GQ=s96" onerror="this.src=makeSvgIcon('BigBasket','com.bigbasket.app',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">BigBasket</div>
+        <div class="app-card-desc">BigBasket</div>
+        <div class="app-card-rating">★ 4.4</div>
+      </div><div class="app-card" onclick="analyzeApp('com.blinkit.app','Blinkit')">
+        <img src="https://play-lh.googleusercontent.com/UVL7b0SrIiP3VPz9TbUoKN-HBpYJfKTq5JqFEV7VHqK4gq5BbHcJlEXqHbVjUA=s96" onerror="this.src=makeSvgIcon('Blinkit','com.blinkit.app',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Blinkit</div>
+        <div class="app-card-desc">Blinkit</div>
+        <div class="app-card-rating">★ 4.3</div>
+      </div></div>
+    </div>
+    <div class="cat-section">
+      <div class="cat-header">
+        <div class="cat-title">💰 Finance & UPI</div>
+      </div>
+      <div class="apps-row"><div class="app-card" onclick="analyzeApp('net.one97.paytm','Paytm')">
+        <img src="https://play-lh.googleusercontent.com/wnIqSz7g7OoIQFrjLkFIGNfv3A3KBWN4b0xFVTF1IlVl5GXVakJUcvYXGBm3zHJb=s96" onerror="this.src=makeSvgIcon('Paytm','net.one97.paytm',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Paytm</div>
+        <div class="app-card-desc">Paytm</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.phonepe.app','PhonePe')">
+        <img src="https://play-lh.googleusercontent.com/sGMHxAp3-YTJjBHjhsrmmZ-szNFJQ8JiKt_dA8VgJHXzXwVqCX3P6TgP0HimAVEECA=s96" onerror="this.src=makeSvgIcon('PhonePe','com.phonepe.app',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">PhonePe</div>
+        <div class="app-card-desc">PhonePe</div>
+        <div class="app-card-rating">★ 4.6</div>
+      </div><div class="app-card" onclick="analyzeApp('com.google.android.apps.nbu.paisa.user','Google Pay')">
+        <img src="https://play-lh.googleusercontent.com/HArtbyi53v4iSSFWDFVMqAOgMOSSW5VFJiJBJHhJTt5NrpF8h4jCcTKwUniUfBVA=s96" onerror="this.src=makeSvgIcon('Google Pay','com.google.android.apps.nbu.paisa.user',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Google Pay</div>
+        <div class="app-card-desc">Google</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.cred.club','CRED')">
+        <img src="https://play-lh.googleusercontent.com/lIVGFYZAnrKHHgfMqKtm5WT3g4tGLVKcgqBQ2g3L2KQqGYXQ3o5GI0TH9QpGTGXf=s96" onerror="this.src=makeSvgIcon('CRED','com.cred.club',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">CRED</div>
+        <div class="app-card-desc">CRED</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.csam.icici.bank.imobile','iMobile Pay')">
+        <img src="https://play-lh.googleusercontent.com/eFO3LCt3SGPD2hXXoSqTcR2RkZi4yYHFG5DQK5_CvBpHQH5N6g7nNHJmSRy6Lw=s96" onerror="this.src=makeSvgIcon('iMobile Pay','com.csam.icici.bank.imobile',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">iMobile Pay</div>
+        <div class="app-card-desc">ICICI</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.sbi.SBIFreedomPlus','YONO SBI')">
+        <img src="https://play-lh.googleusercontent.com/YRnFtFxJHLwnVlnYXMTxVvR4K7GXTxLJFPLOKvzl8bXEMXqknUDcivdijr-vJeM=s96" onerror="this.src=makeSvgIcon('YONO SBI','com.sbi.SBIFreedomPlus',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">YONO SBI</div>
+        <div class="app-card-desc">SBI</div>
+        <div class="app-card-rating">★ 3.9</div>
+      </div><div class="app-card" onclick="analyzeApp('com.mobikwik_two','MobiKwik')">
+        <img src="https://play-lh.googleusercontent.com/r_0wNwHD5R8JTqtLBEIhKvDMXGVfLmKdkRQrLaFCX6g_tJqLXXCJhBQ-jV3zA=s96" onerror="this.src=makeSvgIcon('MobiKwik','com.mobikwik_two',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">MobiKwik</div>
+        <div class="app-card-desc">MobiKwik</div>
+        <div class="app-card-rating">★ 4.1</div>
+      </div><div class="app-card" onclick="analyzeApp('com.dreamplug.androidapp','CRED')">
+        <img src="https://play-lh.googleusercontent.com/lIVGFYZAnrKHHgfMqKtm5WT3g4tGLVKcgqBQ2g3L2KQqGYXQ3o5GI0TH9QpGTGXf=s96" onerror="this.src=makeSvgIcon('CRED','com.dreamplug.androidapp',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">CRED</div>
+        <div class="app-card-desc">CRED</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div></div>
+    </div>
+    <div class="cat-section">
+      <div class="cat-header">
+        <div class="cat-title">🎮 Action Games</div>
+      </div>
+      <div class="apps-row"><div class="app-card" onclick="analyzeApp('com.pubg.krmobile','BGMI')">
+        <img src="https://play-lh.googleusercontent.com/GVobsr2e0nJYlSmEpbHvdB7HFJJGv0qj7K8i0j0fKVrWC0VBP6zcLBuCyGLzKxGHew=s96" onerror="this.src=makeSvgIcon('BGMI','com.pubg.krmobile',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">BGMI</div>
+        <div class="app-card-desc">Krafton</div>
+        <div class="app-card-rating">★ 4.2</div>
+      </div><div class="app-card" onclick="analyzeApp('com.garena.free.fire','Free Fire')">
+        <img src="https://play-lh.googleusercontent.com/WWcMFaRpSiC5R2pTUPm_HxWUoMdLtHpjgMqOd8hx6d4lP8TfJm0JqBbGVFk_JJl6aA=s96" onerror="this.src=makeSvgIcon('Free Fire','com.garena.free.fire',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Free Fire</div>
+        <div class="app-card-desc">Garena</div>
+        <div class="app-card-rating">★ 4.1</div>
+      </div><div class="app-card" onclick="analyzeApp('com.supercell.clashofclans','Clash of Clans')">
+        <img src="https://play-lh.googleusercontent.com/Vni6qlz5JO6T2NtB3S4X5cAXsQ2UJ_lnuFM9-UdwXAklB4OKPMvxQJg2V-TFOm8tO8=s96" onerror="this.src=makeSvgIcon('Clash of Clans','com.supercell.clashofclans',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Clash of Clans</div>
+        <div class="app-card-desc">Supercell</div>
+        <div class="app-card-rating">★ 4.8</div>
+      </div><div class="app-card" onclick="analyzeApp('com.kiloo.subwaysurf','Subway Surfers')">
+        <img src="https://play-lh.googleusercontent.com/mF5z_KScBVwRmL-JNY_dBjR2n6XVzrSTk4fxfCxoHH3sczXoKzVlBmXq6RjCcMz=s96" onerror="this.src=makeSvgIcon('Subway Surfers','com.kiloo.subwaysurf',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Subway Surfers</div>
+        <div class="app-card-desc">SYBO</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div><div class="app-card" onclick="analyzeApp('com.king.candycrushsaga','Candy Crush')">
+        <img src="https://play-lh.googleusercontent.com/gdR6TRlpCORkDLlMO40lVYS1XSMDqNvimWrh9C0HWYPwMVxBR3DwMzNDXdLxs0_Fw=s96" onerror="this.src=makeSvgIcon('Candy Crush','com.king.candycrushsaga',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Candy Crush</div>
+        <div class="app-card-desc">King</div>
+        <div class="app-card-rating">★ 4.7</div>
+      </div><div class="app-card" onclick="analyzeApp('com.supercell.clashroyale','Clash Royale')">
+        <img src="https://play-lh.googleusercontent.com/k4kBKyQuh3Kl7yXAURFO7XEN5T2iBWiMNT1QHDwuLKvTBDPTfGiXZbh2Q9T_RYMA=s96" onerror="this.src=makeSvgIcon('Clash Royale','com.supercell.clashroyale',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Clash Royale</div>
+        <div class="app-card-desc">Supercell</div>
+        <div class="app-card-rating">★ 4.4</div>
+      </div><div class="app-card" onclick="analyzeApp('com.innersloth.spacemafia','Among Us')">
+        <img src="https://play-lh.googleusercontent.com/hJGHtbYSQ2HRQyL_e0c6Gg_GwuFDqJw6RFpJLLajFGb4gJwDjq3V3KvFO2LZaUG8=s96" onerror="this.src=makeSvgIcon('Among Us','com.innersloth.spacemafia',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Among Us</div>
+        <div class="app-card-desc">InnerSloth</div>
+        <div class="app-card-rating">★ 4.2</div>
+      </div><div class="app-card" onclick="analyzeApp('com.mojang.minecraftpe','Minecraft')">
+        <img src="https://play-lh.googleusercontent.com/VSwHMHvEFzPMUPFmhXpTT6J1k1eifKFr6-aLZCRpvpFGfUv-d9OhQeKDMb7TXHA=s96" onerror="this.src=makeSvgIcon('Minecraft','com.mojang.minecraftpe',88)" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <div class="app-card-name">Minecraft</div>
+        <div class="app-card-desc">Mojang</div>
+        <div class="app-card-rating">★ 4.5</div>
+      </div></div>
+    </div></div>
   </div>
 </div>
 
@@ -630,21 +907,28 @@ function showViewAll(catName, catId){
 }
 
 function buildHome(){
-  const body = document.getElementById('home-body');
-  // Remove old category sections only (keep hero banner)
-  body.querySelectorAll('.cat-section').forEach(s => s.remove());
-  // Append category sections after hero
+  const container = document.getElementById('cats-container');
+  if(!container){ console.error('cats-container not found'); return; }
+  container.innerHTML = '';
   CATS.forEach(cat => {
     const sec = document.createElement('div');
     sec.className = 'cat-section';
     sec.id = 'sec-' + cat.id;
-    sec.innerHTML = `
-      <div class="cat-header">
-        <div class="cat-title">${cat.name}</div>
-      </div>
-      <div class="apps-row" id="row-${cat.id}">${skeletons(12)}</div>`;
-    body.appendChild(sec);
-    loadCategory(cat);
+    const header = document.createElement('div');
+    header.className = 'cat-header';
+    header.innerHTML = '<div class="cat-title">'+cat.name+'</div>';
+    sec.appendChild(header);
+    const row = document.createElement('div');
+    row.className = 'apps-row';
+    row.id = 'row-'+cat.id;
+    row.innerHTML = skeletons(8);
+    sec.appendChild(row);
+    container.appendChild(sec);
+    // Show fallback immediately
+    const fb = FALLBACK[cat.id]||[];
+    if(fb.length) renderApps(row, fb);
+    // Then try live API
+    loadCategory(cat, row);
   });
 }
 
@@ -657,46 +941,18 @@ function skeletons(n){
     </div>`).join('');
 }
 
-async function loadCategory(cat){
-  const row = document.getElementById('row-' + cat.id);
-  // Show fallback immediately with SVG avatars while API loads
-  const fb = FALLBACK[cat.id] || [];
-  if(fb.length) renderApps(row, fb);
-  // Then try to get real Play Store data with real icons
+async function loadCategory(cat, row){
+  if(!row) row = document.getElementById('row-'+cat.id);
+  if(!row) return;
   try {
-    const r = await fetch('/category',{method:'POST',headers:{'Content-Type':'application/json'},
+    const r = await fetch('/category',{method:'POST',
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({category:cat.id,collection:cat.col})});
     const d = await r.json();
     if(d.success && d.apps && d.apps.length){
       renderApps(row, d.apps);
-      return;
     }
-  } catch(e){}
-  // If API failed, fetch icons for fallback apps via search
-  if(fb.length){
-    fb.forEach(async (a) => {
-      try {
-        const sr = await fetch('/search',{method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({query:a.appId})});
-        const sd = await sr.json();
-        if(sd.success && sd.results && sd.results[0] && sd.results[0].icon){
-          // Update icon in the row
-          const cards = row.querySelectorAll('.app-card');
-          const fbIdx = fb.indexOf(a);
-          if(cards[fbIdx]){
-            const img = cards[fbIdx].querySelector('img');
-            if(img){
-              const proxied = '/proxy-icon?url=' + encodeURIComponent(sd.results[0].icon);
-              const probe = new Image();
-              probe.onload = () => { img.src = proxied; };
-              probe.src = proxied;
-            }
-          }
-        }
-      } catch(e){}
-    });
-  }
+  } catch(e){ console.log('Category API failed for',cat.id,e); }
 }
 
 function renderApps(row, apps){
@@ -945,11 +1201,12 @@ document.addEventListener('click',e=>{
 });
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
+// Initialize when DOM is ready
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', buildHome);
+} else {
   buildHome();
-});
-// Also call immediately in case DOM is ready
-if(document.readyState !== 'loading') buildHome();
+}
 </script>
 </body>
 </html>
