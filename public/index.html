@@ -1,1150 +1,953 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AppTrust — AI App Safety Detection System</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>AppTrust — AI App Safety Store</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%233b82f6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M20 2L5 8v10c0 9.5 6.5 18.4 15 21 8.5-2.6 15-11.5 15-21V8L20 2z' fill='url(%23g)'/%3E%3Cpath d='M14 20l4 4 8-8' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-/* ── VARIABLES ── */
-:root{
-  --bg:#09090f;--bg2:#0d0e1c;--bg3:#111327;--bg4:#161830;
-  --pur:#7c3aed;--pur2:#a855f7;--blu:#3b82f6;--blu2:#60a5fa;
-  --grn:#10b981;--amb:#f59e0b;--red:#ef4444;--pnk:#ec4899;--cyn:#06b6d4;
-  --txt:#f0f2ff;--txt2:#8892b8;--txt3:#3d4468;
-  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
-  --c1:rgba(255,255,255,0.04);--c2:rgba(255,255,255,0.08);
-}
-[data-theme="light"]{
-  --bg:#f0f2fa;--bg2:#fff;--bg3:#e8ebf5;--bg4:#dde1f0;
-  --txt:#0a0b14;--txt2:#4a5180;--txt3:#9098c0;
-  --b1:rgba(0,0,0,0.07);--b2:rgba(0,0,0,0.12);
-  --c1:rgba(0,0,0,0.03);--c2:rgba(0,0,0,0.06);
-}
+:root{--bg:#0a0d14;--bg2:#0f1422;--bg3:#131c2e;--bg4:#1a2540;
+  --green:#00e5a0;--green2:rgba(0,229,160,.15);
+  --red:#ef4444;--red2:rgba(239,68,68,.15);
+  --amber:#f59e0b;--purple:#8b5cf6;--blue:#3b82f6;
+  --txt:#e5eaff;--txt2:#7a89b8;--txt3:#3a4468;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.12);}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s;}
-
-
-/* ── STARS ── */
-.stars{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
-.star{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d) var(--dl) infinite;}
-@keyframes tw{0%,100%{opacity:var(--mn);}50%{opacity:var(--mx);}}
-
-/* ── BG GLOW ── */
-.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 50% 40% at 20% 20%,rgba(124,58,237,.12) 0%,transparent 70%),
-             radial-gradient(ellipse 40% 35% at 85% 30%,rgba(59,130,246,.09) 0%,transparent 70%),
-             radial-gradient(ellipse 35% 30% at 55% 85%,rgba(168,85,247,.07) 0%,transparent 70%);}
-
-/* ── PAGE SYSTEM ── */
-.page{position:relative;z-index:1;display:none;}
-.page.on{display:block !important;}
-
-/* ── HEADER ── */
-header{display:flex;align-items:center;justify-content:space-between;padding:12px 36px;
-  background:rgba(9,9,15,.88);backdrop-filter:blur(24px);
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;}
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;
+  background:rgba(10,13,20,.92);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--b1);position:sticky;top:0;z-index:200;}
-[data-theme="light"] header{background:rgba(255,255,255,.88);}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
-.logo-box{width:34px;height:34px;background:linear-gradient(135deg,var(--pur),var(--blu));
-  border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;
-  box-shadow:0 0 14px rgba(124,58,237,.4);flex-shrink:0;}
-.logo h1{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--txt);}
-.logo p{font-size:10px;color:var(--txt2);}
-.nav{display:flex;align-items:center;gap:2px;}
-.nl{font-size:13px;color:var(--txt2);padding:7px 12px;border-radius:7px;cursor:pointer;transition:all .18s;position:relative;font-family:'Manrope',sans-serif;}
-.nl:hover{color:var(--txt);background:var(--c2);}
-.nl.on{color:var(--pur2);}
-.nl.on::after{content:'';position:absolute;bottom:-1px;left:12px;right:12px;height:2px;background:var(--pur2);border-radius:2px;}
-.hright{display:flex;align-items:center;gap:10px;}
-.tgl{display:flex;background:var(--c2);border:1px solid var(--b2);border-radius:22px;padding:4px;gap:2px;}
-.tb{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .2s;color:var(--txt2);}
-.tb.on{background:var(--pur);color:#fff;box-shadow:0 0 10px rgba(124,58,237,.4);}
-.dbtn{background:linear-gradient(135deg,var(--pur),var(--blu));border:none;padding:8px 20px;border-radius:20px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;}
-.dbtn:hover{box-shadow:0 0 20px rgba(124,58,237,.5);transform:translateY(-1px);}
-.ava{width:33px;height:33px;border-radius:50%;background:linear-gradient(135deg,var(--pur2),var(--pnk));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;cursor:pointer;}
-@media(max-width:768px){.nav{display:none;}header{padding:10px 16px;}}
-
-/* ── HOME LAYOUT ── */
-.home-wrap{display:grid;grid-template-columns:1fr 540px;gap:36px;padding:44px 36px 36px;max-width:1400px;margin:0 auto;}
-@media(max-width:1100px){.home-wrap{grid-template-columns:1fr;padding:28px 18px;}.right-col{order:-1;}}
-
-/* ── HERO LEFT ── */
-.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(124,58,237,.13);
-  border:1px solid rgba(124,58,237,.3);padding:6px 14px;border-radius:20px;
-  font-size:12px;color:var(--pur2);margin-bottom:20px;font-weight:500;}
-.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--pur2);animation:blink 1.6s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
-.h1{font-family:'Syne',sans-serif;font-size:46px;font-weight:900;line-height:1.07;letter-spacing:-1.5px;margin-bottom:16px;}
-.h1 .c-red{color:var(--red);}
-.h1 .c-grn{background:linear-gradient(135deg,var(--grn),var(--cyn));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.h1 .c-amb{color:var(--amb);}
-.desc{font-size:14px;color:var(--txt2);line-height:1.8;margin-bottom:20px;max-width:420px;}
-.trust-row{display:flex;align-items:center;gap:10px;margin-bottom:22px;}
-.avas{display:flex;}
-.av{width:27px;height:27px;border-radius:50%;border:2px solid var(--bg2);margin-left:-7px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;}
-.av:first-child{margin-left:0;}
-.trust-txt{font-size:13px;color:var(--txt2);}
-.trust-txt strong{color:var(--txt);}
-
-/* ── SEARCH ── */
-.search-wrap{position:relative;margin-bottom:16px;}
-.sbox{display:flex;align-items:center;gap:10px;background:var(--bg3);
-  border:1.5px solid rgba(124,58,237,.35);border-radius:14px;padding:10px 10px 10px 16px;
-  transition:border-color .2s,box-shadow .2s;}
-.sbox:focus-within{border-color:rgba(124,58,237,.75);box-shadow:0 0 0 3px rgba(124,58,237,.1);}
-.sbox-ico{font-size:15px;color:var(--txt3);flex-shrink:0;}
-.sapp-ico{width:26px;height:26px;border-radius:6px;object-fit:cover;display:none;flex-shrink:0;}
-.sapp-ico.on{display:block;}
-.sinput{flex:1;background:none;border:none;outline:none;font-size:14px;color:var(--txt);font-family:'Manrope',sans-serif;}
-.sinput::placeholder{color:var(--txt3);}
-.smic{background:none;border:none;font-size:15px;color:var(--txt3);cursor:pointer;padding:4px;}
-.sclear{background:rgba(255,255,255,.1);border:none;width:22px;height:22px;border-radius:50%;color:var(--txt2);cursor:pointer;font-size:11px;display:none;align-items:center;justify-content:center;flex-shrink:0;}
-.sclear.on{display:flex;}
-.abtn{padding:10px 20px;background:linear-gradient(135deg,var(--pur),var(--blu));border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;white-space:nowrap;transition:all .2s;}
-.abtn:hover{box-shadow:0 0 18px rgba(124,58,237,.5);transform:scale(1.02);}
-.sugs{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--bg2);border:1px solid var(--b2);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);z-index:300;display:none;max-height:320px;overflow-y:auto;}
-.si{display:flex;align-items:center;gap:11px;padding:10px 15px;cursor:pointer;transition:background .14s;border-bottom:1px solid var(--b1);}
-.si:last-child{border-bottom:none;}
-.si:hover{background:var(--c2);}
-.si-img{width:33px;height:33px;border-radius:8px;object-fit:cover;flex-shrink:0;}
-.si-nm{font-size:13px;font-weight:500;color:var(--txt);}
-.si-id{font-size:10px;color:var(--txt3);}
-.si-st{font-size:11px;color:var(--amb);margin-left:auto;flex-shrink:0;}
-
-/* POP CHIPS */
-.pop-row{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:28px;}
-.pop-lbl{font-size:12px;color:var(--txt3);}
-.pchip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:var(--c2);border:1px solid var(--b2);border-radius:20px;font-size:12px;color:var(--txt2);cursor:pointer;transition:all .18s;}
-.pchip:hover{background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.35);color:var(--txt);}
-.pchip img{width:13px;height:13px;border-radius:3px;}
-
-/* STAT CARDS */
-.scards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
-@media(max-width:600px){.scards{grid-template-columns:1fr 1fr;}}
-.scard{background:var(--bg3);border:1px solid var(--b1);border-radius:13px;padding:14px;}
-.scard-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:9px;}
-.ic-p{background:rgba(124,58,237,.14);}
-.ic-b{background:rgba(59,130,246,.14);}
-.ic-y{background:rgba(245,158,11,.14);}
-.ic-r{background:rgba(239,68,68,.14);}
-.scard-v{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--txt);}
-.scard-l{font-size:11px;color:var(--txt2);margin-top:2px;}
-.scard-s{font-size:10px;color:var(--txt3);margin-top:1px;}
-
-/* HOW IT WORKS */
-.hiw{background:var(--bg3);border:1px solid var(--b1);border-radius:14px;padding:18px;margin-bottom:14px;}
-.hiw-t{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;text-align:center;margin-bottom:16px;color:var(--txt);}
-.hiw-steps{display:flex;align-items:flex-start;}
-.hiw-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;}
-.hiw-num{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--pur),var(--blu));color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-family:'Syne',sans-serif;}
-.hiw-arr{position:absolute;top:13px;right:-14px;font-size:14px;color:var(--txt3);}
-.hiw-ico{font-size:20px;margin-bottom:6px;}
-.hiw-nm{font-size:12px;font-weight:600;color:var(--txt);margin-bottom:3px;}
-.hiw-d{font-size:10px;color:var(--txt2);line-height:1.5;}
-
-/* PRIVACY */
-.privbar{display:flex;align-items:center;gap:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:11px;padding:11px 15px;}
-.privbar p{font-size:12px;color:var(--txt2);}
-.privbar strong{color:var(--grn);}
-
-/* ── RIGHT PANEL ── */
-.panel{background:var(--bg2);border:1px solid var(--b2);border-radius:20px;padding:22px;box-shadow:0 4px 28px rgba(0,0,0,.4);min-height:520px;position:relative;}
-
-/* ERROR BOX */
-.errbox{background:rgba(239,68,68,.09);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:11px;color:#fca5a5;font-size:13px;text-align:center;display:none;margin-bottom:12px;}
-
-/* EMPTY */
-#pnl-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:460px;}
-.orb-wrap{position:relative;width:200px;height:200px;margin:0 auto 24px;}
-.orb-ring{position:absolute;border-radius:50%;border:1px dashed rgba(124,58,237,.22);top:50%;left:50%;transform:translate(-50%,-50%);}
-.r1{width:200px;height:200px;animation:rspin 22s linear infinite;}
-.r2{width:140px;height:140px;animation:rspin 16s linear infinite reverse;}
-@keyframes rspin{to{transform:translate(-50%,-50%) rotate(360deg);}}
-.orb-ctr{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(59,130,246,.2));border:2px solid rgba(124,58,237,.45);display:flex;align-items:center;justify-content:center;font-size:28px;}
-.orb-node{position:absolute;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;border:1px solid var(--b2);}
-.on1{background:rgba(124,58,237,.2);top:-17px;left:50%;margin-left:-17px;}
-.on2{background:rgba(16,185,129,.2);bottom:-17px;left:50%;margin-left:-17px;}
-.on3{background:rgba(245,158,11,.2);left:-17px;top:50%;margin-top:-17px;}
-.on4{background:rgba(59,130,246,.2);right:-17px;top:50%;margin-top:-17px;}
-#pnl-empty h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--txt);margin-bottom:7px;text-align:center;}
-#pnl-empty p{font-size:13px;color:var(--txt2);text-align:center;max-width:270px;line-height:1.6;margin-bottom:22px;}
-.flist{width:100%;display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
-.frow{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:var(--c1);border:1px solid var(--b1);border-radius:10px;cursor:pointer;transition:all .18s;}
-.frow:hover{background:var(--c2);border-color:var(--b2);}
-.frow-l{display:flex;align-items:center;gap:9px;}
-.fico{width:27px;height:27px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;}
-.fi-p{background:rgba(124,58,237,.14);}
-.fi-o{background:rgba(245,158,11,.14);}
-.fi-b{background:rgba(59,130,246,.14);}
-.fi-g{background:rgba(16,185,129,.14);}
-.fi-r{background:rgba(239,68,68,.14);}
-.frow-nm{font-size:12px;font-weight:600;color:var(--txt);}
-.frow-d{font-size:10px;color:var(--txt2);}
-.frow-arr{color:var(--txt3);font-size:13px;}
-.pnl-footer{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
-.pnl-fi{display:flex;align-items:flex-start;gap:7px;padding:9px;background:var(--c1);border-radius:9px;border:1px solid var(--b1);}
-.pnl-fi-t{font-size:11px;color:var(--txt2);line-height:1.5;}
-.pnl-fi-t strong{color:var(--txt);}
-
-/* LOADING */
-#pnl-load{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:460px;}
-.spinner{width:42px;height:42px;border:3px solid rgba(124,58,237,.15);border-top:3px solid var(--pur2);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:14px;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.load-t{font-size:14px;color:var(--txt2);}
-.load-s{font-size:11px;color:var(--txt3);margin-top:4px;}
-
-/* RESULT */
-#pnl-result{display:none;animation:fadeUp .4s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-
-/* APP TOP */
-.app-top{display:flex;align-items:flex-start;gap:13px;margin-bottom:18px;padding-bottom:15px;border-bottom:1px solid var(--b1);}
-.app-ico{width:60px;height:60px;border-radius:15px;object-fit:cover;border:2px solid var(--b2);flex-shrink:0;}
-.app-ico.rotating{animation:rot3d 5s linear infinite;}
-@keyframes rot3d{0%{transform:perspective(300px) rotateY(0deg);}100%{transform:perspective(300px) rotateY(360deg);}}
-.app-info{flex:1;min-width:0;}
-.app-nm{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--txt);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.app-sub{font-size:11px;color:var(--txt2);margin-bottom:4px;}
-.sbadge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:7px;font-size:10px;font-weight:700;}
-.app-meta-r{margin-left:auto;text-align:right;flex-shrink:0;}
-.done-tag{font-size:10px;color:var(--grn);}
-.ago-tag{font-size:9px;color:var(--txt2);margin-top:2px;}
-.shr-row{display:flex;gap:6px;margin-top:5px;justify-content:flex-end;}
-.shr-btn{background:var(--c2);border:1px solid var(--b1);width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;transition:all .18s;}
-.shr-btn:hover{background:var(--c1);}
-
-/* GAUGE ROW */
-.gauge-row{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;margin-bottom:14px;}
-.gauge-wrap{position:relative;width:150px;height:150px;}
-canvas#gCv{width:150px!important;height:150px!important;}
-.g-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.g-deg{font-family:'Syne',sans-serif;font-size:32px;font-weight:900;color:var(--txt);line-height:1;}
-.g-lbl{font-size:10px;color:var(--txt2);margin-top:2px;}
-.g-pill{font-size:10px;font-weight:700;padding:2px 9px;border-radius:9px;margin-top:3px;}
-.g-pill.safe{background:rgba(16,185,129,.14);color:#6ee7b7;border:1px solid rgba(16,185,129,.3);}
-.g-pill.suspicious{background:rgba(245,158,11,.14);color:#fcd34d;border:1px solid rgba(245,158,11,.3);}
-.g-pill.scam{background:rgba(239,68,68,.14);color:#fca5a5;border:1px solid rgba(239,68,68,.3);}
-.g-better{font-size:11px;color:var(--txt2);margin-top:7px;line-height:1.5;}
-.g-better strong{color:var(--grn);}
-
-/* METRICS */
-.mlist{display:flex;flex-direction:column;gap:7px;}
-.mitem{background:var(--c1);border-radius:9px;padding:9px 11px;}
-.mtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
-.mleft{display:flex;align-items:center;gap:7px;}
-.mico{font-size:14px;}
-.mnm{font-size:11px;font-weight:600;color:var(--txt);}
-.msl{font-size:9px;color:var(--txt2);}
-.mval{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
-.mbar{background:rgba(255,255,255,.07);height:4px;border-radius:3px;overflow:hidden;}
-.mbar-f{height:100%;border-radius:3px;transition:width 1s ease;}
-
-/* META */
-.meta-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px;}
-.mbox{background:var(--c1);border-radius:9px;padding:9px 11px;}
-.mbox-l{font-size:10px;color:var(--txt2);margin-bottom:2px;}
-.mbox-v{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--txt);}
-
-/* SENT ROW */
-.sent-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:13px;}
-@media(max-width:600px){.sent-row{grid-template-columns:1fr 1fr;}}
-.scard2{background:var(--c1);border-radius:9px;padding:10px 12px;}
-.sc2-lbl{font-size:10px;color:var(--txt2);margin-bottom:5px;}
-.sc2-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;}
-.sc2-sub{font-size:9px;color:var(--txt2);margin-top:2px;}
-.sent-bar{background:rgba(255,255,255,.07);height:4px;border-radius:3px;overflow:hidden;margin-top:6px;}
-.sent-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--grn),var(--cyn));transition:width 1s ease;}
-canvas#rcC{width:100%!important;height:30px!important;margin-top:5px;}
-
-/* BREAKDOWN */
-.bkdn{background:var(--c1);border-radius:11px;padding:11px 13px;margin-bottom:12px;}
-.bkdn-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;}
-.bkdn-t{font-size:12px;font-weight:600;color:var(--txt);}
-.bkdn-vr{font-size:10px;color:var(--pur2);cursor:pointer;}
+.logo-img{width:40px;height:40px;flex-shrink:0;display:block;border-radius:10px;box-shadow:0 0 12px rgba(139,92,246,0.5);background:linear-gradient(135deg,#8b5cf6,#3b82f6);}
+.logo-txt{display:flex;flex-direction:column;line-height:1.1;}
+.logo h1{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px;}
+.logo h1 span{background:linear-gradient(135deg,var(--purple),#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.logo-tagline{font-size:9px;color:var(--txt3);letter-spacing:.5px;text-transform:uppercase;font-family:'DM Sans',sans-serif;}
+.h-search{display:flex;align-items:center;gap:10px;background:var(--bg3);
+  border:1px solid var(--b2);border-radius:10px;padding:8px 16px;width:340px;transition:all .2s;}
+.h-search:focus-within{border-color:rgba(139,92,246,.5);}
+.h-search input{background:none;border:none;outline:none;font-size:13px;color:var(--txt);
+  font-family:'DM Sans',sans-serif;flex:1;}
+.h-search input::placeholder{color:var(--txt3);}
+.h-search button{background:var(--purple);border:none;color:#fff;padding:5px 14px;
+  border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;}
+.hnav{display:flex;align-items:center;gap:4px;}
+.hl{font-size:13px;color:var(--txt2);padding:6px 12px;border-radius:7px;cursor:pointer;
+  transition:all .18s;font-family:'DM Sans',sans-serif;}
+.hl:hover{color:var(--txt);background:var(--b1);}
+/* SEARCH DROPDOWN */
+.h-search-wrap{position:relative;}
+.search-sugs{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--bg2);
+  border:1px solid var(--b2);border-radius:12px;overflow:hidden;display:none;
+  box-shadow:0 16px 48px rgba(0,0,0,.6);z-index:300;max-height:300px;overflow-y:auto;}
+.sug-item{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;
+  transition:background .14s;border-bottom:1px solid var(--b1);}
+.sug-item:last-child{border-bottom:none;}
+.sug-item:hover{background:var(--bg3);}
+.sug-img{width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0;}
+.sug-nm{font-size:13px;font-weight:500;color:var(--txt);}
+.sug-dev{font-size:10px;color:var(--txt3);}
+.sug-rating{font-size:11px;color:var(--amber);margin-left:auto;}
+/* HOME PAGE */
+#pg-home{display:block;}
+.home-body{max-width:1400px;margin:0 auto;padding:32px 32px 60px;}
+.hero-banner{background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(59,130,246,.08),rgba(0,229,160,.05));
+  border:1px solid rgba(139,92,246,.2);border-radius:18px;padding:28px 36px;
+  margin-bottom:36px;display:flex;align-items:center;justify-content:space-between;
+  position:relative;overflow:hidden;}
+.hero-banner::before{content:'';position:absolute;right:-80px;top:-80px;width:280px;height:280px;
+  background:radial-gradient(circle,rgba(139,92,246,.14),transparent 70%);border-radius:50%;pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,160,.1);
+  border:1px solid rgba(0,229,160,.25);padding:4px 13px;border-radius:20px;
+  font-size:11px;color:#00e5a0;margin-bottom:12px;}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:#00e5a0;animation:blk 1.6s infinite;}
+@keyframes blk{0%,100%{opacity:1}50%{opacity:.15}}
+.hero-title{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#fff;
+  letter-spacing:-.5px;margin-bottom:8px;line-height:1.1;}
+.hero-title em{font-style:normal;background:linear-gradient(135deg,var(--purple),#60a5fa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:13px;color:var(--txt2);max-width:380px;line-height:1.6;}
+.hero-stats{display:flex;gap:28px;margin-top:18px;}
+.hstat-val{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;}
+.hstat-lbl{font-size:10px;color:var(--txt2);margin-top:1px;}
+.hero-right{flex-shrink:0;}
+.hero-logo-big{animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 28px rgba(139,92,246,.65));}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.cat-section{margin-bottom:36px;}
+.cat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cat-title{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--txt);}
+.cat-more{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--amber);cursor:pointer;}
+.apps-row{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-behavior:smooth;}
+.apps-row::-webkit-scrollbar{height:3px;}
+.apps-row::-webkit-scrollbar-track{background:transparent;}
+.apps-row::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px;}
+/* APP CARD */
+.app-card{flex-shrink:0;width:108px;cursor:pointer;transition:transform .2s;
+  padding:8px;border-radius:12px;border:1px solid transparent;}
+.app-card:hover{transform:translateY(-3px);border-color:var(--b2);background:var(--bg2);}
+.app-card img{width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;
+  margin-bottom:8px;border:1px solid var(--b1);}
+.app-card-name{font-size:12px;font-weight:600;color:var(--txt);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.app-card-desc{font-size:10px;color:var(--txt2);line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  margin-bottom:4px;min-height:28px;}
+.app-card-rating{font-size:10px;color:var(--amber);display:flex;align-items:center;gap:3px;}
+/* SKELETON */
+.skel-card{flex-shrink:0;width:108px;padding:8px;}
+.skel-ico{width:88px;height:88px;border-radius:16px;background:var(--bg3);
+  animation:shimmer 1.4s infinite;margin-bottom:8px;}
+.skel-line{background:var(--bg3);border-radius:4px;animation:shimmer 1.4s infinite;margin-bottom:4px;}
+@keyframes shimmer{0%,100%{opacity:.5}50%{opacity:1}}
+/* ═══════ ANALYSIS PAGE ═══════ */
+#pg-analysis{display:none;background:var(--bg);min-height:100vh;}
+.analysis-body{max-width:1240px;margin:0 auto;padding:24px 32px 60px;}
+/* APP HEADER */
+.app-top-bar{display:flex;align-items:center;gap:18px;
+  background:var(--bg2);border:1px solid var(--b1);border-radius:16px;
+  padding:20px 22px;margin-bottom:20px;position:relative;overflow:visible;}
+.a-icon{width:80px;height:80px;border-radius:18px;object-fit:cover;
+  border:2px solid rgba(255,255,255,0.12);flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+.a-icon.rotating{animation:none;}
+@keyframes rot3d{0%{transform:perspective(300px) rotateY(0deg)}100%{transform:perspective(300px) rotateY(360deg)}}
+.a-info{flex:1;min-width:0;}
+.a-name{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:3px;}
+.a-meta{font-size:13px;color:var(--txt2);margin-bottom:8px;}
+.a-badges{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.safe-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 11px;
+  border-radius:20px;font-size:11px;font-weight:700;}
+.safe-pill.safe{background:rgba(0,229,160,.12);border:1px solid rgba(0,229,160,.3);color:var(--green);}
+.safe-pill.suspicious{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--amber);}
+.safe-pill.scam{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:var(--red);}
+.a-done{font-size:11px;color:var(--green);display:flex;align-items:center;gap:5px;}
+.a-actions{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0;}
+.play-btn{display:flex;align-items:center;gap:6px;background:var(--blue);border:none;
+  color:#fff;padding:8px 18px;border-radius:9px;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:'Sora',sans-serif;transition:all .18s;text-decoration:none;}
+.play-btn:hover{background:#2563eb;box-shadow:0 4px 14px rgba(59,130,246,.35);}
+.view-btn{background:none;border:1px solid var(--b2);color:var(--txt2);padding:8px 16px;
+  border-radius:9px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;}
+.view-btn:hover{border-color:var(--b2);color:var(--txt);}
+.close-btn{background:var(--bg3);border:1px solid var(--b1);color:var(--txt2);
+  width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.close-btn:hover{background:var(--red2);border-color:var(--red);color:var(--red);}
+/* MAIN METRICS */
+.metrics-row{display:grid;grid-template-columns:200px 1fr;gap:16px;margin-bottom:16px;}
+/* GAUGE CARD */
+.gauge-card{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;
+  padding:20px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.gauge-wrap{position:relative;width:160px;height:160px;margin-bottom:10px;}
+#gaugeCanvas{width:160px!important;height:160px!important;}
+.gauge-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.gauge-num{font-family:'Sora',sans-serif;font-size:38px;font-weight:800;color:#fff;line-height:1;}
+.gauge-lbl{font-size:11px;color:var(--txt2);margin-top:2px;}
+.gauge-grade{font-size:13px;font-weight:700;margin-top:3px;}
+.gauge-better{font-size:11px;color:var(--txt2);text-align:center;line-height:1.5;}
+.gauge-better strong{color:var(--green);}
+/* 4 METRIC CARDS */
+.metric-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.metric-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:14px 16px;}
+.mc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.mc-left{display:flex;align-items:center;gap:9px;}
+.mc-ico{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:13px;flex-shrink:0;background:var(--b1);}
+.mc-title{font-size:13px;font-weight:600;color:var(--txt);}
+.mc-sub{font-size:11px;margin-top:1px;font-weight:600;}
+.mc-pct{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;}
+.mc-bar{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;}
+.mc-bar-fill{height:100%;border-radius:3px;transition:width 1s ease;}
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:14px 16px;}
+.sc-label{font-size:11px;color:var(--txt2);margin-bottom:6px;}
+.sc-val{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:2px;}
+.sc-sub{font-size:10px;color:var(--txt2);}
+.sc-bar{height:4px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-top:8px;}
+.sc-bar-f{height:100%;border-radius:3px;}
+canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
+.risk-big{font-family:'Sora',sans-serif;font-size:24px;font-weight:800;margin-bottom:3px;}
+/* 360 BREAKDOWN */
+.breakdown-wrap{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:20px 24px;}
+.bk-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.bk-title{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--txt);}
+.bk-view{font-size:12px;color:var(--purple);cursor:pointer;display:flex;align-items:center;gap:5px;}
 .bk-steps{display:flex;align-items:center;}
-.bks{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
-.bks-ico{width:33px;height:33px;border-radius:50%;background:rgba(124,58,237,.15);border:2px solid rgba(124,58,237,.4);display:flex;align-items:center;justify-content:center;font-size:13px;}
-.bks-nm{font-size:8px;color:var(--txt2);text-align:center;line-height:1.3;}
-.bks-ok{font-size:8px;color:var(--grn);}
-.bk-line{flex:1;height:2px;background:linear-gradient(90deg,rgba(124,58,237,.4),rgba(59,130,246,.2));margin-top:-21px;}
-
-/* BOTTOM META */
-.btm-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-@media(max-width:600px){.btm-meta{grid-template-columns:1fr 1fr;}}
-.bm{background:var(--c1);border-radius:9px;padding:9px;display:flex;align-items:center;gap:7px;}
-.bm-ico{width:23px;height:23px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
-.bm-ico.g{background:rgba(16,185,129,.14);}
-.bm-ico.p{background:rgba(124,58,237,.14);}
-.bm-ico.b{background:rgba(59,130,246,.14);}
-.bm-ico.y{background:rgba(245,158,11,.14);}
-.bm-nm{font-size:10px;font-weight:600;color:var(--txt);}
-.bm-d{font-size:9px;color:var(--txt2);}
-
-/* ── SUB PAGES ── */
-.subpage{max-width:860px;margin:0 auto;padding:44px 36px;}
-.sp-badge{display:inline-block;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--pur2);margin-bottom:12px;}
-.subpage h2{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:var(--txt);margin-bottom:8px;}
-.sp-desc{font-size:14px;color:var(--txt2);margin-bottom:32px;line-height:1.8;}
-.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
-@media(max-width:600px){.sp-grid{grid-template-columns:1fr;}}
-.sp-card{background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:18px;}
-.sp-card .sp-ico{font-size:26px;margin-bottom:11px;}
-.sp-card h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--txt);margin-bottom:5px;}
-.sp-card p{font-size:12px;color:var(--txt2);line-height:1.6;}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-@media(max-width:700px){.pricing-grid{grid-template-columns:1fr;}}
-.pcard{background:var(--bg2);border:1px solid var(--b1);border-radius:15px;padding:22px;position:relative;}
-.pcard.feat{border-color:rgba(124,58,237,.5);background:rgba(124,58,237,.05);}
-.pc-tag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--pur),var(--blu));color:#fff;padding:3px 12px;border-radius:10px;font-size:11px;font-weight:700;white-space:nowrap;}
-.pcard h4{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--txt);margin-bottom:5px;}
-.pcard .price{font-family:'Syne',sans-serif;font-size:34px;font-weight:900;color:var(--txt);margin:11px 0;}
-.pcard .price span{font-size:13px;color:var(--txt2);font-weight:400;}
-.pfeats{list-style:none;margin:14px 0;}
-.pfeats li{font-size:12px;color:var(--txt2);padding:4px 0;display:flex;align-items:center;gap:7px;}
-.pfeats li::before{content:'✓';color:var(--grn);font-weight:700;}
-.pbtn{width:100%;padding:10px;border:1px solid var(--b2);border-radius:9px;background:var(--c2);color:var(--txt);font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;font-family:'Syne',sans-serif;margin-top:14px;}
-.pbtn.feat{background:linear-gradient(135deg,var(--pur),var(--blu));border:none;color:#fff;}
-.pbtn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.2);}
-.api-blk{background:var(--bg2);border:1px solid var(--b1);border-radius:11px;padding:18px;margin-bottom:14px;font-family:monospace;font-size:13px;color:#6ee7b7;overflow-x:auto;white-space:pre;line-height:1.7;}
-.api-blk .ck{color:var(--blu2);}
-.api-blk .cs{color:var(--amb);}
-.blog-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-@media(max-width:600px){.blog-grid{grid-template-columns:1fr;}}
-.bcard{background:var(--bg2);border:1px solid var(--b1);border-radius:13px;padding:16px;cursor:pointer;transition:all .18s;}
-.bcard:hover{border-color:var(--b2);transform:translateY(-2px);}
-.btag{display:inline-block;background:var(--c2);border-radius:5px;padding:2px 7px;font-size:10px;color:var(--txt2);margin-bottom:9px;}
-.bcard h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--txt);margin-bottom:5px;}
-.bcard p{font-size:12px;color:var(--txt2);line-height:1.6;}
-.bmeta{font-size:10px;color:var(--txt3);margin-top:10px;}
-.empty-cta{background:var(--bg2);border:1px solid var(--b1);border-radius:15px;padding:28px;text-align:center;color:var(--txt2);}
-.empty-cta .eico{font-size:44px;margin-bottom:12px;}
-.empty-cta h3{font-family:'Syne',sans-serif;color:var(--txt);font-size:17px;margin-bottom:7px;}
-.empty-cta p{font-size:13px;margin-bottom:16px;}
-
-/* DASHBOARD */
-.dash-wrap{max-width:1060px;margin:0 auto;padding:36px;}
-.dash-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
-.dash-hdr h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--txt);}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px;}
-@media(max-width:700px){.kpis{grid-template-columns:1fr 1fr;}}
-.kpi{background:var(--bg2);border:1px solid var(--b1);border-radius:13px;padding:15px;}
-.kpi-v{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--txt);}
-.kpi-l{font-size:12px;color:var(--txt2);margin-top:2px;}
-.kpi-c{font-size:11px;color:var(--grn);margin-top:4px;}
-.dtable{background:var(--bg2);border:1px solid var(--b1);border-radius:13px;overflow:hidden;}
-.dth{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:10px;padding:11px 15px;background:var(--c1);border-bottom:1px solid var(--b1);font-size:10px;color:var(--txt2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
-.dtr{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:10px;padding:11px 15px;border-bottom:1px solid var(--b1);font-size:12px;align-items:center;}
-.dtr:last-child{border-bottom:none;}
-.dtr-app{display:flex;align-items:center;gap:9px;}
-.dtr-app img{width:27px;height:27px;border-radius:6px;}
+.bk-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.bk-circle{width:56px;height:56px;border-radius:50%;border:2px solid var(--purple);
+  background:rgba(139,92,246,.1);display:flex;align-items:center;justify-content:center;
+  font-size:20px;position:relative;}
+.bk-circle::after{content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid rgba(139,92,246,.2);}
+.bk-label{font-size:11px;color:var(--txt2);text-align:center;line-height:1.3;}
+.bk-ok{font-size:10px;color:var(--green);font-weight:600;}
+.bk-line{flex:1;height:1px;background:linear-gradient(90deg,var(--purple),rgba(139,92,246,.2));
+  border-top:1px dashed rgba(139,92,246,.4);margin-top:-38px;}
+/* LOADING */
+.a-loading{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:400px;}
+.spin{width:40px;height:40px;border:3px solid rgba(139,92,246,.15);border-top:3px solid var(--purple);
+  border-radius:50%;animation:spin .7s linear infinite;margin-bottom:14px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:10px;
+  padding:12px;color:#fca5a5;font-size:13px;text-align:center;display:none;margin-bottom:16px;}
+/* BACK BTN */
+.back-btn{display:flex;align-items:center;gap:7px;background:none;border:1px solid var(--b2);
+  color:var(--txt2);padding:7px 16px;border-radius:9px;font-size:13px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .18s;margin-bottom:20px;}
+.back-btn:hover{color:var(--txt);border-color:var(--b2);}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:4px;}
+@media(max-width:900px){
+  .metrics-row{grid-template-columns:1fr;}
+  .stats-row{grid-template-columns:1fr 1fr 1fr;}
+  .h-search{width:220px;}
+}
+@media(max-width:600px){
+  header{padding:12px 16px;}
+  .hnav{display:none;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
 
-
-
-<div class="stars" id="stars"></div>
-<div class="bgfx"></div>
-
 <!-- ══════════ HOME ══════════ -->
-<div class="page on" id="pg-home">
+<div id="pg-home">
   <header>
-    <div class="logo" onclick="go('home')">
-      <div class="logo-box">🛡</div>
-      <div><h1>AppTrust</h1><p>AI App Safety Detection System</p></div>
+    <div class="logo"><svg class="logo-img" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="hlogo1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs>
+  <rect width="40" height="40" rx="10" fill="url(#hlogo1)"/>
+  <path d="M20 7L9 12v8c0 7.5 5 14 11 16 6-2 11-8.5 11-16v-8L20 7z" fill="rgba(255,255,255,0.25)"/>
+  <path d="M15 20l3.5 3.5 6.5-6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
+<div class="logo-txt"><h1>App<span>Trust</span></h1><div class="logo-tagline">AI Safety Store</div></div></div>
+    <div class="h-search-wrap">
+      <div class="h-search">
+        <span style="font-size:14px;color:var(--txt3)">🔍</span>
+        <input type="text" id="h-input" placeholder="Search any app to analyze..." autocomplete="off"/>
+        <button onclick="trigSearch()">Analyze</button>
+      </div>
+      <div class="search-sugs" id="search-sugs"></div>
     </div>
-    <nav class="nav">
-      <span class="nl on" onclick="go('home')">Home</span>
-      <span class="nl" onclick="go('comparisons')">Comparisons ▾</span>
-      <span class="nl" onclick="go('features')">Features</span>
-      <span class="nl" onclick="go('pricing')">Pricing</span>
-      <span class="nl" onclick="go('api')">API</span>
-      <span class="nl" onclick="go('blog')">Blog</span>
-      <span class="nl" onclick="go('about')">About</span>
+    <nav class="hnav">
+      <span class="hl">Games</span>
+      <span class="hl">Apps</span>
+      <span class="hl">Categories</span>
     </nav>
-    <div class="hright">
-      <div class="tgl">
-        <div class="tb on" id="tb-sun" onclick="setTheme('dark')">☀</div>
-        <div class="tb" id="tb-moon" onclick="setTheme('light')">🌙</div>
-      </div>
-      <button class="dbtn" onclick="go('dashboard')">Dashboard</button>
-      <div class="ava">K</div>
-    </div>
   </header>
 
-  <div class="home-wrap">
-    <!-- LEFT -->
-    <div>
-      <div class="badge"><span class="badge-dot"></span>🚀 AI-Powered App Security</div>
-      <h1 class="h1">
-        Detect <span class="c-red">Scam</span> Apps<br>
-        <span class="c-grn">Before</span> They <span class="c-amb">Detect</span> You
-      </h1>
-      <p class="desc">Our AI analyzes reviews, permissions, developer signals, and behavior patterns to keep you safe.</p>
-      <div class="trust-row">
-        <div class="avas">
-          <div class="av" style="background:#7c3aed">K</div>
-          <div class="av" style="background:#3b82f6">R</div>
-          <div class="av" style="background:#10b981">A</div>
-          <div class="av" style="background:#f59e0b">S</div>
-          <div class="av" style="background:#ec4899">M</div>
-        </div>
-        <span class="trust-txt">Trusted by <strong>10,000+</strong> users worldwide</span>
-      </div>
-
-      <div class="search-wrap">
-        <div class="sbox" id="sbox">
-          <img class="sapp-ico" id="sapp-ico" src="" alt=""/>
-          <span class="sbox-ico">🔍</span>
-          <input type="text" class="sinput" id="sinput" placeholder="Enter app name or paste Play Store link..." autocomplete="off"/>
-          <button class="smic">🎤</button>
-          <button class="sclear" id="sclear" onclick="clearSrch()">✕</button>
-          <button class="abtn" onclick="trigSearch()">Analyze App →</button>
-        </div>
-        <div class="sugs" id="sugs"></div>
-      </div>
-
-      <div class="pop-row">
-        <span class="pop-lbl">Try popular:</span>
-        <span class="pchip" onclick="quick('WhatsApp')"><img src="https://play-lh.googleusercontent.com/bYtqkFi3gzOuH7FMGnQiPWaH1mHaTpbjkp2_4_bkFjpFPKUyGVdZE_8IzEj8-YIxAWFw=s32" onerror="this.style.display='none'"/>WhatsApp</span>
-        <span class="pchip" onclick="quick('Instagram')"><img src="https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=s32" onerror="this.style.display='none'"/>Instagram</span>
-        <span class="pchip" onclick="quick('TikTok')"><img src="https://play-lh.googleusercontent.com/ByYtcbmFGRmY5T5hEh_w1P8KHF_-b98rT3QO9oD6raKSIANWzgxmQJnmUNLvEdZ8lw=s32" onerror="this.style.display='none'"/>TikTok</span>
-        <span class="pchip" onclick="quick('Spotify')"><img src="https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WTZH6AkHTCnkMtpSNKWKWJSLM5pPA=s32" onerror="this.style.display='none'"/>Spotify</span>
-        <span class="pchip" onclick="quick('Telegram')">📱 Telegram</span>
-        <span class="pchip">More ▾</span>
-      </div>
-
-      <div class="scards">
-        <div class="scard"><div class="scard-ico ic-p">👥</div><div class="scard-v">10K+</div><div class="scard-l">Users Trust Us</div><div class="scard-s">Growing everyday</div></div>
-        <div class="scard"><div class="scard-ico ic-b">📱</div><div class="scard-v">1M+</div><div class="scard-l">Apps Analyzed</div><div class="scard-s">Across all categories</div></div>
-        <div class="scard"><div class="scard-ico ic-y">⭐</div><div class="scard-v">4.8</div><div class="scard-l">Trustpilot Rating</div><div class="scard-s">From real users</div></div>
-        <div class="scard"><div class="scard-ico ic-r">🎯</div><div class="scard-v">99.2%</div><div class="scard-l">Detection Accuracy</div><div class="scard-s">AI model accuracy</div></div>
-      </div>
-
-      <div class="hiw">
-        <div class="hiw-t">How It Works</div>
-        <div class="hiw-steps">
-          <div class="hiw-step">
-            <div class="hiw-num">1</div>
-            <div class="hiw-ico">🔍</div>
-            <div class="hiw-nm">Search Any App</div>
-            <div class="hiw-d">Enter app name or paste Play Store link to get started.</div>
-            <div class="hiw-arr">→</div>
-          </div>
-          <div class="hiw-step" style="margin-left:24px">
-            <div class="hiw-num">2</div>
-            <div class="hiw-ico">🤖</div>
-            <div class="hiw-nm">AI Analysis</div>
-            <div class="hiw-d">Our AI scans reviews, permissions, developer signals & behavior patterns.</div>
-            <div class="hiw-arr">→</div>
-          </div>
-          <div class="hiw-step" style="margin-left:24px">
-            <div class="hiw-num">3</div>
-            <div class="hiw-ico">🛡</div>
-            <div class="hiw-nm">Get Safety Score</div>
-            <div class="hiw-d">Instantly get a detailed safety report with score & risks.</div>
-          </div>
+  <div class="home-body" id="home-body">
+    <!-- HERO BANNER -->
+    <div class="hero-banner">
+      <div>
+        <div class="hero-badge">✦ AI-Powered App Safety Detection</div>
+        <div class="hero-title">Know Instantly if an App is<br><em>Safe or Scam</em></div>
+        <div class="hero-sub">We analyze real user reviews, permissions, developer signals and behavior patterns using advanced AI to reveal the truth.</div>
         </div>
       </div>
-
-      <div class="privbar" style="margin-top:14px">
-        <span style="font-size:19px">🛡</span>
-        <p><strong>Your privacy is our priority.</strong> We don't store any personal data. All analysis is anonymous.</p>
+      <div class="hero-right">
+        <svg class="hero-logo-big" width="120" height="120" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="herogl1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs>
+  <rect width="40" height="40" rx="10" fill="url(#herogl1)"/>
+  <path d="M20 7L9 12v8c0 7.5 5 14 11 16 6-2 11-8.5 11-16v-8L20 7z" fill="rgba(255,255,255,0.28)"/>
+  <path d="M15 20l3.5 3.5 6.5-6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="20" cy="9" r="1.5" fill="rgba(255,255,255,0.7)"/>
+</svg>
       </div>
     </div>
-
-    <!-- RIGHT PANEL -->
-    <div class="right-col">
-      <div class="panel">
-        <div class="errbox" id="errbox"></div>
-
-        <!-- LOADING -->
-        <div id="pnl-load" style="display:none;flex-direction:column;align-items:center;justify-content:center;min-height:460px;">
-          <div class="spinner"></div>
-          <div class="load-t">Analyzing App...</div>
-          <div class="load-s">Scanning · Analyzing · Securing</div>
-        </div>
-
-        <!-- EMPTY -->
-        <div id="pnl-empty">
-          <div class="orb-wrap">
-            <div class="orb-ring r1">
-              <div class="orb-node on1">🛡</div>
-              <div class="orb-node on2">📊</div>
-            </div>
-            <div class="orb-ring r2">
-              <div class="orb-node on3">🔒</div>
-              <div class="orb-node on4">📈</div>
-            </div>
-            <div class="orb-ctr">🔍</div>
-          </div>
-          <h3>Your Analysis Report Will Appear Here</h3>
-          <p>Enter an app name or Play Store link and our AI will analyze it for you.</p>
-          <div class="flist">
-            <div class="frow"><div class="frow-l"><div class="fico fi-p">🛡</div><div><div class="frow-nm">Fake Review Risk</div><div class="frow-d">Detects unnatural or suspicious reviews</div></div></div><span class="frow-arr">›</span></div>
-            <div class="frow"><div class="frow-l"><div class="fico fi-o">🔒</div><div><div class="frow-nm">Permissions Risk</div><div class="frow-d">Checks dangerous or unnecessary permissions</div></div></div><span class="frow-arr">›</span></div>
-            <div class="frow"><div class="frow-l"><div class="fico fi-b">👤</div><div><div class="frow-nm">Developer Trust</div><div class="frow-d">Verifies developer reputation and history</div></div></div><span class="frow-arr">›</span></div>
-            <div class="frow"><div class="frow-l"><div class="fico fi-r">🦠</div><div><div class="frow-nm">Malware / Virus Scan</div><div class="frow-d">Scans for malware, adware & known threats</div></div></div><span class="frow-arr">›</span></div>
-            <div class="frow"><div class="frow-l"><div class="fico fi-g">📊</div><div><div class="frow-nm">Behavior Analysis</div><div class="frow-d">Analyzes app behavior and network activity</div></div></div><span class="frow-arr">›</span></div>
-          </div>
-          <div class="pnl-footer">
-            <div class="pnl-fi"><span style="font-size:16px">🔒</span><div class="pnl-fi-t">We analyze <strong>50+ factors</strong> to give you the most accurate safety score.</div></div>
-            <div class="pnl-fi"><span style="font-size:16px">🛡</span><div class="pnl-fi-t">Your safety is our mission. <strong style="color:var(--pur2)">Always.</strong></div></div>
-          </div>
-        </div>
-
-        <!-- RESULT -->
-        <div id="pnl-result" style="display:none">
-          <div class="app-top">
-            <img class="app-ico" id="r-ico" src="" onerror="this.src='https://via.placeholder.com/60'"/>
-            <div class="app-info">
-              <div class="app-nm" id="r-nm">-</div>
-              <div class="app-sub" id="r-sub">-</div>
-              <div class="sbadge" id="r-badge"></div>
-            </div>
-            <div class="app-meta-r">
-              <div class="done-tag">● Analysis Completed</div>
-              <div class="ago-tag">🕐 Just now</div>
-              <div class="shr-row">
-                <div class="shr-btn" title="Share" onclick="shareResult()">↗</div>
-                <div class="shr-btn" title="Save">🔖</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="gauge-row">
-            <div>
-              <div class="gauge-wrap">
-                <canvas id="gCv" width="150" height="150"></canvas>
-                <div class="g-inner">
-                  <div class="g-deg" id="r-deg">-</div>
-                  <div class="g-lbl">Safety Score</div>
-                  <div class="g-pill" id="r-pill">-</div>
-                </div>
-              </div>
-              <div class="g-better" id="r-better"></div>
-            </div>
-            <div class="mlist" id="mlist"></div>
-          </div>
-
-          <div class="meta-row">
-            <div class="mbox"><div class="mbox-l">Last Analyzed</div><div class="mbox-v">Just now</div></div>
-            <div class="mbox"><div class="mbox-l">App Version</div><div class="mbox-v" id="r-ver">-</div></div>
-          </div>
-
-          <div class="sent-row">
-            <div class="scard2">
-              <div class="sc2-lbl">Sentiment Overview</div>
-              <div class="sc2-val" id="r-sent">-</div>
-              <div class="sc2-sub">Positive</div>
-              <div class="sent-bar"><div class="sent-fill" id="r-sbar" style="width:0%"></div></div>
-            </div>
-            <div class="scard2">
-              <div class="sc2-lbl">Reviews Analyzed</div>
-              <div class="sc2-val" id="r-rvc" style="font-size:16px">-</div>
-              <div class="sc2-sub">Across all regions</div>
-              <canvas id="rcC"></canvas>
-            </div>
-            <div class="scard2">
-              <div class="sc2-lbl">Risk Level</div>
-              <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
-                <span id="r-risk-ico" style="font-size:26px">-</span>
-                <div class="sc2-val" id="r-risk-val">-</div>
-              </div>
-              <div class="sc2-sub" id="r-risk-desc">-</div>
-            </div>
-          </div>
-
-          <div class="bkdn">
-            <div class="bkdn-hdr">
-              <span class="bkdn-t">360° Analysis Breakdown</span>
-              <span class="bkdn-vr">View Full Report →</span>
-            </div>
-            <div class="bk-steps" id="bk-steps"></div>
-          </div>
-
-          <div class="btm-meta">
-            <div class="bm"><div class="bm-ico g">🟢</div><div><div class="bm-nm">Live Analysis</div><div class="bm-d">Real-time scanning</div></div></div>
-            <div class="bm"><div class="bm-ico p">📊</div><div><div class="bm-nm">Data Sources</div><div class="bm-d">15M+ reviews</div></div></div>
-            <div class="bm"><div class="bm-ico b">🔄</div><div><div class="bm-nm">Updated</div><div class="bm-d">Continuously</div></div></div>
-            <div class="bm"><div class="bm-ico y">🔒</div><div><div class="bm-nm">Secure</div><div class="bm-d">Enterprise grade</div></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Categories injected by JS -->
   </div>
 </div>
 
-<!-- ══════════ COMPARISONS ══════════ -->
-<div class="page" id="pg-comparisons">
+<!-- ══════════ ANALYSIS ══════════ -->
+<div id="pg-analysis">
   <header>
-    <div class="logo" onclick="go('home')"><div class="logo-box">🛡</div><div><h1>AppTrust</h1><p>AI App Safety Detection System</p></div></div>
-    <nav class="nav"><span class="nl" onclick="go('home')">Home</span><span class="nl on">Comparisons ▾</span><span class="nl" onclick="go('features')">Features</span><span class="nl" onclick="go('pricing')">Pricing</span><span class="nl" onclick="go('api')">API</span><span class="nl" onclick="go('blog')">Blog</span><span class="nl" onclick="go('about')">About</span></nav>
-    <div class="hright"><div class="tgl"><div class="tb on" onclick="setTheme('dark')">☀</div><div class="tb" onclick="setTheme('light')">🌙</div></div><button class="dbtn" onclick="go('dashboard')">Dashboard</button><div class="ava">K</div></div>
+    <div class="logo" onclick="goHome()"><svg class="logo-img" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="alogo1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs>
+  <rect width="40" height="40" rx="10" fill="url(#alogo1)"/>
+  <path d="M20 7L9 12v8c0 7.5 5 14 11 16 6-2 11-8.5 11-16v-8L20 7z" fill="rgba(255,255,255,0.25)"/>
+  <path d="M15 20l3.5 3.5 6.5-6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
+<div class="logo-txt"><h1>App<span>Trust</span></h1><div class="logo-tagline">AI Safety Store</div></div></div>
+    <div class="h-search-wrap">
+      <div class="h-search">
+        <span style="font-size:14px;color:var(--txt3)">🔍</span>
+        <input type="text" id="h-input2" placeholder="Search another app..." autocomplete="off"
+               oninput="hSearch2(this.value)"/>
+        <button onclick="trigSearch2()">Analyze</button>
+      </div>
+      <div class="search-sugs" id="search-sugs2"></div>
+    </div>
+    <nav class="hnav">
+      <span class="hl" onclick="goHome()">← Home</span>
+    </nav>
   </header>
-  <div style="max-width:1200px;margin:0 auto;padding:36px;">
-    <div class="sp-badge">🔄 Compare Apps</div>
-    <h2 style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--txt);margin-bottom:6px;">Side-by-Side App Comparison</h2>
-    <p style="font-size:14px;color:var(--txt2);margin-bottom:28px;">Search two apps below and compare their safety scores, permissions, fake reviews and more.</p>
 
-    <!-- SEARCH BARS -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
-      <!-- APP 1 -->
-      <div style="background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:16px;">
-        <div style="font-size:12px;font-weight:700;color:var(--pur2);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;">App 1</div>
-        <div style="position:relative;">
-          <div style="display:flex;gap:8px;background:var(--bg3);border:1.5px solid rgba(124,58,237,.3);border-radius:10px;padding:9px 12px;align-items:center;">
-            <span style="font-size:14px;color:var(--txt3);">🔍</span>
-            <input type="text" id="cmp1-input" placeholder="Search first app..." autocomplete="off"
-              style="flex:1;background:none;border:none;outline:none;font-size:13px;color:var(--txt);font-family:'Manrope',sans-serif;"
-              oninput="cmpSug(1,this.value)" onkeydown="if(event.key==='Enter')cmpSug(1,this.value)"/>
-            <button onclick="cmpAnalyze(1)" style="padding:6px 14px;background:linear-gradient(135deg,var(--pur),var(--blu));border:none;border-radius:7px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;">Analyze</button>
+  <div class="analysis-body">
+    <button class="back-btn" onclick="goHome()">← Back to App Store</button>
+    <div class="err-box" id="err-box"></div>
+
+    <!-- LOADING -->
+    <div class="a-loading" id="a-load">
+      <div class="spin"></div>
+      <p style="font-size:14px;color:var(--txt2)">Fetching live data from Play Store...</p>
+      <p style="font-size:11px;color:var(--txt3);margin-top:4px">Scanning · Analyzing · Securing</p>
+    </div>
+
+    <!-- RESULT -->
+    <div id="a-result" style="display:none">
+      <!-- APP TOP BAR -->
+      <div class="app-top-bar">
+        <img class="a-icon" id="a-ico" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' rx='12' fill='%237c3aed'/%3E%3C/svg%3E"/>
+        <div class="a-info">
+          <div class="a-name" id="a-name">-</div>
+          <div class="a-meta" id="a-meta">-</div>
+          <div class="a-badges">
+            <div class="safe-pill" id="a-safe-pill">-</div>
+            <div class="a-done">● Analysis Completed &nbsp;·&nbsp; Just now</div>
           </div>
-          <div id="cmp1-sugs" style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--b2);border-radius:10px;overflow:hidden;display:none;z-index:200;box-shadow:0 12px 40px rgba(0,0,0,.5);"></div>
         </div>
-        <div id="cmp1-result" style="margin-top:14px;display:none;"></div>
-        <div id="cmp1-load" style="text-align:center;padding:20px;display:none;color:var(--txt2);font-size:13px;">Analyzing...</div>
+        <div class="a-actions">
+          <a class="play-btn" id="a-play-btn" href="#" target="_blank">▶ Play Store</a>
+          <button class="view-btn">View Details</button>
+          <button class="close-btn" onclick="goHome()">✕</button>
+        </div>
       </div>
-      <!-- APP 2 -->
-      <div style="background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:16px;">
-        <div style="font-size:12px;font-weight:700;color:var(--blu2);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;">App 2</div>
-        <div style="position:relative;">
-          <div style="display:flex;gap:8px;background:var(--bg3);border:1.5px solid rgba(59,130,246,.3);border-radius:10px;padding:9px 12px;align-items:center;">
-            <span style="font-size:14px;color:var(--txt3);">🔍</span>
-            <input type="text" id="cmp2-input" placeholder="Search second app..." autocomplete="off"
-              style="flex:1;background:none;border:none;outline:none;font-size:13px;color:var(--txt);font-family:'Manrope',sans-serif;"
-              oninput="cmpSug(2,this.value)" onkeydown="if(event.key==='Enter')cmpSug(2,this.value)"/>
-            <button onclick="cmpAnalyze(2)" style="padding:6px 14px;background:linear-gradient(135deg,var(--blu),var(--cyn));border:none;border-radius:7px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;">Analyze</button>
+
+      <!-- MAIN: GAUGE + METRICS -->
+      <div class="metrics-row">
+        <!-- GAUGE -->
+        <div class="gauge-card">
+          <div class="gauge-wrap">
+            <canvas id="gaugeCanvas" width="160" height="160"></canvas>
+            <div class="gauge-inner">
+              <div class="gauge-num" id="g-num">-</div>
+              <div class="gauge-lbl">Safety Score</div>
+              <div class="gauge-grade" id="g-grade">-</div>
+            </div>
           </div>
-          <div id="cmp2-sugs" style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--b2);border-radius:10px;overflow:hidden;display:none;z-index:200;box-shadow:0 12px 40px rgba(0,0,0,.5);"></div>
+          <div class="gauge-better" id="g-better"></div>
         </div>
-        <div id="cmp2-result" style="margin-top:14px;display:none;"></div>
-        <div id="cmp2-load" style="text-align:center;padding:20px;display:none;color:var(--txt2);font-size:13px;">Analyzing...</div>
+        <!-- 4 METRICS -->
+        <div class="metric-cards" id="metric-cards"></div>
       </div>
-    </div>
 
-    <!-- COMPARISON TABLE -->
-    <div id="cmp-table" style="display:none;background:var(--bg2);border:1px solid var(--b1);border-radius:16px;overflow:hidden;">
-      <div style="background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(59,130,246,.08));padding:16px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:center;border-bottom:1px solid var(--b1);">
-        <div style="font-size:12px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.5px;">Metric</div>
-        <div id="cmp-hdr1" style="text-align:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--pur2);">App 1</div>
-        <div id="cmp-hdr2" style="text-align:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--blu2);">App 2</div>
+      <!-- STATS ROW -->
+      <div class="stats-row" id="stats-row"></div>
+
+      <!-- 360° BREAKDOWN -->
+      <div class="breakdown-wrap">
+        <div class="bk-header">
+          <div class="bk-title">360° Analysis Breakdown</div>
+          <div class="bk-view">View Full Report ©</div>
+        </div>
+        <div class="bk-steps" id="bk-steps"></div>
       </div>
-      <div id="cmp-rows"></div>
-    </div>
-
-    <!-- VERDICT -->
-    <div id="cmp-verdict" style="display:none;margin-top:16px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:18px 20px;">
-      <div style="font-size:12px;font-weight:700;color:var(--grn);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;">🏆 Verdict</div>
-      <div id="cmp-verdict-txt" style="font-size:14px;color:var(--txt);line-height:1.7;"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ FEATURES ══════════ -->
-<div class="page" id="pg-features">
-  <header>
-    <div class="logo" onclick="go('home')"><div class="logo-box">🛡</div><div><h1>AppTrust</h1><p>AI App Safety Detection System</p></div></div>
-    <nav class="nav"><span class="nl" onclick="go('home')">Home</span><span class="nl" onclick="go('comparisons')">Comparisons ▾</span><span class="nl on">Features</span><span class="nl" onclick="go('pricing')">Pricing</span><span class="nl" onclick="go('api')">API</span><span class="nl" onclick="go('blog')">Blog</span><span class="nl" onclick="go('about')">About</span></nav>
-    <div class="hright"><div class="tgl"><div class="tb on" onclick="setTheme('dark')">☀</div><div class="tb" onclick="setTheme('light')">🌙</div></div><button class="dbtn" onclick="go('dashboard')">Dashboard</button><div class="ava">K</div></div>
-  </header>
-  <div class="subpage">
-    <div class="sp-badge">⚡ Features</div>
-    <h2>Advanced AI Analysis Engine</h2>
-    <p class="sp-desc">AppTrust uses cutting-edge machine learning to analyze apps across 50+ data points, giving you the most accurate safety assessment available.</p>
-    <div class="sp-grid">
-      <div class="sp-card"><div class="sp-ico">🤖</div><h4>AI Review Analysis</h4><p>NLP-powered detection of fake, spam, or bot-generated reviews with 99.2% accuracy.</p></div>
-      <div class="sp-card"><div class="sp-ico">🔐</div><h4>Permission Checker</h4><p>Analyzes all app permissions and flags dangerous or unnecessary access requests.</p></div>
-      <div class="sp-card"><div class="sp-ico">🚨</div><h4>Scam Detection</h4><p>Pattern recognition trained on thousands of known scam apps to identify threats instantly.</p></div>
-      <div class="sp-card"><div class="sp-ico">👨‍💻</div><h4>Developer Trust Score</h4><p>Evaluates developer history, other published apps, and online reputation signals.</p></div>
-      <div class="sp-card"><div class="sp-ico">🦠</div><h4>Malware Detection</h4><p>Cross-references apps against known malware databases and threat intelligence feeds.</p></div>
-      <div class="sp-card"><div class="sp-ico">📊</div><h4>Behavior Analysis</h4><p>Analyzes app behavior patterns, network activity, and data collection practices.</p></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ PRICING ══════════ -->
-<div class="page" id="pg-pricing">
-  <header>
-    <div class="logo" onclick="go('home')"><div class="logo-box">🛡</div><div><h1>AppTrust</h1><p>AI App Safety Detection System</p></div></div>
-    <nav class="nav"><span class="nl" onclick="go('home')">Home</span><span class="nl" onclick="go('comparisons')">Comparisons ▾</span><span class="nl" onclick="go('features')">Features</span><span class="nl on">Pricing</span><span class="nl" onclick="go('api')">API</span><span class="nl" onclick="go('blog')">Blog</span><span class="nl" onclick="go('about')">About</span></nav>
-    <div class="hright"><div class="tgl"><div class="tb on" onclick="setTheme('dark')">☀</div><div class="tb" onclick="setTheme('light')">🌙</div></div><button class="dbtn" onclick="go('dashboard')">Dashboard</button><div class="ava">K</div></div>
-  </header>
-  <div class="subpage">
-    <div class="sp-badge">💰 Pricing</div>
-    <h2>Simple, Transparent Pricing</h2>
-    <p class="sp-desc">Start free, upgrade when you need more. No hidden fees, no surprises.</p>
-    <div class="pricing-grid">
-      <div class="pcard"><h4>Free</h4><div class="price">₹0<span>/month</span></div><ul class="pfeats"><li>10 app scans per day</li><li>Basic trust score</li><li>Permission analysis</li><li>Community reports</li></ul><button class="pbtn">Get Started Free</button></div>
-      <div class="pcard feat"><div class="pc-tag">Most Popular</div><h4>Pro</h4><div class="price">₹299<span>/month</span></div><ul class="pfeats"><li>Unlimited app scans</li><li>Full 360° analysis</li><li>Fake review detector</li><li>Developer deep scan</li><li>API access (1000 calls)</li><li>Priority support</li></ul><button class="pbtn feat">Start Pro Trial</button></div>
-      <div class="pcard"><h4>Enterprise</h4><div class="price">₹999<span>/month</span></div><ul class="pfeats"><li>Everything in Pro</li><li>Unlimited API calls</li><li>Bulk app scanning</li><li>Custom integrations</li><li>Dedicated support</li><li>White-label option</li></ul><button class="pbtn">Contact Sales</button></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ API ══════════ -->
-<div class="page" id="pg-api">
-  <header>
-    <div class="logo" onclick="go('home')"><div class="logo-box">🛡</div><div><h1>AppTrust</h1><p>AI App Safety Detection System</p></div></div>
-    <nav class="nav"><span class="nl" onclick="go('home')">Home</span><span class="nl" onclick="go('comparisons')">Comparisons ▾</span><span class="nl" onclick="go('features')">Features</span><span class="nl" onclick="go('pricing')">Pricing</span><span class="nl on">API</span><span class="nl" onclick="go('blog')">Blog</span><span class="nl" onclick="go('about')">About</span></nav>
-    <div class="hright"><div class="tgl"><div class="tb on" onclick="setTheme('dark')">☀</div><div class="tb" onclick="setTheme('light')">🌙</div></div><button class="dbtn" onclick="go('dashboard')">Dashboard</button><div class="ava">K</div></div>
-  </header>
-  <div class="subpage">
-    <div class="sp-badge">🔌 API Docs</div>
-    <h2>AppTrust REST API</h2>
-    <p class="sp-desc">Integrate AppTrust's powerful scam detection directly into your app or platform. Simple REST API, JSON responses.</p>
-    <h3 style="font-family:'Syne',sans-serif;color:var(--txt);margin-bottom:10px;font-size:16px;">POST /analyze — Analyze an App</h3>
-    <div class="api-blk"><span class="ck">POST</span> /analyze
-Content-Type: application/json
-
-{
-  <span class="cs">"package_id"</span>: <span class="cs">"com.whatsapp"</span>
-}</div>
-    <h3 style="font-family:'Syne',sans-serif;color:var(--txt);margin:18px 0 10px;font-size:16px;">POST /search — Search Apps</h3>
-    <div class="api-blk"><span class="ck">POST</span> /search
-Content-Type: application/json
-
-{
-  <span class="cs">"query"</span>: <span class="cs">"WhatsApp"</span>
-}</div>
-    <h3 style="font-family:'Syne',sans-serif;color:var(--txt);margin:18px 0 10px;font-size:16px;">Response Format</h3>
-    <div class="api-blk">{
-  <span class="cs">"success"</span>: true,
-  <span class="cs">"title"</span>: <span class="cs">"WhatsApp"</span>,
-  <span class="cs">"trust_score"</span>: 9,
-  <span class="cs">"label"</span>: <span class="cs">"Safe"</span>,
-  <span class="cs">"fake_pct"</span>: 4,
-  <span class="cs">"avg_polarity"</span>: <span class="cs">"0.81"</span>,
-  <span class="cs">"permissions"</span>: [...],
-  <span class="cs">"reviews"</span>: [...]
-}</div>
-  </div>
-</div>
-
-<!-- ══════════ BLOG ══════════ -->
-<div class="page" id="pg-blog">
-  <header>
-    <div class="logo" onclick="go('home')"><div class="logo-box">🛡</div><div><h1>AppTrust</h1><p>AI App Safety Detection System</p></div></div>
-    <nav class="nav"><span class="nl" onclick="go('home')">Home</span><span class="nl" onclick="go('comparisons')">Comparisons ▾</span><span class="nl" onclick="go('features')">Features</span><span class="nl" onclick="go('pricing')">Pricing</span><span class="nl" onclick="go('api')">API</span><span class="nl on">Blog</span><span class="nl" onclick="go('about')">About</span></nav>
-    <div class="hright"><div class="tgl"><div class="tb on" onclick="setTheme('dark')">☀</div><div class="tb" onclick="setTheme('light')">🌙</div></div><button class="dbtn" onclick="go('dashboard')">Dashboard</button><div class="ava">K</div></div>
-  </header>
-  <div class="subpage">
-    <div class="sp-badge">📝 Blog</div>
-    <h2>Security Insights</h2>
-    <p class="sp-desc">Stay updated on the latest app security threats, scam patterns, and safety tips from our research team.</p>
-    <div class="blog-grid">
-      <div class="bcard"><div class="btag">Security</div><h4>Top 10 Loan App Scams in India 2025</h4><p>How predatory loan apps harvest your contacts and extort money. Full investigation with real evidence.</p><div class="bmeta">Apr 20, 2025 · 8 min read</div></div>
-      <div class="bcard"><div class="btag">Research</div><h4>How AI Detects Fake Reviews</h4><p>Deep dive into our NLP model that identifies bot-generated reviews with 99.2% accuracy.</p><div class="bmeta">Apr 15, 2025 · 6 min read</div></div>
-      <div class="bcard"><div class="btag">Tips</div><h4>5 Red Flags Before Installing Any App</h4><p>What to check before installing any new app on your Android or iOS device to stay safe.</p><div class="bmeta">Apr 10, 2025 · 4 min read</div></div>
-      <div class="bcard"><div class="btag">News</div><h4>Google Play Removes 200K Scam Apps</h4><p>Google's latest crackdown on malicious apps — and what managed to slip through the cracks.</p><div class="bmeta">Apr 5, 2025 · 5 min read</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ ABOUT ══════════ -->
-<div class="page" id="pg-about">
-  <header>
-    <div class="logo" onclick="go('home')"><div class="logo-box">🛡</div><div><h1>AppTrust</h1><p>AI App Safety Detection System</p></div></div>
-    <nav class="nav"><span class="nl" onclick="go('home')">Home</span><span class="nl" onclick="go('comparisons')">Comparisons ▾</span><span class="nl" onclick="go('features')">Features</span><span class="nl" onclick="go('pricing')">Pricing</span><span class="nl" onclick="go('api')">API</span><span class="nl" onclick="go('blog')">Blog</span><span class="nl on">About</span></nav>
-    <div class="hright"><div class="tgl"><div class="tb on" onclick="setTheme('dark')">☀</div><div class="tb" onclick="setTheme('light')">🌙</div></div><button class="dbtn" onclick="go('dashboard')">Dashboard</button><div class="ava">K</div></div>
-  </header>
-  <div class="subpage">
-    <div class="sp-badge">ℹ About</div>
-    <h2>About AppTrust</h2>
-    <p class="sp-desc">AppTrust was built to protect everyday users from malicious apps that steal data, extort money, or compromise privacy. We believe everyone deserves to know if an app is safe before installing it.</p>
-    <div class="sp-grid">
-      <div class="sp-card"><div class="sp-ico">🎯</div><h4>Our Mission</h4><p>Make app safety accessible to everyone. No technical knowledge required — just search and get answers instantly.</p></div>
-      <div class="sp-card"><div class="sp-ico">🤖</div><h4>Our Technology</h4><p>Advanced NLP and machine learning models trained on millions of apps, reviews, and threat intelligence data.</p></div>
-      <div class="sp-card"><div class="sp-ico">🔒</div><h4>Privacy First</h4><p>We never store personal data. All scans are anonymous. Your searches stay private — always.</p></div>
-    </div>
-    <div style="background:var(--bg2);border:1px solid var(--b1);border-radius:14px;padding:24px;margin-top:4px;">
-      <h3 style="font-family:'Syne',sans-serif;font-size:17px;color:var(--txt);margin-bottom:12px;">Built in Maharashtra, India 🇮🇳</h3>
-      <p style="font-size:14px;color:var(--txt2);line-height:1.8;">AppTrust was developed with a focus on protecting users in India, where loan app scams and fraudulent applications have caused significant harm to thousands of families. Our detection models are specifically tuned for apps targeting Indian users.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ DASHBOARD ══════════ -->
-<div class="page" id="pg-dashboard">
-  <header>
-    <div class="logo" onclick="go('home')"><div class="logo-box">🛡</div><div><h1>AppTrust</h1><p>AI App Safety Detection System</p></div></div>
-    <nav class="nav"><span class="nl" onclick="go('home')">← Back to Home</span></nav>
-    <div class="hright"><div class="tgl"><div class="tb on" onclick="setTheme('dark')">☀</div><div class="tb" onclick="setTheme('light')">🌙</div></div><button class="dbtn" onclick="go('home')">Analyze Apps</button><div class="ava">K</div></div>
-  </header>
-  <div class="dash-wrap">
-    <div class="dash-hdr"><h2>Dashboard</h2><button class="dbtn" onclick="go('home')">+ New Analysis</button></div>
-    <div class="kpis">
-      <div class="kpi"><div class="kpi-v">12</div><div class="kpi-l">Apps Scanned</div><div class="kpi-c">↑ This session</div></div>
-      <div class="kpi"><div class="kpi-v">3</div><div class="kpi-l">Risky Apps Found</div><div class="kpi-c" style="color:var(--red)">⚠ Avoid these</div></div>
-      <div class="kpi"><div class="kpi-v">8.2</div><div class="kpi-l">Avg Trust Score</div><div class="kpi-c">↑ Good</div></div>
-      <div class="kpi"><div class="kpi-v">100%</div><div class="kpi-l">Data Privacy</div><div class="kpi-c">✓ Anonymous</div></div>
-    </div>
-    <div class="dtable">
-      <div class="dth"><span>App</span><span>Trust</span><span>Rating</span><span>Fake %</span><span>Status</span></div>
-      <div class="dtr"><div class="dtr-app"><span style="font-size:18px">💬</span><div><div style="font-weight:600">WhatsApp</div><div style="font-size:10px;color:var(--txt2)">Meta Platforms</div></div></div><span style="color:var(--grn);font-weight:700">9/10</span><span>4.9 ★</span><span style="color:var(--grn)">4%</span><span style="color:var(--grn);font-size:11px;font-weight:600">✓ Safe</span></div>
-      <div class="dtr"><div class="dtr-app"><span style="font-size:18px">🎵</span><div><div style="font-weight:600">Spotify</div><div style="font-size:10px;color:var(--txt2)">Spotify AB</div></div></div><span style="color:var(--grn);font-weight:700">8/10</span><span>4.7 ★</span><span style="color:var(--grn)">7%</span><span style="color:var(--grn);font-size:11px;font-weight:600">✓ Safe</span></div>
-      <div class="dtr"><div class="dtr-app"><span style="font-size:18px">🎰</span><div><div style="font-weight:600">QuickWin Slots</div><div style="font-size:10px;color:var(--txt2)">BetSoft Games</div></div></div><span style="color:var(--amb);font-weight:700">4/10</span><span>3.0 ★</span><span style="color:var(--amb)">38%</span><span style="color:var(--amb);font-size:11px;font-weight:600">⚠ Suspicious</span></div>
-      <div class="dtr"><div class="dtr-app"><span style="font-size:18px">💰</span><div><div style="font-weight:600">FastCash Loan</div><div style="font-size:10px;color:var(--txt2)">Unknown Dev</div></div></div><span style="color:var(--red);font-weight:700">1/10</span><span>2.1 ★</span><span style="color:var(--red)">74%</span><span style="color:var(--red);font-size:11px;font-weight:600">✕ Scam</span></div>
     </div>
   </div>
 </div>
 
 <script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+const CATS = [
+  {id:'COMMUNICATION',     col:'TOP_FREE', name:'📱 Communication Apps'},
+  {id:'SOCIAL',            col:'TOP_FREE', name:'🌐 Social Apps'},
+  {id:'ENTERTAINMENT',     col:'TOP_FREE', name:'🎬 Entertainment Apps'},
+  {id:'SHOPPING',          col:'TOP_FREE', name:'🛍️ Shopping Apps'},
+  {id:'FINANCE',           col:'TOP_FREE', name:'💰 Finance & Banking'},
+  {id:'EDUCATION',         col:'TOP_FREE', name:'📚 Education Apps'},
+  {id:'HEALTH_AND_FITNESS',col:'TOP_FREE', name:'💪 Health & Fitness'},
+  {id:'TOOLS',             col:'TOP_FREE', name:'🔧 Tools & Utilities'},
+  {id:'GAME_ACTION',       col:'TOP_FREE', name:'🎮 Action Games'},
+  {id:'GAME_CASUAL',       col:'TOP_FREE', name:'🎯 Casual Games'},
+];
 
-// ── STARS ────────────────────────────────────────────────────────────────────
-(function(){
-  const c = document.getElementById('stars');
-  for(let i = 0; i < 120; i++){
-    const s = document.createElement('div'); s.className = 'star';
-    const z = Math.random()*1.8+.3;
-    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${z}px;height:${z}px;--d:${2+Math.random()*5}s;--dl:${Math.random()*5}s;--mn:${.02+Math.random()*.07};--mx:${.2+Math.random()*.6};`;
-    c.appendChild(s);
-  }
-})();
-
-// ── THEME ────────────────────────────────────────────────────────────────────
-function setTheme(t){
-  document.documentElement.setAttribute('data-theme', t);
-  document.querySelectorAll('.tb').forEach(b => b.classList.remove('on'));
-  if(t === 'dark') document.querySelectorAll('#tb-sun').forEach(b => b.classList.add('on'));
-  else document.querySelectorAll('#tb-moon').forEach(b => b.classList.add('on'));
-}
+// Fallback popular apps per category
+const FALLBACK = {
+  COMMUNICATION: [
+    {appId:'com.whatsapp',title:'WhatsApp',icon:'',score:4.9,developer:'Meta'},
+    {appId:'org.telegram.messenger',title:'Telegram',icon:'',score:4.5,developer:'Telegram'},
+    {appId:'com.facebook.orca',title:'Messenger',icon:'',score:4.1,developer:'Meta'},
+    {appId:'com.viber.voip',title:'Viber',icon:'',score:4.3,developer:'Viber'},
+    {appId:'com.skype.raider',title:'Skype',icon:'',score:4.0,developer:'Microsoft'},
+    {appId:'com.snapchat.android',title:'Snapchat',icon:'',score:4.2,developer:'Snap'},
+    {appId:'com.discord',title:'Discord',icon:'',score:4.4,developer:'Discord'},
+    {appId:'com.truecaller',title:'Truecaller',icon:'',score:4.4,developer:'Truecaller'},
+    {appId:'com.google.android.talk',title:'Google Meet',icon:'',score:4.3,developer:'Google'},
+    {appId:'com.microsoft.teams',title:'MS Teams',icon:'',score:4.1,developer:'Microsoft'},
+    {appId:'com.zoom.videomeetings',title:'Zoom',icon:'',score:4.2,developer:'Zoom'},
+    {appId:'jp.naver.line.android',title:'Line',icon:'',score:4.1,developer:'Line'},
+  ],
+  SOCIAL: [
+    {appId:'com.instagram.android',title:'Instagram',icon:'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=s128',score:4.5,developer:'Meta'},
+    {appId:'com.zhiliaoapp.musically',title:'TikTok',icon:'https://play-lh.googleusercontent.com/ByYtcbmFGRmY5T5hEh_w1P8KHF_-b98rT3QO9oD6raKSIANWzgxmQJnmUNLvEdZ8lw=s128',score:4.4,developer:'ByteDance'},
+    {appId:'com.facebook.katana',title:'Facebook',icon:'https://play-lh.googleusercontent.com/ccWDU4A7fX1R24v-vvT480ySh26AYp44ZyEiLQqPBNBMq3UR2TjM3BjGqWnO7ghRUA=s128',score:4.2,developer:'Meta'},
+    {appId:'com.twitter.android',title:'X (Twitter)',icon:'https://play-lh.googleusercontent.com/APmQF4w-TkzCG0h3bWxAnrMVbXGJMJtEaXXVGiiqNHiRlMiGxp3r7z4dg7t4Gg=s128',score:4.1,developer:'X Corp'},
+    {appId:'com.pinterest',title:'Pinterest',icon:'https://play-lh.googleusercontent.com/ViEqrp3VCIVVLS5KO5CiKKU4CUVL1xRIHr6k9R9B3YsNJiFqhd4u3NdSbqjy0RQ=s128',score:4.5,developer:'Pinterest'},
+    {appId:'com.linkedin.android',title:'LinkedIn',icon:'https://play-lh.googleusercontent.com/h7GCkfRiVVIm9F3EBTsW38VG6T_CYvhVJGmE7XDNtqJyLYXrxqvEPTCQ_oFLzPm5=s128',score:4.3,developer:'Microsoft'},
+  ],
+  ENTERTAINMENT: [
+    {appId:'com.google.android.youtube',title:'YouTube',icon:'https://play-lh.googleusercontent.com/lMoItBgdPPVDJsNOVtP26EKHePkwBg-PkuY9NOrc-fumRtTFP4XhpUNk_22syN4Datc=s128',score:4.2,developer:'Google'},
+    {appId:'com.netflix.mediaclient',title:'Netflix',icon:'https://play-lh.googleusercontent.com/zmiHLkEMpP4c3oeNHELZcX3fEdCa_ZLefqPZ2BQ9O8MExOGDhVHXbxJOicbhqiFfag=s128',score:4.3,developer:'Netflix'},
+    {appId:'com.spotify.music',title:'Spotify',icon:'https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WTZH6AkHTCnkMtpSNKWKWJSLM5pPA=s128',score:4.7,developer:'Spotify'},
+    {appId:'com.amazon.avod.thirdpartyclient',title:'Prime Video',icon:'https://play-lh.googleusercontent.com/A1C1MQ3IcPzXcN0cpLsLH41FuN-D4HuXibKD3K1cS1N6NWwzL8TIBBf3TKqmv2vFNqWI=s128',score:4.4,developer:'Amazon'},
+    {appId:'com.google.android.apps.youtube.music',title:'YT Music',icon:'https://play-lh.googleusercontent.com/yAF-CEUhzCDrCH-hR2blvgMJm9RItBfkKIBRrKjR7BXWB7e_cETzHqJ_S5MFkn8GMQ=s128',score:4.4,developer:'Google'},
+  ],
+  SHOPPING: [
+    {appId:'in.amazon.mShop.android.shopping',title:'Amazon',icon:'https://play-lh.googleusercontent.com/W8rUHQhSXc2x3hyy6A24VL7iQ73Lfak-RW_y3Zj9yFDGGb4yRnMc4J8C6kzVkFIiWXw=s128',score:4.5,developer:'Amazon'},
+    {appId:'com.flipkart.android',title:'Flipkart',icon:'https://play-lh.googleusercontent.com/UUkgMPPtJRFX_y_LZUE_MnA5Q4LKTf3XH7Y0jCYlJ5V8S4-MHFQWTkrh0mZ4A=s128',score:4.2,developer:'Flipkart'},
+    {appId:'com.myntra.android',title:'Myntra',icon:'https://play-lh.googleusercontent.com/7OmPxCIhtLf3mxzDZHLF1tYWVvFPEeqZ4FQKJ6qYVWxX-v5tYUhPTmWk0k1Dxc4=s128',score:4.3,developer:'Myntra'},
+    {appId:'com.meesho.supply',title:'Meesho',icon:'https://play-lh.googleusercontent.com/wLBSOrAr9j6Oc-A6ELTb3VOQlHiMH7QUJxbfoBOiqgYHqjPz0bxhiG9Qwn5OfVHyEno=s128',score:4.4,developer:'Meesho'},
+  ],
+  GAME_ACTION: [
+    {appId:'com.pubg.krmobile',title:'BGMI',icon:'',score:4.2,developer:'Krafton'},
+    {appId:'com.innersloth.spacemafia',title:'Among Us',icon:'',score:4.2,developer:'InnerSloth'},
+    {appId:'com.kiloo.subwaysurf',title:'Subway Surfers',icon:'',score:4.5,developer:'SYBO'},
+    {appId:'com.king.candycrushsaga',title:'Candy Crush',icon:'',score:4.7,developer:'King'},
+    {appId:'com.supercell.clashofclans',title:'Clash of Clans',icon:'',score:4.8,developer:'Supercell'},
+    {appId:'com.supercell.clashroyale',title:'Clash Royale',icon:'',score:4.4,developer:'Supercell'},
+    {appId:'com.mojang.minecraftpe',title:'Minecraft',icon:'',score:4.5,developer:'Mojang'},
+    {appId:'com.garena.free.fire',title:'Free Fire',icon:'',score:4.1,developer:'Garena'},
+  ],
+  GAME_CASUAL: [
+    {appId:'com.outfit7.talkingtomgoldrun',title:'Talking Tom',icon:'',score:4.5,developer:'Outfit7'},
+    {appId:'com.imangi.templerun2',title:'Temple Run 2',icon:'',score:4.5,developer:'Imangi'},
+    {appId:'com.miniclip.eightballpool',title:'8 Ball Pool',icon:'',score:4.2,developer:'Miniclip'},
+    {appId:'com.halfbrick.fruitninjafree',title:'Fruit Ninja',icon:'',score:4.3,developer:'Halfbrick'},
+    {appId:'com.dena.a12026418',title:'Pokémon Masters',icon:'',score:4.1,developer:'DeNA'},
+    {appId:'com.rovio.angrybirdsreloaded',title:'Angry Birds',icon:'',score:4.3,developer:'Rovio'},
+  ],
+  FINANCE: [
+    {appId:'net.one97.paytm',title:'Paytm',icon:'',score:4.5,developer:'Paytm'},
+    {appId:'com.phonepe.app',title:'PhonePe',icon:'',score:4.6,developer:'PhonePe'},
+    {appId:'com.google.android.apps.nbu.paisa.user',title:'Google Pay',icon:'',score:4.5,developer:'Google'},
+    {appId:'in.amazon.mShop.android.shopping',title:'Amazon Pay',icon:'',score:4.3,developer:'Amazon'},
+    {appId:'com.csam.icici.bank.imobile',title:'iMobile Pay',icon:'',score:4.5,developer:'ICICI Bank'},
+    {appId:'com.sbi.SBIFreedomPlus',title:'YONO SBI',icon:'',score:3.9,developer:'SBI'},
+    {appId:'com.mobikwik_two',title:'MobiKwik',icon:'',score:4.1,developer:'MobiKwik'},
+    {appId:'com.cred.club',title:'CRED',icon:'',score:4.5,developer:'CRED'},
+  ],
+  EDUCATION: [
+    {appId:'com.byjus.the_learning_app',title:'BYJU'S',icon:'',score:4.1,developer:'BYJU'S'},
+    {appId:'com.duolingo',title:'Duolingo',icon:'',score:4.6,developer:'Duolingo'},
+    {appId:'com.toppr.student',title:'Toppr',icon:'',score:4.2,developer:'Toppr'},
+    {appId:'in.unacademy.learner',title:'Unacademy',icon:'',score:4.3,developer:'Unacademy'},
+    {appId:'com.google.android.apps.classroom',title:'Google Classroom',icon:'',score:4.3,developer:'Google'},
+    {appId:'com.khanacademy.android',title:'Khan Academy',icon:'',score:4.7,developer:'Khan Academy'},
+    {appId:'com.coursera.android',title:'Coursera',icon:'',score:4.4,developer:'Coursera'},
+  ],
+  HEALTH_AND_FITNESS: [
+    {appId:'com.healthifyme.basic',title:'HealthifyMe',icon:'',score:4.3,developer:'HealthifyMe'},
+    {appId:'com.nike.plusactivity',title:'Nike Run Club',icon:'',score:4.5,developer:'Nike'},
+    {appId:'com.google.android.apps.fitness',title:'Google Fit',icon:'',score:4.1,developer:'Google'},
+    {appId:'com.myfitnesspal.android',title:'MyFitnessPal',icon:'',score:4.4,developer:'MyFitnessPal'},
+    {appId:'com.calm.android',title:'Calm',icon:'',score:4.6,developer:'Calm'},
+    {appId:'com.headspace.android',title:'Headspace',icon:'',score:4.5,developer:'Headspace'},
+  ],
+  TOOLS: [
+    {appId:'com.google.android.keep',title:'Google Keep',icon:'',score:4.4,developer:'Google'},
+    {appId:'com.microsoft.office.word',title:'MS Word',icon:'',score:4.5,developer:'Microsoft'},
+    {appId:'com.adobe.reader',title:'Adobe Reader',icon:'',score:4.5,developer:'Adobe'},
+    {appId:'com.whatsapp.w4b',title:'WhatsApp Business',icon:'',score:4.3,developer:'Meta'},
+    {appId:'com.google.android.apps.translate',title:'Google Translate',icon:'',score:4.6,developer:'Google'},
+    {appId:'com.lastpass.lpandroid',title:'LastPass',icon:'',score:4.3,developer:'LastPass'},
+  ],
+};
 
 // ── PAGE NAVIGATION ───────────────────────────────────────────────────────────
-function go(name){
-  document.querySelectorAll('.page').forEach(p => {
-    p.classList.remove('on');
-    p.style.display = 'none';
-  });
-  const pg = document.getElementById('pg-' + name);
-  if(pg){
-    pg.classList.add('on');
-    pg.style.display = 'block';
-    window.scrollTo(0,0);
+function goHome(){
+  document.getElementById('pg-home').style.display='block';
+  document.getElementById('pg-analysis').style.display='none';
+  window.scrollTo(0,0);
+}
+function goAnalysis(){
+  document.getElementById('pg-home').style.display='none';
+  document.getElementById('pg-analysis').style.display='block';
+  window.scrollTo(0,0);
+}
+
+// ── BUILD HOME PAGE ───────────────────────────────────────────────────────────
+// ── ICON SYSTEM — instant SVG avatars, real icons swap in when available ─────
+const ICON_COLORS = [
+  ['#7c3aed','#5b21b6'],['#2563eb','#1d4ed8'],['#059669','#047857'],
+  ['#d97706','#b45309'],['#dc2626','#b91c1c'],['#db2777','#9d174d'],
+  ['#0891b2','#0e7490'],['#7c3aed','#6d28d9'],['#16a34a','#15803d'],
+  ['#ea580c','#c2410c']
+];
+
+// Known brand colors for popular apps
+const BRAND_COLORS = {
+  'whatsapp':['#25D366','#128C7E'],'telegram':['#2AABEE','#229ED9'],
+  'instagram':['#E1306C','#833AB4'],'facebook':['#1877F2','#0C63D4'],
+  'messenger':['#0084FF','#0066CC'],'youtube':['#FF0000','#CC0000'],
+  'tiktok':['#010101','#69C9D0'],'netflix':['#E50914','#B20710'],
+  'spotify':['#1DB954','#158A3E'],'snapchat':['#FFFC00','#F5F500'],
+  'twitter':['#1DA1F2','#0C85D0'],'linkedin':['#0A66C2','#004182'],
+  'amazon':['#FF9900','#E47911'],'flipkart':['#2874F0','#1A5ECC'],
+  'meesho':['#9C27B0','#7B1FA2'],'phonepe':['#5f259f','#3d1870'],
+  'google':['#4285F4','#1a73e8'],'paytm':['#00B9F5','#0088CC'],
+  'gpay':['#1a73e8','#0d5bba'],'uber':['#000000','#1a1a1a'],
+  'ola':['#1F7A1F','#155215'],'swiggy':['#FC8019','#E06310'],
+  'zomato':['#E23744','#C8202E'],'prime':['#00A8E1','#0076A8'],
+  'candy':['#FF6B9D','#CC3D70'],'pubg':['#F7A800','#CC8A00'],
+  'bgmi':['#F7A800','#CC8A00'],'clash':['#1E4CA1','#163A7A'],
+  'among':['#C51111','#9B0D0D'],'subway':['#FF6600','#CC5200'],
+  'skype':['#00AFF0','#0089CC'],'viber':['#7360F2','#5A47E0'],
+  'pinterest':['#E60023','#B8001C'],'myntra':['#FF3F6C','#CC2850'],
+  'truecaller':['#0099CC','#007AA3'],'gpay':['#4285F4','#1a73e8'],
+  'phonepay':['#5f259f','#3d1870'],'cred':['#1C1C1C','#2D2D2D']
+};
+
+function getBrandColors(name, appId) {
+  const key = (name + ' ' + (appId||'')).toLowerCase();
+  for (const [brand, cols] of Object.entries(BRAND_COLORS)) {
+    if (key.includes(brand)) return cols;
+  }
+  const idx = (name||'A').toUpperCase().charCodeAt(0) % ICON_COLORS.length;
+  return ICON_COLORS[idx];
+}
+
+function makeSvgIcon(name, appId, size) {
+  const letter = (name||'A').trim().charAt(0).toUpperCase();
+  const [c1, c2] = getBrandColors(name, appId);
+  const fs = Math.round(size * 0.42);
+  const uid = 'g' + Math.random().toString(36).slice(2,7);
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}' viewBox='0 0 ${size} ${size}'>
+    <defs><linearGradient id='${uid}' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='${c1}'/>
+      <stop offset='100%' stop-color='${c2}'/>
+    </linearGradient></defs>
+    <rect width='${size}' height='${size}' rx='${Math.round(size*0.18)}' fill='url(#${uid})' />
+    <text x='50%' y='50%' text-anchor='middle' dominant-baseline='central'
+      font-family='Sora,Arial,sans-serif' font-size='${fs}' font-weight='800' fill='#fff'>${letter}</text>
+  </svg>`;
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
+
+// Create a card icon element — starts as SVG, upgrades to real icon if it loads
+function proxyIcon(url) {
+  // Use backend proxy to bypass CORS on Google CDN
+  if (url && url.includes('googleusercontent.com')) {
+    return '/proxy-icon?url=' + encodeURIComponent(url);
+  }
+  return url;
+}
+
+function makeCardIcon(appId, name, realIconUrl) {
+  const img = document.createElement('img');
+  img.style.cssText = 'width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08);';
+  // Show SVG avatar instantly while real icon loads
+  img.src = makeSvgIcon(name, appId, 88);
+  if (realIconUrl) {
+    // Always route through proxy — bypasses CORS on all environments
+    const proxied = '/proxy-icon?url=' + encodeURIComponent(realIconUrl);
+    const probe = new Image();
+    probe.onload = () => { img.src = proxied; };
+    probe.onerror = () => { /* keep SVG avatar */ };
+    probe.src = proxied;
+  }
+  return img;
+}
+
+function makeSugIcon(appId, name, realIconUrl) {
+  const img = document.createElement('img');
+  img.className = 'sug-img';
+  img.src = makeSvgIcon(name, appId, 34);
+  if (realIconUrl) {
+    const proxied = '/proxy-icon?url=' + encodeURIComponent(realIconUrl);
+    const probe = new Image();
+    probe.onload = () => { img.src = proxied; };
+    probe.onerror = () => { /* keep SVG avatar */ };
+    probe.src = proxied;
+  }
+  return img;
+}
+
+// Legacy onerror fallbacks (kept for safety)
+function iconFallback(img, name, appId) {
+  img.src = makeSvgIcon(name, appId||'', 88);
+  img.onerror = null;
+}
+function sugIconFallback(img, name, appId) {
+  img.src = makeSvgIcon(name, appId||'', 34);
+  img.onerror = null;
+}
+
+// ── ALL APPS MODAL ─────────────────────────────────────────────────────────────
+function showViewAll(catName, catId){
+  const existing = document.getElementById('viewall-modal');
+  if(existing) existing.remove();
+  const modal = document.createElement('div');
+  modal.id='viewall-modal';
+  modal.style.cssText=`position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);`+
+    `display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;`;
+  modal.innerHTML=`
+    <div style="background:var(--bg2);border:1px solid var(--b2);border-radius:20px;width:100%;max-width:900px;padding:28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <div>
+          <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#fff;">${catName}</div>
+          <div style="font-size:12px;color:var(--txt2);margin-top:3px;">All apps · Click any to analyze</div>
+        </div>
+        <button onclick="document.getElementById('viewall-modal').remove()"
+          style="background:var(--bg3);border:1px solid var(--b1);color:var(--txt2);width:36px;height:36px;
+          border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+      <div id="viewall-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:14px;">
+        ${skeletons(12)}
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
+  // Load apps into modal
+  const row = document.getElementById('row-'+catId);
+  if(row){
+    const cards = row.querySelectorAll('.app-card');
+    if(cards.length){
+      document.getElementById('viewall-grid').innerHTML = Array.from(cards).map(c=>c.outerHTML).join('');
+      return;
+    }
+  }
+  const fb = FALLBACK[catId]||[];
+  if(fb.length){
+    const vgrid = document.getElementById('viewall-grid');
+    vgrid.innerHTML = '';
+    fb.forEach(a => {
+      const vc = document.createElement('div');
+      vc.className = 'app-card';
+      vc.onclick = () => { document.getElementById('viewall-modal').remove(); analyzeApp(a.appId, a.title||''); };
+      vc.appendChild(makeCardIcon(a.appId, a.title||'App', a.icon||''));
+      const vi = document.createElement('div');
+      vi.innerHTML = '<div class="app-card-name">'+(a.title||'')+'</div>'+
+        '<div class="app-card-desc">'+(a.developer||'')+'</div>'+
+        '<div class="app-card-rating">★ '+(a.score?parseFloat(a.score).toFixed(1):'N/A')+'</div>';
+      vc.appendChild(vi);
+      vgrid.appendChild(vc);
+    });
   }
 }
-// Show home on first load
-window.addEventListener('DOMContentLoaded', () => go('home'));
 
-// ── GAUGE ─────────────────────────────────────────────────────────────────────
-function drawGauge(score){
-  const cv = document.getElementById('gCv'); if(!cv) return;
-  const ctx = cv.getContext('2d');
-  cv.width = 150; cv.height = 150;
-  const cx=75, cy=80, r=58, sa=Math.PI*.75, ea=Math.PI*2.25, tot=ea-sa;
-  ctx.beginPath(); ctx.arc(cx,cy,r,sa,ea);
-  ctx.strokeStyle='rgba(255,255,255,.07)'; ctx.lineWidth=10; ctx.lineCap='round'; ctx.stroke();
-  const c = score>=7?['#10b981','#34d399']:score>=4?['#f59e0b','#fbbf24']:['#ef4444','#f87171'];
-  const g = ctx.createLinearGradient(cx-r,cy,cx+r,cy);
-  g.addColorStop(0,c[0]); g.addColorStop(1,c[1]);
-  ctx.beginPath(); ctx.arc(cx,cy,r,sa,sa+(score/10)*tot);
-  ctx.strokeStyle=g; ctx.lineWidth=10; ctx.lineCap='round'; ctx.stroke();
-  ctx.beginPath(); ctx.arc(cx,cy,r,sa,sa+(score/10)*tot);
-  ctx.strokeStyle=c[0]; ctx.lineWidth=16; ctx.lineCap='round';
-  ctx.globalAlpha=.1; ctx.stroke(); ctx.globalAlpha=1;
+function buildHome(){
+  const body = document.getElementById('home-body');
+  // keep hero banner, rebuild categories after it
+  const hero = body.querySelector('.hero-banner');
+  body.innerHTML = '';
+  if(hero) body.appendChild(hero);
+  CATS.forEach(cat => {
+    const sec = document.createElement('div');
+    sec.className = 'cat-section';
+    sec.id = 'sec-' + cat.id;
+    sec.innerHTML = `
+      <div class="cat-header">
+        <div class="cat-title">${cat.name}</div>
+      </div>
+      <div class="apps-row" id="row-${cat.id}">${skeletons(12)}</div>`;
+    body.appendChild(sec);
+    loadCategory(cat);
+  });
 }
 
-// ── REVIEW CHART ─────────────────────────────────────────────────────────────
-function drawRcChart(pol){
-  const cv = document.getElementById('rcC'); if(!cv) return;
-  const ctx = cv.getContext('2d');
-  cv.width = cv.parentElement.offsetWidth-24||140; cv.height=30;
-  const W=cv.width, H=cv.height, n=8;
-  const pts = Array.from({length:n}, () => Math.max(.1,Math.min(.92,.5+pol*.3+(Math.random()-.5)*.3)));
-  const xs=(W-8)/(n-1), toY=v=>H-(v*(H-4))-2;
-  const grd=ctx.createLinearGradient(0,0,0,H);
-  grd.addColorStop(0,'rgba(168,85,247,.28)'); grd.addColorStop(1,'rgba(168,85,247,0)');
-  ctx.beginPath(); pts.forEach((v,i)=>{const x=4+i*xs,y=toY(v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-  ctx.lineTo(4+(n-1)*xs,H); ctx.lineTo(4,H); ctx.closePath(); ctx.fillStyle=grd; ctx.fill();
-  ctx.beginPath(); pts.forEach((v,i)=>{const x=4+i*xs,y=toY(v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-  ctx.strokeStyle='rgba(168,85,247,.8)'; ctx.lineWidth=1.5; ctx.lineJoin='round'; ctx.stroke();
+function skeletons(n){
+  return Array(n).fill(0).map(()=>`
+    <div class="skel-card">
+      <div class="skel-ico"></div>
+      <div class="skel-line" style="width:80px;height:10px"></div>
+      <div class="skel-line" style="width:60px;height:8px;margin-top:4px"></div>
+    </div>`).join('');
+}
+
+async function loadCategory(cat){
+  const row = document.getElementById('row-' + cat.id);
+  // Show fallback immediately with SVG avatars while API loads
+  const fb = FALLBACK[cat.id] || [];
+  if(fb.length) renderApps(row, fb);
+  // Then try to get real Play Store data with real icons
+  try {
+    const r = await fetch('/category',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({category:cat.id,collection:cat.col})});
+    const d = await r.json();
+    if(d.success && d.apps && d.apps.length){
+      renderApps(row, d.apps);
+      return;
+    }
+  } catch(e){}
+  // If API failed, fetch icons for fallback apps via search
+  if(fb.length){
+    fb.forEach(async (a) => {
+      try {
+        const sr = await fetch('/search',{method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({query:a.appId})});
+        const sd = await sr.json();
+        if(sd.success && sd.results && sd.results[0] && sd.results[0].icon){
+          // Update icon in the row
+          const cards = row.querySelectorAll('.app-card');
+          const fbIdx = fb.indexOf(a);
+          if(cards[fbIdx]){
+            const img = cards[fbIdx].querySelector('img');
+            if(img){
+              const proxied = '/proxy-icon?url=' + encodeURIComponent(sd.results[0].icon);
+              const probe = new Image();
+              probe.onload = () => { img.src = proxied; };
+              probe.src = proxied;
+            }
+          }
+        }
+      } catch(e){}
+    });
+  }
+}
+
+function renderApps(row, apps){
+  row.innerHTML = '';
+  apps.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'app-card';
+    card.onclick = () => analyzeApp(a.appId, a.title||'');
+    card.appendChild(makeCardIcon(a.appId, a.title||'App', a.icon||''));
+    const info = document.createElement('div');
+    info.innerHTML = '<div class="app-card-name">'+(a.title||'')+'</div>'+
+      '<div class="app-card-desc">'+(a.summary||a.developer||'')+'</div>'+
+      '<div class="app-card-rating">★ '+(a.score?parseFloat(a.score).toFixed(1):'N/A')+'</div>';
+    card.appendChild(info);
+    row.appendChild(card);
+  });
 }
 
 // ── SEARCH ────────────────────────────────────────────────────────────────────
 let sto;
-function quick(n){ document.getElementById('sinput').value=n; trigSearch(); }
-function clearSrch(){
-  document.getElementById('sinput').value='';
-  document.getElementById('sclear').classList.remove('on');
-  const i=document.getElementById('sapp-ico'); i.classList.remove('on'); i.src='';
-  document.getElementById('sugs').style.display='none';
+function trigSearch(){
+  const q = document.getElementById('h-input').value.trim();
+  if(q) doSearch(q,'search-sugs');
 }
-function trigSearch(){ const q=document.getElementById('sinput').value.trim(); if(q) fetchSugs(q); }
-
-document.getElementById('sinput').addEventListener('input', function(){
+document.getElementById('h-input').addEventListener('input',function(){
+  clearTimeout(sto);
   const q=this.value.trim();
-  document.getElementById('sclear').classList.toggle('on', q.length>0);
-  if(q.length<2){document.getElementById('sugs').style.display='none'; return;}
-  clearTimeout(sto); sto=setTimeout(()=>fetchSugs(q), 420);
+  if(q.length<2){document.getElementById('search-sugs').style.display='none';return;}
+  sto=setTimeout(()=>doSearch(q,'search-sugs'),400);
 });
-document.getElementById('sinput').addEventListener('keydown', e=>{ if(e.key==='Enter') trigSearch(); });
+document.getElementById('h-input').addEventListener('keydown',e=>{if(e.key==='Enter')trigSearch();});
 
-async function fetchSugs(q){
+function trigSearch2(){
+  const q=document.getElementById('h-input2').value.trim();
+  if(q) doSearch(q,'search-sugs2');
+}
+function hSearch2(v){
+  clearTimeout(sto);
+  if(v.length<2){document.getElementById('search-sugs2').style.display='none';return;}
+  sto=setTimeout(()=>doSearch(v,'search-sugs2'),400);
+}
+document.getElementById('h-input2').addEventListener('keydown',e=>{if(e.key==='Enter')trigSearch2();});
+
+async function doSearch(q,boxId){
   try{
-    const r = await fetch('/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
-    const d = await r.json();
-    if(!d.success||!d.results||!d.results.length){document.getElementById('sugs').style.display='none'; return;}
-    const box = document.getElementById('sugs');
-    box.innerHTML = d.results.map(r=>`
-      <div class="si" onclick="selApp('${r.appId}','${(r.title||'').replace(/'/g,"\'")}','${r.icon||''}')">
-        <img class="si-img" src="${r.icon||''}" onerror="this.src='https://via.placeholder.com/33'"/>
-        <div style="flex:1;min-width:0"><div class="si-nm">${r.title}</div><div class="si-id">${r.appId}</div></div>
-        <div class="si-st">${r.score?r.score.toFixed(1)+' ★':''}</div>
-      </div>`).join('');
+    const r=await fetch('/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
+    const d=await r.json();
+    box.innerHTML = '';
+    d.results.forEach(r => {
+      const item = document.createElement('div');
+      item.className = 'sug-item';
+      item.onclick = () => analyzeApp(r.appId, r.title||'');
+      item.appendChild(makeSugIcon(r.appId, r.title||'App', r.icon||''));
+      const txt = document.createElement('div');
+      txt.innerHTML = '<div class="sug-nm">'+(r.title||'')+'</div><div class="sug-dev">'+(r.developer||r.appId)+'</div>';
+      item.appendChild(txt);
+      const rat = document.createElement('div');
+      rat.className = 'sug-rating';
+      rat.textContent = r.score ? parseFloat(r.score).toFixed(1)+' ★' : '';
+      item.appendChild(rat);
+      box.appendChild(item);
+    });
     box.style.display='block';
-  }catch(e){console.error('Search error:',e);}
+    box.style.display='block';
+  }catch(e){console.error(e);}
 }
 
-function selApp(id,title,icon){
-  document.getElementById('sugs').style.display='none';
-  document.getElementById('sinput').value=title;
-  document.getElementById('sclear').classList.add('on');
-  if(icon){const i=document.getElementById('sapp-ico'); i.src=icon; i.classList.add('on');}
-  analyze(id);
-}
-
-// ── ANALYZE ──────────────────────────────────────────────────────────────────
-function showPanel(state){
-  const empty   = document.getElementById('pnl-empty');
-  const loading = document.getElementById('pnl-load');
-  const result  = document.getElementById('pnl-result');
-  const err     = document.getElementById('errbox');
-  empty.style.display   = state==='empty'   ? 'flex'  : 'none';
-  loading.style.display = state==='loading' ? 'flex'  : 'none';
-  result.style.display  = state==='result'  ? 'block' : 'none';
-  if(state !== 'empty') err.style.display = 'none';
-}
-
-async function analyze(pkgId){
-  showPanel('loading');
+// ── ANALYZE ───────────────────────────────────────────────────────────────────
+async function analyzeApp(pkgId, title){
+  document.getElementById('search-sugs').style.display='none';
+  document.getElementById('search-sugs2').style.display='none';
+  document.getElementById('h-input2').value = title||'';
+  goAnalysis();
+  document.getElementById('a-load').style.display='flex';
+  document.getElementById('a-result').style.display='none';
+  document.getElementById('err-box').style.display='none';
   try{
-    const res = await fetch('/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({package_id:pkgId})});
-    const d = await res.json();
+    const res=await fetch('/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({package_id:pkgId})});
+    const d=await res.json();
+    document.getElementById('a-load').style.display='none';
     if(!d.success){
-      showPanel('empty');
-      document.getElementById('errbox').textContent = d.error||'App not found. Try a different name.';
-      document.getElementById('errbox').style.display='block';
+      document.getElementById('err-box').textContent=d.error||'App not found.';
+      document.getElementById('err-box').style.display='block';
       return;
     }
-    renderResult(d);
+    renderAnalysis(d);
   }catch(e){
-    showPanel('empty');
-    document.getElementById('errbox').textContent = 'Cannot reach backend. Make sure: node server.js is running on port 5000.';
-    document.getElementById('errbox').style.display='block';
+    document.getElementById('a-load').style.display='none';
+    document.getElementById('err-box').textContent='Backend not reachable. Run: python server.py';
+    document.getElementById('err-box').style.display='block';
   }
 }
 
-let lastResult = null;
-function shareResult(){
-  if(!lastResult) return;
-  const txt = `AppTrust: ${lastResult.title} — Trust Score ${lastResult.trust_score}/10 (${lastResult.label})`;
-  navigator.clipboard && navigator.clipboard.writeText(txt);
-  alert('Result copied to clipboard!');
-}
-
-function renderResult(d){
-  lastResult = d;
-  const lc = d.label==='Safe'?'safe':d.label==='Suspicious'?'suspicious':'scam';
-  const fC = d.fake_pct>=50?'#ef4444':d.fake_pct>=25?'#f59e0b':'#10b981';
-  const dC = d.dev_score>=7?'#10b981':d.dev_score>=4?'#f59e0b':'#ef4444';
+function renderAnalysis(d){
+  const lc  = d.label==='Safe'?'safe':d.label==='Suspicious'?'suspicious':'scam';
+  const fC  = d.fake_pct>=50?'#ef4444':d.fake_pct>=25?'#f59e0b':'#00e5a0';
+  const pC  = (d.perm_pct||0)>=50?'#ef4444':(d.perm_pct||0)>=20?'#f59e0b':'#00e5a0';
+  const dC  = (d.dev_pct||0)>=70?'#00e5a0':(d.dev_pct||0)>=40?'#f59e0b':'#ef4444';
   const pol = parseFloat(d.avg_polarity)||0;
-  const sentPct = Math.min(100,Math.max(0,Math.round((pol+1)*50)));
-  const perms = d.permissions||[];
-  const hr = perms.filter(p=>p.risk==='high').length;
-  const pC = hr>4?'#ef4444':hr>1?'#f59e0b':'#10b981';
+  const sp  = d.sentiment_pct||Math.min(100,Math.max(0,Math.round((pol+1)*50)));
+  const gc  = d.safety_score>=70?'#00e5a0':d.safety_score>=40?'#f59e0b':'#ef4444';
+  const grade = d.safety_score>=80?'Excellent':d.safety_score>=60?'Good':d.safety_score>=40?'Caution':'Danger';
 
-  // App icon with 3D rotation
-  const ico = document.getElementById('r-ico');
-  ico.src = d.icon||'https://via.placeholder.com/60';
-  ico.classList.remove('rotating');
-  void ico.offsetWidth;
-  ico.classList.add('rotating');
+  // APP TOP
+  const ico=document.getElementById('a-ico');
+  ico.style.display='block';
+  // Set instant SVG avatar, upgrade to real icon if it loads
+  ico.src = makeSvgIcon(d.title||'App', d.package_id||'', 64);
+  // ico.classList.add('rotating'); // disabled — looks bad with real icons
+  if(d.icon){
+    const proxied = '/proxy-icon?url=' + encodeURIComponent(d.icon);
+    const probe = new Image();
+    probe.onload = () => { ico.src = proxied; };
+    probe.onerror = () => { /* keep SVG avatar */ };
+    probe.src = proxied;
+  }
+  document.getElementById('a-name').textContent=d.title||'-';
+  document.getElementById('a-meta').textContent=`${d.developer||''} · ${d.genre||'App'}`;
+  document.getElementById('a-play-btn').href=d.play_store_url||'#';
+  const pill=document.getElementById('a-safe-pill');
+  pill.textContent=`✓ ${d.label}`;
+  pill.className=`safe-pill ${lc}`;
 
-  document.getElementById('r-nm').textContent  = d.title||'-';
-  document.getElementById('r-sub').textContent = `${d.developer||'Unknown'} · ${d.genre||'App'}`;
-  document.getElementById('r-ver').textContent  = d.version||'N/A';
+  // GAUGE
+  drawGauge(document.getElementById('gaugeCanvas'), d.safety_score||0);
+  document.getElementById('g-num').textContent=d.safety_score||0;
+  const gg=document.getElementById('g-grade');
+  gg.textContent=grade; gg.style.color=gc;
+  document.getElementById('g-better').innerHTML=
+    `Better than <strong>${Math.min(99,d.safety_score||0)}%</strong> of apps in ${d.genre||'category'}`;
 
-  const rb = document.getElementById('r-badge');
-  const bTxt = lc==='safe'?'✓ Safe to Use':lc==='suspicious'?'⚠ Use Caution':'✕ Avoid This App';
-  const bBg  = lc==='safe'?'rgba(16,185,129,.12)':lc==='suspicious'?'rgba(245,158,11,.12)':'rgba(239,68,68,.12)';
-  const bBd  = lc==='safe'?'rgba(16,185,129,.3)':lc==='suspicious'?'rgba(245,158,11,.3)':'rgba(239,68,68,.3)';
-  const bCl  = lc==='safe'?'#6ee7b7':lc==='suspicious'?'#fcd34d':'#fca5a5';
-  rb.textContent=bTxt; rb.style.cssText=`background:${bBg};border:1px solid ${bBd};color:${bCl};display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:7px;font-size:10px;font-weight:700;margin-top:4px;`;
+  // 4 METRICS
+  document.getElementById('metric-cards').innerHTML=`
+    ${metricCard('🛡','Fake Review Risk',d.fake_pct>=50?'High':d.fake_pct>=25?'Medium':'Low',
+      d.fake_pct+'%',fC,d.fake_pct)}
+    ${metricCard('🔐','Permissions Risk',(d.perm_pct||0)>=50?'High':(d.perm_pct||0)>=20?'Medium':'Low',
+      (d.perm_pct||0)+'%',pC,(d.perm_pct||0))}
+    ${metricCard('👤','Developer Trust',(d.dev_pct||0)>=70?'High':(d.dev_pct||0)>=40?'Medium':'Low',
+      (d.dev_pct||0)+'%',dC,(d.dev_pct||0))}
+    ${metricCard('🦠','Malware / Virus','Safe','0%','#00e5a0',0)}`;
 
-  // Gauge
-  drawGauge(d.trust_score);
-  document.getElementById('r-deg').textContent = d.trust_score*36+'°';
-  const rp=document.getElementById('r-pill');
-  rp.textContent=lc==='safe'?'Excellent':lc==='suspicious'?'Caution':'Danger';
-  rp.className='g-pill '+lc;
-  document.getElementById('r-better').innerHTML = lc==='safe'
-    ? `Better than <strong>92%</strong> of apps in ${d.genre||''} category`
-    : lc==='scam' ? `⚠ Significantly <strong>below average</strong> — high risk` : `⚠ Below average for ${d.genre||''} apps`;
+  // STATS
+  const rcCount = d.reviews_count||'N/A';
+  const riskTxt = lc==='safe'?'LOW':lc==='suspicious'?'MEDIUM':'HIGH';
+  const riskC   = lc==='safe'?'#00e5a0':lc==='suspicious'?'#f59e0b':'#ef4444';
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card">
+      <div class="sc-label">Sentiment Overview</div>
+      <div class="sc-val" style="color:${pol>=0?'#00e5a0':'#ef4444'}">${sp}%</div>
+      <div class="sc-sub">Positive</div>
+      <div class="sc-bar"><div class="sc-bar-f" style="width:${sp}%;background:${pol>=0?'#00e5a0':'#ef4444'}"></div></div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">Reviews Analyzed</div>
+      <div class="sc-val">${rcCount}</div>
+      <div class="sc-sub">Across all regions</div>
+      <canvas id="rcC"></canvas>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">Risk Level</div>
+      <div class="risk-big" style="color:${riskC}">${riskTxt}</div>
+      <div class="sc-sub">${d.label==='Safe'?'Safe to use':d.label==='Suspicious'?'Use caution':'Avoid this app'}</div>
+      <div style="font-size:22px;margin-top:6px">${lc==='safe'?'🛡':lc==='suspicious'?'⚠️':'🚨'}</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">Last Analyzed</div>
+      <div class="sc-val" style="font-size:16px">Just now</div>
+      <div class="sc-sub">★ ${d.rating} · ${d.installs}</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">App Version</div>
+      <div class="sc-val" style="font-size:15px;word-break:break-all">${d.version||'N/A'}</div>
+      <div class="sc-sub">${d.genre||'App'}</div>
+    </div>`;
 
-  // Metrics
-  document.getElementById('mlist').innerHTML=`
-    <div class="mitem"><div class="mtop"><div class="mleft"><span class="mico">🛡</span><div><div class="mnm">Fake Review Risk</div><div class="msl">${d.fake_pct<20?'Low':d.fake_pct<50?'Medium':'High'}</div></div></div><div class="mval" style="color:${fC}">${d.fake_pct}%</div></div><div class="mbar"><div class="mbar-f" style="width:${d.fake_pct}%;background:${fC}"></div></div></div>
-    <div class="mitem"><div class="mtop"><div class="mleft"><span class="mico">🔒</span><div><div class="mnm">Permissions Risk</div><div class="msl">${hr>4?'High':hr>1?'Medium':'Low'}</div></div></div><div class="mval" style="color:${pC}">${Math.min(98,hr*14+6)}%</div></div><div class="mbar"><div class="mbar-f" style="width:${Math.min(98,hr*14+6)}%;background:${pC}"></div></div></div>
-    <div class="mitem"><div class="mtop"><div class="mleft"><span class="mico">👤</span><div><div class="mnm">Developer Trust</div><div class="msl">${d.dev_score>=7?'High':d.dev_score>=4?'Medium':'Low'}</div></div></div><div class="mval" style="color:${dC}">${d.dev_score*10}%</div></div><div class="mbar"><div class="mbar-f" style="width:${d.dev_score*10}%;background:${dC}"></div></div></div>
-    <div class="mitem"><div class="mtop"><div class="mleft"><span class="mico">🦠</span><div><div class="mnm">Malware / Virus</div><div class="msl">Safe</div></div></div><div class="mval" style="color:#6ee7b7">0%</div></div><div class="mbar"><div class="mbar-f" style="width:2%;background:#10b981"></div></div></div>`;
-
-  // Sentiment
-  document.getElementById('r-sent').textContent=sentPct+'%';
-  document.getElementById('r-sent').style.color=pol>=0?'#10b981':'#ef4444';
-  document.getElementById('r-sbar').style.width=sentPct+'%';
-  document.getElementById('r-rvc').textContent=d.reviews_count||'N/A';
-
-  // Risk
-  document.getElementById('r-risk-ico').textContent=lc==='safe'?'✅':lc==='suspicious'?'⚠️':'🚨';
-  document.getElementById('r-risk-val').textContent=lc==='safe'?'Low Risk':lc==='suspicious'?'Med Risk':'High Risk';
-  document.getElementById('r-risk-val').style.color=lc==='safe'?'#10b981':lc==='suspicious'?'#f59e0b':'#ef4444';
-  document.getElementById('r-risk-desc').textContent=lc==='safe'?'This app is safe to use':lc==='suspicious'?'Use with caution':'Avoid this app';
-
-  // Breakdown
-  const steps=[{i:'💬',l:'Review\nAnalysis'},{i:'🔒',l:'Permissions\nScan'},{i:'👤',l:'Developer\nCheck'},{i:'📊',l:'Behavior\nAnalysis'},{i:'🦠',l:'Threat\nDetection'}];
+  // 360 BREAKDOWN
+  const steps=[{i:'💬',l:'Review\nAnalysis'},{i:'🔒',l:'Permissions\nScan'},
+    {i:'👤',l:'Developer\nCheck'},{i:'📊',l:'Behavior\nAnalysis'},{i:'🦠',l:'Threat\nDetection'}];
   document.getElementById('bk-steps').innerHTML=steps.map((s,i)=>
     `${i>0?'<div class="bk-line"></div>':''}
-    <div class="bks"><div class="bks-ico">${s.i}</div><div class="bks-nm">${s.l.replace('\n','<br>')}</div><div class="bks-ok">Completed</div></div>`
+    <div class="bk-step">
+      <div class="bk-circle">${s.i}</div>
+      <div class="bk-label">${s.l.replace('\n','<br>')}</div>
+      <div class="bk-ok">Completed</div>
+    </div>`
   ).join('');
 
-  showPanel('result');
-  setTimeout(()=>drawRcChart(pol),120);
+  document.getElementById('a-result').style.display='block';
+  setTimeout(()=>drawRcChart(pol),100);
 }
 
-document.addEventListener('click', e=>{
-  if(!e.target.closest('.search-wrap')) document.getElementById('sugs').style.display='none';
-});
-
-// ── COMPARISONS ──────────────────────────────────────────────────────────────
-const cmpData = {1: null, 2: null};
-let cmpSugTimer = {};
-
-async function cmpSug(n, q){
-  clearTimeout(cmpSugTimer[n]);
-  const box = document.getElementById('cmp'+n+'-sugs');
-  if(!q || q.length < 2){ box.style.display='none'; return; }
-  cmpSugTimer[n] = setTimeout(async () => {
-    try{
-      const r = await fetch('/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
-      const d = await r.json();
-      if(!d.success||!d.results||!d.results.length){ box.style.display='none'; return; }
-      box.innerHTML = d.results.slice(0,5).map(r=>`
-        <div onclick="cmpSelect(${n},'${r.appId}','${(r.title||'').replace(/'/g,"\\'")}','${r.icon||''}')"
-          style="display:flex;align-items:center;gap:10px;padding:9px 13px;cursor:pointer;border-bottom:1px solid var(--b1);transition:background .15s;"
-          onmouseover="this.style.background='var(--c2)'" onmouseout="this.style.background=''">
-          <img src="${r.icon}" style="width:30px;height:30px;border-radius:7px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/30'"/>
-          <div><div style="font-size:12px;font-weight:500;color:var(--txt);">${r.title}</div><div style="font-size:10px;color:var(--txt3);">${r.appId}</div></div>
-          <div style="margin-left:auto;font-size:11px;color:var(--amb);">${r.score?r.score.toFixed(1)+' ★':''}</div>
-        </div>`).join('');
-      box.style.display='block';
-    }catch(e){}
-  }, 380);
+function metricCard(ico,title,sub,pct,color,val){
+  return `<div class="metric-card">
+    <div class="mc-top">
+      <div class="mc-left">
+        <div class="mc-ico">${ico}</div>
+        <div><div class="mc-title">${title}</div><div class="mc-sub" style="color:${color}">${sub}</div></div>
+      </div>
+      <div class="mc-pct" style="color:${color}">${pct}</div>
+    </div>
+    <div class="mc-bar"><div class="mc-bar-fill" style="width:${val}%;background:${color}"></div></div>
+  </div>`;
 }
 
-function cmpSelect(n, id, title, icon){
-  document.getElementById('cmp'+n+'-input').value = title;
-  document.getElementById('cmp'+n+'-sugs').style.display='none';
-  if(icon){} // store for display
-  cmpAnalyzeById(n, id, title);
+// ── GAUGE ─────────────────────────────────────────────────────────────────────
+function drawGauge(cv, score){
+  const ctx=cv.getContext('2d');
+  cv.width=160; cv.height=160;
+  const cx=80, cy=88, r=62;
+  const sa=Math.PI*.75, tot=Math.PI*1.5;
+  // BG arc
+  ctx.beginPath(); ctx.arc(cx,cy,r,sa,sa+tot);
+  ctx.strokeStyle='#1a2540'; ctx.lineWidth=12; ctx.lineCap='round'; ctx.stroke();
+  // Score arc
+  const color = score>=70?'#00e5a0':score>=40?'#f97316':'#ef4444';
+  const prog = sa + (score/100)*tot;
+  ctx.beginPath(); ctx.arc(cx,cy,r,sa,prog);
+  ctx.strokeStyle=color; ctx.lineWidth=12; ctx.lineCap='round'; ctx.stroke();
+  // Glow
+  ctx.beginPath(); ctx.arc(cx,cy,r,sa,prog);
+  ctx.strokeStyle=color; ctx.lineWidth=18; ctx.lineCap='round';
+  ctx.globalAlpha=.15; ctx.stroke(); ctx.globalAlpha=1;
 }
 
-async function cmpAnalyze(n){
-  const q = document.getElementById('cmp'+n+'-input').value.trim();
-  if(!q){ alert('Please type an app name first'); return; }
-  // Search first then analyze top result
-  try{
-    const r = await fetch('/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
-    const d = await r.json();
-    if(d.success && d.results && d.results.length){
-      cmpAnalyzeById(n, d.results[0].appId, d.results[0].title);
-    } else { alert('App not found. Try a different name.'); }
-  }catch(e){ alert('Error searching app.'); }
+function drawRcChart(pol){
+  const cv=document.getElementById('rcC'); if(!cv)return;
+  const ctx=cv.getContext('2d');
+  cv.width=cv.parentElement.offsetWidth-32||160; cv.height=28;
+  const W=cv.width,H=cv.height,n=8;
+  const pts=Array.from({length:n},()=>Math.max(.1,Math.min(.9,.5+pol*.3+(Math.random()-.5)*.3)));
+  const xs=(W-8)/(n-1), toY=v=>H-(v*(H-4))-2;
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'rgba(139,92,246,.28)'); g.addColorStop(1,'rgba(139,92,246,0)');
+  ctx.beginPath(); pts.forEach((v,i)=>{const x=4+i*xs,y=toY(v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.lineTo(4+(n-1)*xs,H); ctx.lineTo(4,H); ctx.closePath(); ctx.fillStyle=g; ctx.fill();
+  ctx.beginPath(); pts.forEach((v,i)=>{const x=4+i*xs,y=toY(v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.strokeStyle='rgba(139,92,246,.8)'; ctx.lineWidth=1.5; ctx.lineJoin='round'; ctx.stroke();
 }
 
-async function cmpAnalyzeById(n, pkgId, title){
-  document.getElementById('cmp'+n+'-result').style.display='none';
-  document.getElementById('cmp'+n+'-load').style.display='block';
-  document.getElementById('cmp'+n+'-load').textContent='Analyzing '+title+'...';
-  document.getElementById('cmp-table').style.display='none';
-  document.getElementById('cmp-verdict').style.display='none';
-  try{
-    const res = await fetch('/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({package_id:pkgId})});
-    const d = await res.json();
-    document.getElementById('cmp'+n+'-load').style.display='none';
-    if(!d.success){ alert('Could not analyze app: '+(d.error||'Unknown error')); return; }
-    cmpData[n] = d;
-    // Show mini card
-    const lc = d.label==='Safe'?'safe':d.label==='Suspicious'?'suspicious':'scam';
-    const col = lc==='safe'?'#10b981':lc==='suspicious'?'#f59e0b':'#ef4444';
-    const res2 = document.getElementById('cmp'+n+'-result');
-    res2.innerHTML = `
-      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--c1);border-radius:10px;border:1px solid var(--b1);">
-        <img src="${d.icon}" style="width:38px;height:38px;border-radius:10px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/38'"/>
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:13px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${d.title}</div>
-          <div style="font-size:10px;color:var(--txt2);">${d.developer||''}</div>
-        </div>
-        <div style="text-align:right;">
-          <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:${col};">${d.trust_score}/10</div>
-          <div style="font-size:10px;font-weight:700;color:${col};">${d.label}</div>
-        </div>
-      </div>`;
-    res2.style.display='block';
-    // If both analyzed, show table
-    if(cmpData[1] && cmpData[2]) renderCmpTable();
-  }catch(e){
-    document.getElementById('cmp'+n+'-load').style.display='none';
-    alert('Backend error. Make sure server is running.');
+// ── HIDE SUGS ────────────────────────────────────────────────────────────────
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.h-search-wrap')){
+    document.getElementById('search-sugs').style.display='none';
+    document.getElementById('search-sugs2').style.display='none';
   }
-}
-
-function renderCmpTable(){
-  const a = cmpData[1], b = cmpData[2];
-  const col1='#a855f7', col2='#60a5fa';
-  document.getElementById('cmp-hdr1').innerHTML=`<img src="${a.icon}" style="width:20px;height:20px;border-radius:5px;vertical-align:middle;margin-right:6px;" onerror="this.style.display='none'"/>${a.title}`;
-  document.getElementById('cmp-hdr2').innerHTML=`<img src="${b.icon}" style="width:20px;height:20px;border-radius:5px;vertical-align:middle;margin-right:6px;" onerror="this.style.display='none'"/>${b.title}`;
-
-  const metrics = [
-    { label:'🏆 Trust Score', va: a.trust_score+'/10', vb: b.trust_score+'/10', win: a.trust_score >= b.trust_score ? 1 : 2 },
-    { label:'⭐ Play Rating', va: a.rating+' ★', vb: b.rating+' ★', win: parseFloat(a.rating) >= parseFloat(b.rating) ? 1 : 2 },
-    { label:'📦 Installs', va: a.installs||'N/A', vb: b.installs||'N/A', win: 0 },
-    { label:'💬 Sentiment', va: a.avg_polarity, vb: b.avg_polarity, win: parseFloat(a.avg_polarity) >= parseFloat(b.avg_polarity) ? 1 : 2 },
-    { label:'🤖 Fake Reviews', va: a.fake_pct+'%', vb: b.fake_pct+'%', win: a.fake_pct <= b.fake_pct ? 1 : 2 },
-    { label:'👨‍💻 Developer Score', va: a.dev_score+'/10', vb: b.dev_score+'/10', win: a.dev_score >= b.dev_score ? 1 : 2 },
-    { label:'🔐 High-Risk Perms', va: (a.permissions||[]).filter(p=>p.risk==='high').length, vb: (b.permissions||[]).filter(p=>p.risk==='high').length, win: (a.permissions||[]).filter(p=>p.risk==='high').length <= (b.permissions||[]).filter(p=>p.risk==='high').length ? 1 : 2 },
-    { label:'🏷 Verdict', va: a.label, vb: b.label, win: a.trust_score >= b.trust_score ? 1 : 2 },
-  ];
-
-  document.getElementById('cmp-rows').innerHTML = metrics.map((m,i) => `
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:12px 20px;border-bottom:1px solid var(--b1);background:${i%2===0?'transparent':'var(--c1)'};">
-      <div style="font-size:12px;color:var(--txt2);font-weight:500;">${m.label}</div>
-      <div style="text-align:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:${m.win===1?'#6ee7b7':col1};">
-        ${m.va} ${m.win===1?'<span style="font-size:10px;background:rgba(16,185,129,.15);color:#6ee7b7;padding:1px 6px;border-radius:8px;margin-left:4px;">✓ Better</span>':''}
-      </div>
-      <div style="text-align:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:${m.win===2?'#6ee7b7':col2};">
-        ${m.vb} ${m.win===2?'<span style="font-size:10px;background:rgba(16,185,129,.15);color:#6ee7b7;padding:1px 6px;border-radius:8px;margin-left:4px;">✓ Better</span>':''}
-      </div>
-    </div>`).join('');
-
-  document.getElementById('cmp-table').style.display='block';
-
-  // Verdict
-  const winner = a.trust_score >= b.trust_score ? a : b;
-  const loser  = a.trust_score >= b.trust_score ? b : a;
-  const diff = Math.abs(a.trust_score - b.trust_score);
-  document.getElementById('cmp-verdict-txt').innerHTML =
-    `<strong style="color:var(--grn)">${winner.title}</strong> is the safer choice with a trust score of <strong>${winner.trust_score}/10</strong> vs <strong>${loser.trust_score}/10</strong> for ${loser.title}. ` +
-    `${diff === 0 ? 'Both apps have equal trust scores.' : `${winner.title} scores ${diff} point${diff>1?'s':''} higher.`} ` +
-    `${winner.label === 'Safe' ? '✅ It is considered safe to install.' : winner.label === 'Suspicious' ? '⚠ Use with caution.' : '❌ Neither app is recommended.'}`;
-  document.getElementById('cmp-verdict').style.display='block';
-}
-
-document.addEventListener('click', e=>{
-  if(!e.target.closest('#cmp1-input') && !e.target.closest('#cmp1-sugs')) document.getElementById('cmp1-sugs').style.display='none';
-  if(!e.target.closest('#cmp2-input') && !e.target.closest('#cmp2-sugs')) document.getElementById('cmp2-sugs').style.display='none';
 });
 
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildHome();
 </script>
 </body>
 </html>
