@@ -1,7 +1,13 @@
 from flask import Flask, request, jsonify, send_from_directory, Response
 from flask_cors import CORS
 from google_play_scraper import app as gplay_app, search, reviews, Sort
-from google_play_scraper import collection as gp_collection
+try:
+    from google_play_scraper import collection as gp_collection
+except ImportError:
+    try:
+        from google_play_scraper.features.top_chart import collection as gp_collection
+    except ImportError:
+        gp_collection = None
 import os, re, json, threading
 from dotenv import load_dotenv
 
@@ -192,13 +198,23 @@ def category_route():
     if ck in _cache:
         return jsonify({'success':True,'apps':_cache[ck]})
     try:
-        res = gp_collection(col, category=cat, country=COUNTRY, lang=LANG, count=count)
+        if gp_collection:
+            res = gp_collection(col, category=cat, country=COUNTRY, lang=LANG, count=count)
+        else:
+            # Fallback: search for category
+            res = search(cat.lower().replace('_',' '), n_hits=count, country=COUNTRY, lang=LANG)
         apps = [fmt_app(r) for r in res]
         _cache[ck] = apps
         return jsonify({'success':True,'apps':apps})
     except Exception as e:
         print(f'Category error: {e}')
-        return jsonify({'success':False,'apps':[],'error':str(e)})
+        # Try search as fallback
+        try:
+            res = search(cat.lower().replace('_',' '), n_hits=20, country=COUNTRY, lang=LANG)
+            apps = [fmt_app(r) for r in res]
+            return jsonify({'success':True,'apps':apps})
+        except:
+            return jsonify({'success':False,'apps':[],'error':str(e)})
 
 @server.route('/search', methods=['POST'])
 def search_route():
