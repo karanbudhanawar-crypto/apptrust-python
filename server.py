@@ -261,6 +261,29 @@ def proxy_icon():
     return '', 404
 
 
+@server.route('/icons', methods=['POST'])
+def icons_route():
+    """Fetch fresh icon URLs for a list of app IDs."""
+    app_ids = (request.get_json() or {}).get('apps', [])
+    if not app_ids:
+        return jsonify({'success': False, 'icons': {}})
+    result = {}
+    for pkg in app_ids[:20]:  # max 20 at once
+        ck = f'icon_url_{pkg}'
+        if ck in _cache:
+            result[pkg] = _cache[ck]
+            continue
+        try:
+            ad = gplay_app(pkg, country=COUNTRY, lang=LANG)
+            icon_url = ad.get('icon', '')
+            if icon_url:
+                _cache[ck] = icon_url
+                result[pkg] = icon_url
+        except Exception as e:
+            print(f'Icon fetch error for {pkg}: {e}')
+    return jsonify({'success': True, 'icons': result})
+
+
 if __name__=='__main__':
     port = int(os.getenv('PORT',5000))
     print(f'\n✅ AppTrust Python Backend → http://localhost:{port}')
