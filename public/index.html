@@ -76,6 +76,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .hero-logo-big{animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 28px rgba(139,92,246,.65));}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .cat-section{margin-bottom:36px;}
+.viewall-btn{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#a78bfa;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600;white-space:nowrap}
 .cat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .cat-title{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--txt);}
 .cat-more{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--amber);cursor:pointer;}
@@ -263,44 +264,47 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
     <div class="cat-section">
       <div class="cat-header">
         <div class="cat-title">📱 Communication</div>
+        <button onclick="showAllApps('COMMUNICATION','Communication')" class="viewall-btn">View All ›</button>
+      </div>
+        <button onclick="showAllApps('COMMUNICATION','📱 Communication')" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#a78bfa;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600">View All ›</button>
       </div>
       <div class="apps-row"><div class="app-card" onclick="analyzeApp('com.whatsapp','WhatsApp')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/bYtqkFi3gzOuH7FMGnQiPWaH1mHaTpbjkp2_4_bkFjpFPKUyGVdZE_8IzEj8-YIxAWFw=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('WhatsApp','com.whatsapp',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.whatsapp" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%2325D366%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EW%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">WhatsApp</div>
         <div class="app-card-desc">Meta</div>
         <div class="app-card-rating">★ 4.9</div>
       </div><div class="app-card" onclick="analyzeApp('org.telegram.messenger','Telegram')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/ZU9cSgmbqX55R7YZtzR6QUhSFhbMsRfzZXWFAO8o-tivDSCqG9QwQkpLEUVH5ow=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Telegram','org.telegram.messenger',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="org.telegram.messenger" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%232AABEE%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ET%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Telegram</div>
         <div class="app-card-desc">Telegram</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.facebook.orca','Messenger')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/EHBs6ck5Mw7RIxfuLGRxKgSDHK1v9JnlnEBXXFlHTJK6kLFzByR3DCRD4AqsZJjZvA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Messenger','com.facebook.orca',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.facebook.orca" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%230084FF%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EM%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Messenger</div>
         <div class="app-card-desc">Meta</div>
         <div class="app-card-rating">★ 4.1</div>
       </div><div class="app-card" onclick="analyzeApp('com.viber.voip','Viber')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/NNS8iLanZ2kbj2r_xNwBDvYvLtNT3K3F6-6vPqn_U8Wq3M3JUGJf4B_RHlzMVS7yg=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Viber','com.viber.voip',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.viber.voip" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%237360F2%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EV%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Viber</div>
         <div class="app-card-desc">Viber</div>
         <div class="app-card-rating">★ 4.3</div>
       </div><div class="app-card" onclick="analyzeApp('com.skype.raider','Skype')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/QMgPvPOXDCvdAb7INhHqHkxLGXBFdKe1-g3gj0N6bqm5_8ywkCuoqCXEzERFDJHfvw=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Skype','com.skype.raider',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.skype.raider" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%2300AFF0%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ES%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Skype</div>
         <div class="app-card-desc">Microsoft</div>
         <div class="app-card-rating">★ 4.0</div>
       </div><div class="app-card" onclick="analyzeApp('com.snapchat.android','Snapchat')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/qBzKbQkO2HFiHNYY7DVTd4h98vMKJEt8y2fV3D6VEYTEqT9-f6BPDjqN0yAw6A=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Snapchat','com.snapchat.android',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.snapchat.android" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FFFC00%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23000%27%3ES%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Snapchat</div>
         <div class="app-card-desc">Snap</div>
         <div class="app-card-rating">★ 4.2</div>
       </div><div class="app-card" onclick="analyzeApp('com.discord','Discord')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVSqI_RtKAKP8fNMTmzYNz_UGdJUQyZgqA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Discord','com.discord',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.discord" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%235865F2%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ED%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Discord</div>
         <div class="app-card-desc">Discord</div>
         <div class="app-card-rating">★ 4.4</div>
       </div><div class="app-card" onclick="analyzeApp('com.truecaller','Truecaller')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/a6N-PFkzqVKr6v3etlVh5dBBUBCbzl_JJpnfq6HJnJpN-qB7VEjCKwBNbB2Nix8FxY=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Truecaller','com.truecaller',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.truecaller" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23004B87%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ET%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Truecaller</div>
         <div class="app-card-desc">Truecaller</div>
         <div class="app-card-rating">★ 4.4</div>
@@ -309,44 +313,47 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
     <div class="cat-section">
       <div class="cat-header">
         <div class="cat-title">🌐 Social Apps</div>
+        <button onclick="showAllApps('SOCIAL','Social Apps')" class="viewall-btn">View All ›</button>
+      </div>
+        <button onclick="showAllApps('SOCIAL','🌐 Social Apps')" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#a78bfa;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600">View All ›</button>
       </div>
       <div class="apps-row"><div class="app-card" onclick="analyzeApp('com.instagram.android','Instagram')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Instagram','com.instagram.android',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.instagram.android" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23E1306C%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EI%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Instagram</div>
         <div class="app-card-desc">Meta</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.zhiliaoapp.musically','TikTok')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/ByYtcbmFGRmY5T5hEh_w1P8KHF_-b98rT3QO9oD6raKSIANWzgxmQJnmUNLvEdZ8lw=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('TikTok','com.zhiliaoapp.musically',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.zhiliaoapp.musically" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23010101%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ET%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">TikTok</div>
         <div class="app-card-desc">ByteDance</div>
         <div class="app-card-rating">★ 4.4</div>
       </div><div class="app-card" onclick="analyzeApp('com.facebook.katana','Facebook')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/ccWDU4A7fX1R24v-vvT480ySh26AYp44ZyEiLQqPBNBMq3UR2TjM3BjGqWnO7ghRUA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Facebook','com.facebook.katana',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.facebook.katana" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%231877F2%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EF%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Facebook</div>
         <div class="app-card-desc">Meta</div>
         <div class="app-card-rating">★ 4.2</div>
       </div><div class="app-card" onclick="analyzeApp('com.twitter.android','X (Twitter)')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/APmQF4w-TkzCG0h3bWxAnrMVbXGJMJtEaXXVGiiqNHiRlMiGxp3r7z4dg7t4Gg=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('X (Twitter)','com.twitter.android',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.twitter.android" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23000000%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EX%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">X (Twitter)</div>
         <div class="app-card-desc">X Corp</div>
         <div class="app-card-rating">★ 4.1</div>
       </div><div class="app-card" onclick="analyzeApp('com.pinterest','Pinterest')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/ViEqrp3VCIVVLS5KO5CiKKU4CUVL1xRIHr6k9R9B3YsNJiFqhd4u3NdSbqjy0RQ=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Pinterest','com.pinterest',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.pinterest" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23E60023%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EP%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Pinterest</div>
         <div class="app-card-desc">Pinterest</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.linkedin.android','LinkedIn')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/h7GCkfRiVVIm9F3EBTsW38VG6T_CYvhVJGmE7XDNtqJyLYXrxqvEPTCQ_oFLzPm5=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('LinkedIn','com.linkedin.android',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.linkedin.android" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%230A66C2%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EL%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">LinkedIn</div>
         <div class="app-card-desc">Microsoft</div>
         <div class="app-card-rating">★ 4.3</div>
       </div><div class="app-card" onclick="analyzeApp('com.sharechat.app','ShareChat')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/OkmRHGFxnbgFB3WwnZNTdqxlLc-CKm5hNBhyMhSGAlJtjKr6dJmfwX0e0pXuPIo=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('ShareChat','com.sharechat.app',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.sharechat.app" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FF4D00%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ES%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">ShareChat</div>
         <div class="app-card-desc">ShareChat</div>
         <div class="app-card-rating">★ 4.1</div>
       </div><div class="app-card" onclick="analyzeApp('com.roposo.android','Moj')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/yNJKfakqfzl5v6JmKQpfFoIB5tXxXuW0JHGjbYLjgxPME9sxqEuMUHxbHn8=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Moj','com.roposo.android',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.roposo.android" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FF0050%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EM%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Moj</div>
         <div class="app-card-desc">ShareChat</div>
         <div class="app-card-rating">★ 4.0</div>
@@ -355,44 +362,47 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
     <div class="cat-section">
       <div class="cat-header">
         <div class="cat-title">🎬 Entertainment</div>
+        <button onclick="showAllApps('ENTERTAINMENT','Entertainment')" class="viewall-btn">View All ›</button>
+      </div>
+        <button onclick="showAllApps('ENTERTAINMENT','🎬 Entertainment')" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#a78bfa;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600">View All ›</button>
       </div>
       <div class="apps-row"><div class="app-card" onclick="analyzeApp('com.google.android.youtube','YouTube')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/lMoItBgdPPVDJsNOVtP26EKHePkwBg-PkuY9NOrc-fumRtTFP4XhpUNk_22syN4Datc=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('YouTube','com.google.android.youtube',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.google.android.youtube" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FF0000%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EY%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">YouTube</div>
         <div class="app-card-desc">Google</div>
         <div class="app-card-rating">★ 4.2</div>
       </div><div class="app-card" onclick="analyzeApp('com.netflix.mediaclient','Netflix')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/zmiHLkEMpP4c3oeNHELZcX3fEdCa_ZLefqPZ2BQ9O8MExOGDhVHXbxJOicbhqiFfag=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Netflix','com.netflix.mediaclient',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.netflix.mediaclient" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23E50914%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EN%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Netflix</div>
         <div class="app-card-desc">Netflix</div>
         <div class="app-card-rating">★ 4.3</div>
       </div><div class="app-card" onclick="analyzeApp('com.spotify.music','Spotify')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WTZH6AkHTCnkMtpSNKWKWJSLM5pPA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Spotify','com.spotify.music',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.spotify.music" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%231DB954%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ES%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Spotify</div>
         <div class="app-card-desc">Spotify</div>
         <div class="app-card-rating">★ 4.7</div>
       </div><div class="app-card" onclick="analyzeApp('com.amazon.avod.thirdpartyclient','Prime Video')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/A1C1MQ3IcPzXcN0cpLsLH41FuN-D4HuXibKD3K1cS1N6NWwzL8TIBBf3TKqmv2vFNqWI=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Prime Video','com.amazon.avod.thirdpartyclient',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.amazon.avod.thirdpartyclient" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%2300A8E1%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EP%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Prime Video</div>
         <div class="app-card-desc">Amazon</div>
         <div class="app-card-rating">★ 4.4</div>
       </div><div class="app-card" onclick="analyzeApp('com.hotstar.android','Hotstar')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/y3-DCZK6WSVl6riBT30hPdUnx27mPDLNzHfpJ4a23TIhzFDIpjWUBe-JNAaVCyQ=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Hotstar','com.hotstar.android',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.hotstar.android" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%230F0F5A%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EH%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Hotstar</div>
         <div class="app-card-desc">Disney</div>
         <div class="app-card-rating">★ 4.2</div>
       </div><div class="app-card" onclick="analyzeApp('com.jio.media.ondemand','JioCinema')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/ioWQHPkfFbFoJ3X3ob0z8Omjck1YFWyBzMCMJQH7eLkijXNJxGQ9iN9B_T_mJ0R=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('JioCinema','com.jio.media.ondemand',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.jio.media.ondemand" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%230034B4%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EJ%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">JioCinema</div>
         <div class="app-card-desc">Jio</div>
         <div class="app-card-rating">★ 4.1</div>
       </div><div class="app-card" onclick="analyzeApp('com.mxtech.videoplayer.ad','MX Player')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/V_D4F6tJBqDqBqU_iJ3Uk0HsJBGmNnEEBmD8lbCJgXu0HGLhFzjj3dCl4PCUQ0I=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('MX Player','com.mxtech.videoplayer.ad',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.mxtech.videoplayer.ad" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23F5831F%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EM%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">MX Player</div>
         <div class="app-card-desc">MX Media</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.sonyliv','SonyLIV')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/Q4JI3_e-yGAJmBtM0TaB5JeXDY8IlnLHO39_CfO7lqnHj4lP2kSvpSi_oBWAhwdX=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('SonyLIV','com.sonyliv',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.sonyliv" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%232175D9%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ES%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">SonyLIV</div>
         <div class="app-card-desc">Sony</div>
         <div class="app-card-rating">★ 3.9</div>
@@ -401,44 +411,47 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
     <div class="cat-section">
       <div class="cat-header">
         <div class="cat-title">🛍️ Shopping</div>
+        <button onclick="showAllApps('SHOPPING','Shopping')" class="viewall-btn">View All ›</button>
+      </div>
+        <button onclick="showAllApps('SHOPPING','🛍️ Shopping')" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#a78bfa;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600">View All ›</button>
       </div>
       <div class="apps-row"><div class="app-card" onclick="analyzeApp('in.amazon.mShop.android.shopping','Amazon')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/W8rUHQhSXc2x3hyy6A24VL7iQ73Lfak-RW_y3Zj9yFDGGb4yRnMc4J8C6kzVkFIiWXw=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Amazon','in.amazon.mShop.android.shopping',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="in.amazon.mShop.android.shopping" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FF9900%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EA%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Amazon</div>
         <div class="app-card-desc">Amazon</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.flipkart.android','Flipkart')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/UUkgMPPtJRFX_y_LZUE_MnA5Q4LKTf3XH7Y0jCYlJ5V8S4-MHFQWTkrh0mZ4A=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Flipkart','com.flipkart.android',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.flipkart.android" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%232874F0%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EF%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Flipkart</div>
         <div class="app-card-desc">Flipkart</div>
         <div class="app-card-rating">★ 4.2</div>
       </div><div class="app-card" onclick="analyzeApp('com.myntra.android','Myntra')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/7OmPxCIhtLf3mxzDZHLF1tYWVvFPEeqZ4FQKJ6qYVWxX-v5tYUhPTmWk0k1Dxc4=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Myntra','com.myntra.android',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.myntra.android" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FF3F6C%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EM%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Myntra</div>
         <div class="app-card-desc">Myntra</div>
         <div class="app-card-rating">★ 4.3</div>
       </div><div class="app-card" onclick="analyzeApp('com.meesho.supply','Meesho')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/wLBSOrAr9j6Oc-A6ELTb3VOQlHiMH7QUJxbfoBOiqgYHqjPz0bxhiG9Qwn5OfVHyEno=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Meesho','com.meesho.supply',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.meesho.supply" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%239C27B0%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EM%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Meesho</div>
         <div class="app-card-desc">Meesho</div>
         <div class="app-card-rating">★ 4.4</div>
       </div><div class="app-card" onclick="analyzeApp('com.nykaa.app','Nykaa')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/WbMBdGQkVNKvT4NLbFMl7eYJ8JbHXRrKRkGi3BKPZ8Y79AJ8Jjm0Ua_mEsxCqM=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Nykaa','com.nykaa.app',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.nykaa.app" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FC2779%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EN%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Nykaa</div>
         <div class="app-card-desc">Nykaa</div>
         <div class="app-card-rating">★ 4.3</div>
       </div><div class="app-card" onclick="analyzeApp('com.ajio.app','Ajio')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/oWB9bQTXkPl5XDl5aN9G0FEpkDqiCN8OJuSzHhZ4hDJGqRbcKZoS6kO8GqOIHNo=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Ajio','com.ajio.app',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.ajio.app" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23E31837%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EA%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Ajio</div>
         <div class="app-card-desc">Reliance</div>
         <div class="app-card-rating">★ 4.1</div>
       </div><div class="app-card" onclick="analyzeApp('com.bigbasket.app','BigBasket')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/P0kBjP6sWjLLlXDR9gT9xZeHYp9K7mLi1hQ7K9hqn8G8pW8JY7Jk0oJQ6h6GQ=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('BigBasket','com.bigbasket.app',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.bigbasket.app" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%2384C225%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EB%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">BigBasket</div>
         <div class="app-card-desc">BigBasket</div>
         <div class="app-card-rating">★ 4.4</div>
       </div><div class="app-card" onclick="analyzeApp('com.blinkit.app','Blinkit')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/UVL7b0SrIiP3VPz9TbUoKN-HBpYJfKTq5JqFEV7VHqK4gq5BbHcJlEXqHbVjUA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Blinkit','com.blinkit.app',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.blinkit.app" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23F8CD26%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23000%27%3EB%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Blinkit</div>
         <div class="app-card-desc">Blinkit</div>
         <div class="app-card-rating">★ 4.3</div>
@@ -447,44 +460,47 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
     <div class="cat-section">
       <div class="cat-header">
         <div class="cat-title">💰 Finance & UPI</div>
+        <button onclick="showAllApps('FINANCE','Finance & UPI')" class="viewall-btn">View All ›</button>
+      </div>
+        <button onclick="showAllApps('FINANCE','💰 Finance & UPI')" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#a78bfa;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600">View All ›</button>
       </div>
       <div class="apps-row"><div class="app-card" onclick="analyzeApp('net.one97.paytm','Paytm')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/wnIqSz7g7OoIQFrjLkFIGNfv3A3KBWN4b0xFVTF1IlVl5GXVakJUcvYXGBm3zHJb=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Paytm','net.one97.paytm',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="net.one97.paytm" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%2300B9F5%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EP%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Paytm</div>
         <div class="app-card-desc">Paytm</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.phonepe.app','PhonePe')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/sGMHxAp3-YTJjBHjhsrmmZ-szNFJQ8JiKt_dA8VgJHXzXwVqCX3P6TgP0HimAVEECA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('PhonePe','com.phonepe.app',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.phonepe.app" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%235f259f%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EP%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">PhonePe</div>
         <div class="app-card-desc">PhonePe</div>
         <div class="app-card-rating">★ 4.6</div>
       </div><div class="app-card" onclick="analyzeApp('com.google.android.apps.nbu.paisa.user','Google Pay')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/HArtbyi53v4iSSFWDFVMqAOgMOSSW5VFJiJBJHhJTt5NrpF8h4jCcTKwUniUfBVA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Google Pay','com.google.android.apps.nbu.paisa.user',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.google.android.apps.nbu.paisa.user" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%234285F4%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EG%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Google Pay</div>
         <div class="app-card-desc">Google</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.cred.club','CRED')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/lIVGFYZAnrKHHgfMqKtm5WT3g4tGLVKcgqBQ2g3L2KQqGYXQ3o5GI0TH9QpGTGXf=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('CRED','com.cred.club',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.cred.club" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%231C1C1C%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EC%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">CRED</div>
         <div class="app-card-desc">CRED</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.csam.icici.bank.imobile','iMobile Pay')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/eFO3LCt3SGPD2hXXoSqTcR2RkZi4yYHFG5DQK5_CvBpHQH5N6g7nNHJmSRy6Lw=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('iMobile Pay','com.csam.icici.bank.imobile',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.csam.icici.bank.imobile" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23F36F21%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EI%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">iMobile Pay</div>
         <div class="app-card-desc">ICICI</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.sbi.SBIFreedomPlus','YONO SBI')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/YRnFtFxJHLwnVlnYXMTxVvR4K7GXTxLJFPLOKvzl8bXEMXqknUDcivdijr-vJeM=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('YONO SBI','com.sbi.SBIFreedomPlus',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.sbi.SBIFreedomPlus" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%232C3E8C%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EY%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">YONO SBI</div>
         <div class="app-card-desc">SBI</div>
         <div class="app-card-rating">★ 3.9</div>
       </div><div class="app-card" onclick="analyzeApp('com.mobikwik_two','MobiKwik')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/r_0wNwHD5R8JTqtLBEIhKvDMXGVfLmKdkRQrLaFCX6g_tJqLXXCJhBQ-jV3zA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('MobiKwik','com.mobikwik_two',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.mobikwik_two" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23F6BC1A%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23000%27%3EM%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">MobiKwik</div>
         <div class="app-card-desc">MobiKwik</div>
         <div class="app-card-rating">★ 4.1</div>
       </div><div class="app-card" onclick="analyzeApp('com.dreamplug.androidapp','CRED')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/lIVGFYZAnrKHHgfMqKtm5WT3g4tGLVKcgqBQ2g3L2KQqGYXQ3o5GI0TH9QpGTGXf=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('CRED','com.dreamplug.androidapp',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.dreamplug.androidapp" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%231C1C1C%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EC%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">CRED</div>
         <div class="app-card-desc">CRED</div>
         <div class="app-card-rating">★ 4.5</div>
@@ -493,44 +509,47 @@ canvas#rcC{width:100%!important;height:28px!important;margin-top:6px;}
     <div class="cat-section">
       <div class="cat-header">
         <div class="cat-title">🎮 Action Games</div>
+        <button onclick="showAllApps('GAME_ACTION','Action Games')" class="viewall-btn">View All ›</button>
+      </div>
+        <button onclick="showAllApps('GAME_ACTION','🎮 Action Games')" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#a78bfa;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600">View All ›</button>
       </div>
       <div class="apps-row"><div class="app-card" onclick="analyzeApp('com.pubg.krmobile','BGMI')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/GVobsr2e0nJYlSmEpbHvdB7HFJJGv0qj7K8i0j0fKVrWC0VBP6zcLBuCyGLzKxGHew=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('BGMI','com.pubg.krmobile',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.pubg.krmobile" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23F7A800%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EB%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">BGMI</div>
         <div class="app-card-desc">Krafton</div>
         <div class="app-card-rating">★ 4.2</div>
       </div><div class="app-card" onclick="analyzeApp('com.garena.free.fire','Free Fire')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/WWcMFaRpSiC5R2pTUPm_HxWUoMdLtHpjgMqOd8hx6d4lP8TfJm0JqBbGVFk_JJl6aA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Free Fire','com.garena.free.fire',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.garena.free.fire" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FF4D00%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EF%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Free Fire</div>
         <div class="app-card-desc">Garena</div>
         <div class="app-card-rating">★ 4.1</div>
       </div><div class="app-card" onclick="analyzeApp('com.supercell.clashofclans','Clash of Clans')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/Vni6qlz5JO6T2NtB3S4X5cAXsQ2UJ_lnuFM9-UdwXAklB4OKPMvxQJg2V-TFOm8tO8=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Clash of Clans','com.supercell.clashofclans',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.supercell.clashofclans" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23F5A623%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EC%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Clash of Clans</div>
         <div class="app-card-desc">Supercell</div>
         <div class="app-card-rating">★ 4.8</div>
       </div><div class="app-card" onclick="analyzeApp('com.kiloo.subwaysurf','Subway Surfers')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/mF5z_KScBVwRmL-JNY_dBjR2n6XVzrSTk4fxfCxoHH3sczXoKzVlBmXq6RjCcMz=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Subway Surfers','com.kiloo.subwaysurf',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.kiloo.subwaysurf" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23FF6B35%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3ES%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Subway Surfers</div>
         <div class="app-card-desc">SYBO</div>
         <div class="app-card-rating">★ 4.5</div>
       </div><div class="app-card" onclick="analyzeApp('com.king.candycrushsaga','Candy Crush')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/gdR6TRlpCORkDLlMO40lVYS1XSMDqNvimWrh9C0HWYPwMVxBR3DwMzNDXdLxs0_Fw=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Candy Crush','com.king.candycrushsaga',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.king.candycrushsaga" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23F7941D%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EC%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Candy Crush</div>
         <div class="app-card-desc">King</div>
         <div class="app-card-rating">★ 4.7</div>
       </div><div class="app-card" onclick="analyzeApp('com.supercell.clashroyale','Clash Royale')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/k4kBKyQuh3Kl7yXAURFO7XEN5T2iBWiMNT1QHDwuLKvTBDPTfGiXZbh2Q9T_RYMA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Clash Royale','com.supercell.clashroyale',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.supercell.clashroyale" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%231E4CA1%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EC%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Clash Royale</div>
         <div class="app-card-desc">Supercell</div>
         <div class="app-card-rating">★ 4.4</div>
       </div><div class="app-card" onclick="analyzeApp('com.innersloth.spacemafia','Among Us')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/hJGHtbYSQ2HRQyL_e0c6Gg_GwuFDqJw6RFpJLLajFGb4gJwDjq3V3KvFO2LZaUG8=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Among Us','com.innersloth.spacemafia',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.innersloth.spacemafia" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%23C51111%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EA%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Among Us</div>
         <div class="app-card-desc">InnerSloth</div>
         <div class="app-card-rating">★ 4.2</div>
       </div><div class="app-card" onclick="analyzeApp('com.mojang.minecraftpe','Minecraft')">
-        <img src="/proxy-icon?url=https://play-lh.googleusercontent.com/VSwHMHvEFzPMUPFmhXpTT6J1k1eifKFr6-aLZCRpvpFGfUv-d9OhQeKDMb7TXHA=s96" onerror=\"this.onerror=null;this.src=makeSvgIcon('Minecraft','com.mojang.minecraftpe',88)\" style=\"width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;background:linear-gradient(135deg,#1a1f35,#252d47)\" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
+        <img data-appid="com.mojang.minecraftpe" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2788%27%20height%3D%2788%27%3E%3Crect%20width%3D%2788%27%20height%3D%2788%27%20rx%3D%2715%27%20fill%3D%27%235D8233%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27central%27%20font-family%3D%27Arial%27%20font-size%3D%2736%27%20font-weight%3D%27900%27%20fill%3D%27%23fff%27%3EM%3C/text%3E%3C/svg%3E" style="width:88px;height:88px;border-radius:16px;object-fit:cover;display:block;margin-bottom:8px;border:1px solid rgba(255,255,255,.08)"/>
         <div class="app-card-name">Minecraft</div>
         <div class="app-card-desc">Mojang</div>
         <div class="app-card-rating">★ 4.5</div>
@@ -708,7 +727,7 @@ const FALLBACK = {
     {appId:'com.cred.club',title:'CRED',icon:'https://play-lh.googleusercontent.com/lIVGFYZAnrKHHgfMqKtm5WT3g4tGLVKcgqBQ2g3L2KQqGYXQ3o5GI0TH9QpGTGXf=s96',score:4.5,developer:'CRED'},
   ],
   EDUCATION: [
-    {appId:'com.byjus.the_learning_app',title:'BYJU'S',icon:'',score:4.1,developer:'BYJU'S'},
+    {appId:'com.byjus.the_learning_app',title:'BYJU S',icon:'',score:4.1,developer:'BYJU S'},
     {appId:'com.duolingo',title:'Duolingo',icon:'https://play-lh.googleusercontent.com/3GEMfGDYhCHznhDEJCG_r5GsEFJgqY5wLJUi_nHOBk_TsM0Q8W4AKi0gkd8R0N4=s96',score:4.6,developer:'Duolingo'},
     {appId:'com.toppr.student',title:'Toppr',icon:'',score:4.2,developer:'Toppr'},
     {appId:'in.unacademy.learner',title:'Unacademy',icon:'',score:4.3,developer:'Unacademy'},
@@ -747,6 +766,28 @@ function goAnalysis(){
 }
 
 // ── BUILD HOME PAGE ───────────────────────────────────────────────────────────
+// ── BRAND COLORS — official colors for popular apps ──────────────────────────
+const APP_BRAND_COLORS = {
+  'com.whatsapp':'#25D366','org.telegram.messenger':'#2AABEE',
+  'com.facebook.orca':'#0084FF','com.viber.voip':'#7360F2',
+  'com.skype.raider':'#00AFF0','com.snapchat.android':'#FFFC00',
+  'com.discord':'#5865F2','com.truecaller':'#004B87',
+  'com.instagram.android':'#E1306C','com.zhiliaoapp.musically':'#010101',
+  'com.facebook.katana':'#1877F2','com.twitter.android':'#000000',
+  'com.pinterest':'#E60023','com.linkedin.android':'#0A66C2',
+  'com.google.android.youtube':'#FF0000','com.netflix.mediaclient':'#E50914',
+  'com.spotify.music':'#1DB954','com.amazon.avod.thirdpartyclient':'#00A8E1',
+  'com.hotstar.android':'#0F0F5A','com.jio.media.ondemand':'#0034B4',
+  'in.amazon.mShop.android.shopping':'#FF9900','com.flipkart.android':'#2874F0',
+  'com.myntra.android':'#FF3F6C','com.meesho.supply':'#9C27B0',
+  'net.one97.paytm':'#00B9F5','com.phonepe.app':'#5f259f',
+  'com.google.android.apps.nbu.paisa.user':'#4285F4','com.cred.club':'#1C1C1C',
+  'com.pubg.krmobile':'#F7A800','com.garena.free.fire':'#FF4D00',
+  'com.supercell.clashofclans':'#F5A623','com.kiloo.subwaysurf':'#FF6B35',
+  'com.king.candycrushsaga':'#F7941D','com.supercell.clashroyale':'#1E4CA1',
+  'com.innersloth.spacemafia':'#C51111','com.mojang.minecraftpe':'#5D8233',
+};
+
 // ── ICON SYSTEM — instant SVG avatars, real icons swap in when available ─────
 const ICON_COLORS = [
   ['#7c3aed','#5b21b6'],['#2563eb','#1d4ed8'],['#059669','#047857'],
@@ -789,6 +830,15 @@ function getBrandColors(name, appId) {
 
 function makeSvgIcon(name, appId, size) {
   const letter = (name||'A').trim().charAt(0).toUpperCase();
+  // Use official brand color if available
+  const brandColor = APP_BRAND_COLORS[appId];
+  const textColor = ['#FFFC00','#F8CD26','#F6BC1A'].includes(brandColor) ? '#000' : '#fff';
+  if(brandColor){
+    const r = Math.round(size*0.18);
+    const fs = Math.round(size*0.42);
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}'><rect width='${size}' height='${size}' rx='${r}' fill='${brandColor}'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' font-family='Arial,sans-serif' font-size='${fs}' font-weight='900' fill='${textColor}'>${letter}</text></svg>`;
+    return 'data:image/svg+xml,' + encodeURIComponent(svg);
+  }
   const [c1, c2] = getBrandColors(name, appId);
   const fs = Math.round(size * 0.42);
   const uid = 'g' + Math.random().toString(36).slice(2,7);
@@ -916,7 +966,8 @@ function buildHome(){
     sec.id = 'sec-' + cat.id;
     const header = document.createElement('div');
     header.className = 'cat-header';
-    header.innerHTML = '<div class="cat-title">'+cat.name+'</div>';
+    header.innerHTML = '<div class="cat-title">'+cat.name+'</div>
+        <button onclick="showAllApps('SOCIAL',''+cat.name+'')" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#a78bfa;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600">View All ›</button>';
     sec.appendChild(header);
     const row = document.createElement('div');
     row.className = 'apps-row';
@@ -1201,6 +1252,113 @@ document.addEventListener('click',e=>{
 });
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
+
+// ── VIEW ALL MODAL ──────────────────────────────────────────────────────────
+async function showAllApps(catId, catName) {
+  const overlay = document.getElementById('viewall-overlay');
+  const grid = document.getElementById('viewall-grid');
+  const loading = document.getElementById('viewall-loading');
+  const title = document.getElementById('viewall-title');
+  const countEl = document.getElementById('viewall-count');
+
+  overlay.style.display = 'block';
+  title.textContent = catName;
+  grid.innerHTML = '';
+  grid.style.display = 'none';
+  loading.style.display = 'block';
+  countEl.textContent = 'Loading...';
+
+  try {
+    const r = await fetch('/category', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({category: catId, collection: 'TOP_FREE', count: 60})
+    });
+    const d = await r.json();
+    loading.style.display = 'none';
+    grid.style.display = 'grid';
+
+    if(d.success && d.apps && d.apps.length) {
+      countEl.textContent = d.apps.length + ' apps';
+      d.apps.forEach(a => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background:#141b2d;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px;cursor:pointer;text-align:center;transition:all .2s';
+        card.onmouseenter = () => card.style.borderColor = 'rgba(139,92,246,.4)';
+        card.onmouseleave = () => card.style.borderColor = 'rgba(255,255,255,.06)';
+        card.onclick = () => { closeViewAll(); analyzeApp(a.appId, a.title); };
+
+        // Icon with real image + SVG fallback
+        const img = document.createElement('img');
+        img.style.cssText = 'width:72px;height:72px;border-radius:14px;object-fit:cover;display:block;margin:0 auto 8px';
+        img.src = makeSvgIcon(a.title, a.appId, 72);
+        if(a.icon) {
+          const proxied = '/proxy-icon?url=' + encodeURIComponent(a.icon);
+          const probe = new Image();
+          probe.onload = () => { img.src = proxied; };
+          probe.src = proxied;
+        }
+        card.appendChild(img);
+
+        card.innerHTML += '<div style="font-size:12px;font-weight:600;color:#e8eaf6;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (a.title||'') + '</div>' +
+          '<div style="font-size:10px;color:#7b8db0;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (a.developer||'') + '</div>' +
+          '<div style="font-size:11px;color:#fbbf24">★ ' + (a.score ? parseFloat(a.score).toFixed(1) : 'N/A') + '</div>';
+        grid.appendChild(card);
+      });
+    } else {
+      grid.innerHTML = '<div style="color:#7b8db0;text-align:center;padding:40px;grid-column:1/-1">No apps found. Try again.</div>';
+      countEl.textContent = '';
+    }
+  } catch(e) {
+    loading.style.display = 'none';
+    grid.style.display = 'grid';
+    grid.innerHTML = '<div style="color:#ff4757;text-align:center;padding:40px;grid-column:1/-1">⚠ Could not load apps. Check connection.</div>';
+    countEl.textContent = '';
+  }
+}
+
+function closeViewAll() {
+  document.getElementById('viewall-overlay').style.display = 'none';
+}
+
+// Close on ESC key
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeViewAll(); });
+
+// ── REAL ICON LOADER ─────────────────────────────────────────────────────────
+// After page loads, fetch real icons from Play Store via backend
+async function loadRealIcons() {
+  const imgs = document.querySelectorAll('img[data-appid]');
+  const appIds = [...new Set([...imgs].map(i=>i.dataset.appid).filter(Boolean))];
+  if(!appIds.length) return;
+
+  // Fetch in batches of 10
+  for(let i=0; i<appIds.length; i+=10){
+    const batch = appIds.slice(i,i+10);
+    // Use /category search to get icons — one app at a time via search
+    batch.forEach(async appId => {
+      try {
+        const r = await fetch('/search', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({query: appId})
+        });
+        const d = await r.json();
+        if(!d.success || !d.results) return;
+        const match = d.results.find(x => x.appId === appId);
+        if(!match || !match.icon) return;
+        // Update all images for this appId
+        document.querySelectorAll(`img[data-appid="${appId}"]`).forEach(img => {
+          const proxied = '/proxy-icon?url=' + encodeURIComponent(match.icon);
+          const probe = new Image();
+          probe.onload = () => { img.src = proxied; img.style.borderRadius = '16px'; };
+          probe.src = proxied;
+        });
+      } catch(e) { /* keep SVG avatar */ }
+    });
+    // Small delay between batches to not overwhelm server
+    await new Promise(res => setTimeout(res, 500));
+  }
+}
+
 // Initialize when DOM is ready
 if(document.readyState === 'loading'){
   document.addEventListener('DOMContentLoaded', init);
@@ -1210,23 +1368,18 @@ if(document.readyState === 'loading'){
 
 function init(){
   buildHome();
-  refreshIcons();
+  setTimeout(loadRealIcons, 1000); // Load real icons after page renders
 }
 
-// Fetch fresh icon URLs from backend and replace broken images
+// Fetch fresh icon URLs from backend and replace SVG avatars with real icons
 async function refreshIcons(){
-  // Collect all app IDs from onclick attributes
-  const cards = document.querySelectorAll('.app-card[onclick]');
-  const appIds = [];
-  cards.forEach(c => {
-    const m = c.getAttribute('onclick').match(/analyzeApp\('([^']+)'/);
-    if(m && m[1]) appIds.push(m[1]);
-  });
+  const imgs = document.querySelectorAll('img[data-appid]');
+  const appIds = [...new Set([...imgs].map(i => i.dataset.appid).filter(Boolean))];
   if(!appIds.length) return;
 
-  // Batch into groups of 20
-  for(let i=0; i<appIds.length; i+=20){
-    const batch = appIds.slice(i, i+20);
+  // Process in batches of 15
+  for(let i=0; i<appIds.length; i+=15){
+    const batch = appIds.slice(i, i+15);
     try {
       const r = await fetch('/icons', {
         method:'POST',
@@ -1234,24 +1387,44 @@ async function refreshIcons(){
         body: JSON.stringify({apps: batch})
       });
       const d = await r.json();
-      if(!d.success) continue;
-      // Update each card's image with fresh icon URL
-      cards.forEach(card => {
-        const m = card.getAttribute('onclick').match(/analyzeApp\('([^']+)'/);
-        if(!m) return;
-        const appId = m[1];
+      if(!d.success || !d.icons) continue;
+      // Update matching images
+      imgs.forEach(img => {
+        const appId = img.dataset.appid;
         if(!d.icons[appId]) return;
-        const img = card.querySelector('img');
-        if(!img) return;
         const freshUrl = d.icons[appId];
-        const proxied = '/proxy-icon?url=' + encodeURIComponent(freshUrl);
         const probe = new Image();
-        probe.onload = () => { img.src = proxied; img.style.background = 'none'; };
-        probe.src = proxied;
+        probe.onload = () => { img.src = freshUrl; };
+        probe.onerror = () => {
+          // try proxy
+          const proxied = '/proxy-icon?url=' + encodeURIComponent(freshUrl);
+          const p2 = new Image();
+          p2.onload = () => { img.src = proxied; };
+          p2.src = proxied;
+        };
+        probe.src = freshUrl;
       });
-    } catch(e){ console.log('Icon refresh error:', e); }
+    } catch(e){ console.log('refreshIcons error:', e); }
   }
 }
 </script>
+
+<!-- View All Modal -->
+<div id="viewall-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;backdrop-filter:blur(4px)" onclick="closeViewAll()">
+  <div onclick="event.stopPropagation()" style="background:#0f1525;border:1px solid rgba(139,92,246,.3);border-radius:20px;width:90%;max-width:1100px;max-height:85vh;margin:5vh auto;overflow:hidden;display:flex;flex-direction:column">
+    <div style="padding:20px 28px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between">
+      <div id="viewall-title" style="font-size:20px;font-weight:700;color:#fff"></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div id="viewall-count" style="font-size:13px;color:#7b8db0"></div>
+        <button onclick="closeViewAll()" style="background:rgba(255,255,255,.08);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer">✕</button>
+      </div>
+    </div>
+    <div id="viewall-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px;padding:24px;overflow-y:auto;max-height:calc(85vh - 80px)"></div>
+    <div id="viewall-loading" style="display:none;text-align:center;padding:40px;color:#7b8db0">
+      <div style="font-size:32px;margin-bottom:12px">⏳</div>
+      <div>Loading apps from Play Store...</div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
